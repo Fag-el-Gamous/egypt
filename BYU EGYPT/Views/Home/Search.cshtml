@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "Search";
+}
+<h1>@ViewData["Title"]</h1>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Page Title</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FagElGamous.styles.css" asp-append-version="true" />
+    <style>
+        .search-container {
+            text-align: center;
+            margin: auto; /* Center the search bar */
+        }
+
+            .search-container input[type="text"] {
+                padding: 8px; /* Reduced padding to make it shorter */
+                font-size: 16px; /* Slightly smaller font size */
+                border: 1px solid #ccc; /* Adds a slight border */
+                width: 50%; /* Adjust based on preference */
+                background: #f1f1f1; /* Light grey background */
+            }
+
+            .search-container button {
+                width: 10%; /* Matches the input field width */
+                padding: 8px; /* Reduced padding to make it shorter */
+                background: gray; /* Changed from navy to gray */
+                color: white;
+                font-size: 16px; /* Slightly smaller font size */
+                border: none;
+                cursor: pointer;
+            }
+
+                .search-container button:hover {
+                    background: darkgray; /* Slightly darker gray on hover */
+                }
+
+            /* Clear floats */
+            .search-container::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+        /* Side Menu Styles */
+        .side-menu {
+            width: 250px; /* Adjust the width as needed */
+            border-right: 1px solid #ccc;
+        }
+
+        .side-menu-header {
+            padding: 16px;
+            font-size: 24px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .side-menu .list-group-item {
+            border: none;
+            border-bottom: 1px solid #ccc;
+        }
+
+            .side-menu .list-group-item:last-child {
+                border-bottom: none;
+            }
+
+        .side-menu .list-group-item-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+            .side-menu .list-group-item-action:hover {
+                background-color: #e9ecef;
+            }
+
+        .dropdown-content {
+            display: none;
+            margin-left: 20px; /* Indent the dropdown content for visual hierarchy */
+        }
+    </style>
+</head>
+<body>
+    <!-- Side Menu -->
+    <div class="side-menu float-start">
+        <div class="side-menu-header">Data Menu</div>
+        <div class="list-group list-group-flush">
+            <a href="#" class="list-group-item list-group-item-action" onclick="toggleDropdown('artifacts-dropdown')">Artifacts <span>&gt;</span></a>
+            <div id="artifacts-dropdown" class="dropdown-content">
+                <!-- Dropdown content for Artifacts -->
+                <a href="/artifacts/ancient-tools">Ancient Tools</a>
+                <a href="/artifacts/pottery">Pottery</a>
+                <a href="/artifacts/jewelry">Jewelry</a>
+            </div>
+
+            <a href="#" class="list-group-item list-group-item-action" onclick="toggleDropdown('burials-dropdown')">Burials <span>&gt;</span></a>
+            <div id="burials-dropdown" class="dropdown-content">
+                <!-- Dropdown content for Burials -->
+                <a href="/burials/tombs">Tombs</a>
+                <a href="/burials/mummies">Mummies</a>
+                <a href="/burials/ritual-items">Ritual Items</a>
+            </div>
+
+            <a href="#" class="list-group-item list-group-item-action" onclick="toggleDropdown('textiles-dropdown')">Textiles <span>&gt;</span></a>
+            <div id="textiles-dropdown" class="dropdown-content">
+                <!-- Dropdown content for Textiles -->
+                <a href="/textiles/fabrics">Fabrics</a>
+                <a href="/textiles/dyes">Dyes</a>
+                <a href="/textiles/patterns">Patterns</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Original Content and Search Bar -->
+    <div class="text-center">
+        <br />
+        <div class="search-container">
+            <input type="text" placeholder="Search..." name="search">
+            <button type="submit">Search</button>
+        </div>
+        <br />
+    </div>
+    <script>function toggleDropdown(dropdownId) {
+            var dropdown = document.getElementById(dropdownId);
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }</script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
+
+
+
