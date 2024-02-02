@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BYU_EGYPT.Models;
+using BYU_EGYPT.DataObjects;
 
 namespace BYU_EGYPT.Controllers;
 
@@ -15,7 +16,12 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        EgyptDbContext egyptDbContext = new EgyptDbContext();
+        
+        var testTableList = egyptDbContext.TestTables.ToList();
+        var c14List = egyptDbContext.C14s.ToList();
+
+        return View(testTableList);
     }
 
     public IActionResult About()

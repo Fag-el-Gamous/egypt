@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home";
+    @model List<BYU_EGYPT.DataObjects.TestTable>
 }
 
 <!DOCTYPE html>
@@ -82,7 +83,12 @@
     </style>
 </head>
 <body>
-    <bold>JACKSON MADE CHANGES</bold>
+    <h2>Test Table</h2>
+    <ul>@foreach (var item in Model)
+        {
+            <li>@item.Name, @item.Age, @item.</li>
+        }
+    </ul>
     <div class="hero-section">
         <img src="/img/10.png" alt="Fag el-Gamous">
         <button class="btn">Explore the Cemetery</button>
