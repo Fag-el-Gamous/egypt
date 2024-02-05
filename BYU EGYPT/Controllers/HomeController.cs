@@ -29,7 +29,7 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Explore()
+    public IActionResult Data()
     {
         return View();
     }
