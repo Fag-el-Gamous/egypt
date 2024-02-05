@@ -1,7 +1,329 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title Tag</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+            .navbar a {
+                float: left;
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 20px;
+                text-decoration: none;
+            }
+
+                .navbar a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+        .hero-section {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+
+            .hero-section img {
+                width: 100%;
+                height: auto;
+                filter: brightness(0.5);
+            }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white; /* Set the text color */
+        }
+
+        .hero-section h2 {
+            margin: 0;
+        }
+
+        .hero-section .btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #00b4d8;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .grid {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .grid-item {
+            text-align: center;
+        }
+
+            .grid-item img {
+                width: 100%;
+                height: auto;
+            }
+
+            .grid-item button {
+                background-color: #777;
+                color: white;
+                padding: 10px 20px;
+                margin-top: 10px;
+                border: none;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="hero-section">
+        <img src="/img/team_image.jpg" alt="Team Image">
+        <div class="overlay-text">
+            <h2>Our Project</h2>
+        </div>
+    </div>
+    <br />
+    <div>
+        <h1>Fag el-Gamous Burial Site and Seila Pyramid</h1>
+        <p>
+            This database is designed to make the work of the BYU Egypt Excavation Project available to the world.
+            It represents the data gained from decades of excavation combined with digital analytical power that
+            should make any number of studies possible. We believe that the data presented herein makes it possible
+            for us to tell something of the stories of those who lived so long ago in Egypt, and that those stories deserve to be told.
+        </p>
+        <p>
+            This database is the results of the work of many people and institutions. Most especially it represents the combined
+            efforts of the Excavation Team, the College of Religious Education, the College of Life Sciences, and the Department
+            of Information Systems from the Marriott School of Business.
+        </p>
+        <p>
+            There are two main parts to the BYU Egypt Excavation Project. The part with which this database is concerned is the Fag
+            el-Gamous cemetery. This cemetery was in use during the Graeco-Roman era of Egyptian history. In the early 1900’s some Mummy
+            Portraits were found there by Bernard Grenfell and Arthur Hunt. The cemetery is very large and densely populated with burials.
+            Some lie in the mudstone escarpments, where tombs were carved into the rocks. These are typically somewhat wealthier burials,
+            including a golden masked mummy who was the daughter of a priest in the Ptolemaic period. Most of the burials lie loose in the
+            sand. These burials range from being fully skeletonized to being extremely well preserved. They range from just after 300 BC to
+            about 500 AD. During that time period nearly all of the inhabitants of the Fayoum converted to Christianity. There is some
+            evidence for this in the burials. We are doing vigorous research attempting to determine if there are more detectable
+            archaeological markers pointing to Christian burial practices.
+        </p>
+        <p>
+            This large cemetery population allows for significant statistical studies of burial practices. It has afforded a marvelous
+            opportunity for demographic studies. Our textile analyses are providing significant new insights into changing burial patterns
+            and the multiple and varied uses to which textiles were put. Because all of our textiles derive from a known setting, some of
+            our most important work involves identifying and describing original in situ contexts that can be generalized to the many museum
+            collections of uncertain provenance. We have also been able to study weaving practices, the use of tunics in various time periods,
+            the use of sprang hairnets in various time periods, and a number of other textile studies. Analysis of amulets, figurines,
+            pottery, jewelry, and other burial goods has also been possible. The site is among the most promising for telling us
+            statistically significant information about burial practices in Graeco-Roman Egypt for the common person.
+        </p>
+        <p>
+            The other part of the excavation is of the Seila Pyramid. Our discovery of a stela with two of the names of Snefru, first king
+            of the Fourth Dynasty, revealed who had built the pyramid. It lies 10 km due west of the Meidum Pyramid, and in terms of its
+            elevation and the ratio of its construction, there are some clear links between the two pyramids. The Seila Pyramid has evidence
+            for ritual activity on both the north and the eastern sides. It has a causeway on the eastern side, but no valley temple. It
+            represents an important witness of Snefru’s innovations in regard to pyramid complexes, and play an important role in the
+            development of pyramids. Besides the stelae, other important artifacts include an altar, the remains of a small statue, a
+            foundation deposit jar, a model oar, and the remains of several limestone tables or altars.
+        </p>
+        <p>
+            Our most recent publications may best highlight some of the research that is possible from the longstanding excavations
+            performed by Brigham Young University (BYU). The fist book listed includes chapters on the geography and history of the region,
+            history of the BYU Excavations, the ritual ramifications of the excavation of the Seila Pyramid, a report on ritual objects on
+            the northern side of the Seila Pyramid, an analysis of common burial practices at the cemetery, a ground-breaking report on which
+            mummy portraits came from Fag el-Gamous, an analysis of the kinds of weaves used in burial clothing, an analysis of the use of
+            jewelry in burials, an analysis of the kinds of dyes used to obtain purple clothing in the burials, a paleopathological study of
+            some of the crania found among the burials, an analysis of pottery with a specific kind of hole, a report on the kinds of grain
+            found with burials, a translation of papyrus found in the cemetery, and a report of a survey done of the nearby town of
+            Philadelphia.
+        </p>
+    </div>
+
+    <div>
+        <h1>Books</h1>
+        <ul>
+            <li>
+                <a href="https://www.taylorfrancis.com/chapters/edit/10.4324/9781315542812-42/death-child-kerry-muhlestein-paul-evans">
+                    Kerry Muhlestein and R. Paul Evans, “Death of a Child: Demographic and preparation trends of juvenile burials in the
+                    Graeco-Roman Fayoum,” in Children in Antiquity. Perspectives and Experiences of Childhood in the Ancient Mediterranean,
+                    Lesley A. Beaumont, Matthew Dillon, and Nicola Harrington, eds. (London and New York: Routledge: 2021), 533-544.
+                </a>
+            </li>
+            <li>
+                <a href="https://brill.com/view/title/35250">
+                    Kerry Muhlestein, editor in chief, Krystal V. L. Pierce, and Bethany Jensen, eds., “Excavations at the Seila Pyramid and
+                    Fag el-Gamous”, Harvard Egyptological Studies vol. 7. (Leiden: Brill, 2020).
+                </a>
+            </li>
+        </ul>
+    </div>
+    <hr />
+    <div>
+        <h1>Team Members</h1>
+        <br />
+    </div>
+    <div>
+        <h2>Dr. Kerry Muhlestein</h2>
+        <p>Dr. Kerry Muhlestein is the director of the BYU Egypt Excavation Project. He oversees all the excavation, conservation, research, 
+            publication, and fundraising efforts of the project. Dr. Muhlestein received his B.S. cum laude from BYU in Psychology with a Hebrew 
+            minor. He received an M.A. in Ancient Near Eastern Studies from BYU and his Ph.D. from UCLA in Egyptology, wherein his final year he 
+            was named the UCLA Affiliates Graduate Student of the Year. He taught courses at Utah Valley State College extension center, as well 
+            as history at Cal Poly Pomona and UCLA. His first full-time appointment was a joint position in Religion and History at BYU-Hawaii. 
+            He was selected by the Princeton Review in 2012 as one of the best 300 professors in the nation (the top .02% of those considered). 
+            He was also a Visiting Fellow at the University of Oxford for the 2016-17 academic year. He has published 9 books, over 55 
+            peer-reviewed articles, and has done over 75 academic presentations. He has served as the chairman of a national committee for the 
+            American Research Center in Egypt and serves on their Research Supporting Member Council. He has also served on a committee for the 
+            Society for the Study of Egyptian Antiquities, and currently serves on their Board of Trustees and as a Vice President of the 
+            organization, and has served as president. He has been the co-chair for the Egyptian Archaeology Session of the American Schools 
+            of Oriental Research. He is also a Senior Fellow of the William F. Albright Institute for Archaeological Research.</p>
+    </div>
+    <br />
+    <div>
+        <h2>Anne Kwaspen</h2>
+        <p>
+            Anne Kwaspen, former Director of the Belgian Fashion Museum ‘Modemuseum Hasselt’ and Conservator of the Egyptian textile collection 
+            of the Phoebus Foundation, Antwerp, is specialized in costume history, archaeological Egyptian textiles, and technical analyses of 
+            textile structures. She is a member of the BYU Egypt Excavation Team since 2018. Currently, as Marie Sklodowska-Curie fellow at Centre 
+            of Textile Research of the University of Copenhagen, she studies the different styles of clothing worn in Egypt.
+        </p>
+    </div>
+    <br />
+    <div>
+        <h2>Dr. Casey Kirkpatrick</h2>
+        <p>
+            Dr. Casey Kirkpatrick is an Adjunct Research Professor in the Department of Anthropology at the University of Western Ontario. 
+            She has extensive experience working and conducting research in the museum, laboratory, and archaeological field settings in 
+            Canada, Jordan, Egypt, England, and Wales. She is also a co-founder and former Executive Director of the Paleo-oncology Research 
+            Organization (PRO), which is devoted to the study of cancers in ancient remains, and the Ancient Cancer Foundation, which is 
+            directed toward public outreach and fundraising for PRO. As a former Dental Assistant, Casey maintains a special interest in dental 
+            anthropology in addition to her passion for paleopathology. She is the 'Head of Osteology' on the BYU Egypt Excavation Project, 
+            which is an especially appropriate title given that she is documenting and studying the Fag El-Gamous cranial collection. This work 
+            will provide new information about the lives and deaths of those interred at Fag El-Gamous. Along with Dr. R. Paul Evans, Casey 
+            also enjoys co-teaching the on-site osteological field school for Egyptian inspectors. Casey is a Postdoctoral Researcher at the 
+            Max Planck Institute for Evolutionary Anthropology in Leipzig, where she investigates the origins and evolution of treponemal 
+            diseases through the study of ancient bacterial DNA from pre-Columbian human remains from Central and South America.
+        </p>
+    </div>
+    <br />
+    <div>
+        <h2>Kristin South</h2>
+        <p>
+            Kristin Hacken South has worked with the Fag el-Gamous excavation team since 1998. Trained in Egyptology at Yale University, she 
+            has worked at the Yale Peabody Museum of Natural History and at the Yale Art Gallery, where she gained her introduction to the 
+            techniques of textile cleaning and conservation. During her Fulbright Fellowship of 1997-1998, she joined the BYU Egypt Excavation 
+            Team for the first time and has remained involved ever since through publication of finds, excavation, conservation, and analysis. 
+            Her specialty on-site is archaeological textiles.
+        </p>
+    </div>
+    <br />
+    <div>
+        <h2>Brian Christensen</h2>
+        <p>
+            Brian Christensen received an MFA from Washington University in St Louis and teaches ceramics, sculpture, and 3D design studio courses as 
+            an associate professor of Art at Brigham Young University. He currently serves as Area Coordinator of the 3D Studio Area at BYU. Brian 
+            has worked to maintain and expand the facilities and opportunities for the sculpture and ceramics programs in the BYU Department of 
+            Art 3d studio area. He exhibits his work nationally and internationally with Solo and group exhibitions at CUAC in Salt Lake City, 
+            The University of Florida-Gainesville, Arc Gallery-Chicago, Clay Center- New Orleans. In the 2007 CUAC members exhibition, Brian 
+            received the top award from NYC Gallerist, Tanya Bonakdar. Brian has co-directed study abroad programs in Australia/New Zealand, Spain, 
+            and twice in Italy. Brian served as a craft consultant with the BYU Egypt Excavation Project in 2014 and has co-published two chapters 
+            of a related book, Excavations at the Seila Pyramid and Fag el-Gamous Cemetery. Brill (Netherlands) 2019. He also has photographs 
+            published in the University of Rome’s Journal of Architecture.
+        </p>
+    </div>
+    <br />
+    <div>
+        <h2>Bethany Jensen</h2>
+        <p>
+            Bethany Jensen is currently a graduate student at the University of Memphis working on an M.A. in Art History with a concentration 
+            in Egyptian Art and Archaeology. She earned an M.A. in Museum Studies from The Johns Hopkins University in 2017 and a B.A. in 
+            Anthropology (Archaeology Emphasis) from Brigham Young University in 2015. She became a member of the BYU Egypt Excavation team in 
+            2011 starting as a research assistant and she continues in that capacity, focusing on the Ptolemaic and Roman aspects of the site, 
+            while also assisting with preservation and conservation efforts.
+        </p>
+    </div>
+    <br />
+    <div>
+        <h2>Dr. R. Paul Evans</h2>
+        <p>
+            Dr. R. Paul Evans is exceptionally funny
+        </p>
+    </div>
+    <br />
+    <div>
+        <h2>Dr. Krystal V. L. Pierce</h2>
+        <p>
+            Dr. Krystal V. L. Pierce is an Assistant Professor in the Department of Ancient Scripture at BYU. She received a PhD in Egyptology 
+            and Near Eastern Languages and Cultures from UCLA and an MA and BA in Egyptian Archaeology and Near Eastern Studies from UC Berkeley. 
+            She has taught classes on Egyptology and ancient Near Eastern studies at the BYU Jerusalem Center, UCLA, and UC Berkeley. She has 
+            participated in surveys and excavations at several sites in Egypt and Israel and is currently the chair of the Archaeology of Egypt 
+            session at ASOR. Her research interests include aspects of social and cultural identities, personhood and gender, expatriates and 
+            refugees, and interactions between Egypt and the Levant. She has published several articles, chapters, and edited books, including 
+            the recently co-edited volume, Excavations at the Seila Pyramid and Fag el-Gamous Cemetery (Brill, 2020).
+        </p>
+    </div>
+    <br />
+    <div>
+        <h2>Thomas Blackwelder, MISM</h2>
+        <p>
+            <i>
+            "Thomas's got friends in every town and village from here to the Sudan, he speaks a dozen languages, knows every local custom,
+                he'll blend in, disappear, you'll never see him again. With any luck, he's got the grail already."
+            </i>
+        </p>
+    </div>
+    <br />
+    <hr />
+    <div>
+        <h1>Graphical Summaries</h1>
+        <p>Featured on this page we have a variety of graphs and other visualizations for you to see what kinds of data we have 
+            collected in this database.</p>
+    </div>
+    <br />
+    <div>
+        <h1>News</h1>
+    </div>
+    <hr />
+    <div>
+        <h2>BYU diggers rewriting history in Egypt</h2>
+        <p>Crews are unearthing signs near the Nile that Christianity arrived earlier than many experts believe.</p>
+    </div>
+    <hr />
+    <div>
+        <h2>BYU INTEX project plans to help burial excavators in Egypt</h2>
+        <p>BYU information systems students have been tasked with creating a high-functioning web application for data gathering. 
+            The BYU Egypt excavation team will use this application to gather tomb and burial site data.</p>
+    </div>
+    <hr />
+    <div>
+        <h2>The Giants of Ancient Egypt: Part II – Physical Evidence of the Giant Characters</h2>
+        <p>A cemetery called Fag el-Gamous , which means Way of the Water Buffalo, and a nearby pyramid have been excavated by 
+            archaeologists from Brigham Young University for the last 30 years. Many of the mummies that were discovered date to 
+            the time when the Roman or Byzantine Empire ruled Egypt, from the 1st century to the 7th century AD. The pyramid, however, 
+            may date to about 2500 BC, the time the Giza pyramids were being constructed.</p>
+    </div>
+    <hr />
+
+</body>
+</html>
 
