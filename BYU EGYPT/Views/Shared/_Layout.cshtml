@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BYU_EGYPT.styles.css" asp-append-version="true" />
+<<<<<<< Updated upstream
 </head>
 <body>
     <header>
@@ -31,23 +32,122 @@
                         <li class="nav-item nav-right" style="margin-left: auto;">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
                         </li>
+=======
+>>>>>>> Stashed changes
 
-                    </ul>
+     <script async src="https://cdn.byu.edu/byu-theme-components/2.x.x/byu-theme-components.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.byu.edu/byu-theme-components/2.x.x/byu-theme-components.min.css" media="all">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <byu-header>
+
+       @*----*@
+            <!--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BYU</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Explore">Explore</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Search">Search</a>
+                            </li>
+                            <li class="nav-item nav-right">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
+
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
+            </nav>-->
+        @*---*@
+
+      
+
+      
+
+
+
+
+
+
+
+
+        <span slot="site-title">BYU EGYPT</span>
+        <byu-menu slot="nav">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Explore">Explore</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Search">Search</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+        </byu-menu>
+
+
+    </byu-header>
+
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - BYU_EGYPT - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+   
+    <byu-footer>
+        <byu-footer-column>
+            <span slot="header">Contact</span>
+            <p>
+                BYU Speeches
+                <br> 701 East University Parkway
+                <br> Provo, Utah 84602
+                <br> 888-888-8888
+            </p>
+         
+        </byu-footer-column>
+        <byu-footer-column>
+            <span slot="header">Affiliated Speeches</span>
+            <a href="https://www.byui.edu">BYU-Idaho Speeches</a>
+            <a href="https://www.byuh.edu">BYU-Hawaii Speeches</a>
+            <a href="https://womensconference.byu.edu">Women's Conference</a>
+            <a href="https://kennedy.byu.edu/lectures">Kennedy Center Lectures</a>
+            <a href="https://wheatley.byu.edu/">Wheatley Institution</a>
+        </byu-footer-column>
+        <byu-footer-column>
+            <span slot="header">Related Links</span>
+            <a>LDS.org</a>
+            <a>BYU Alumni</a>
+            <a>BYU Today</a>
+            <a>BYU Magazine</a>
+        </byu-footer-column>
+        <byu-footer-column>
+            <span slot="header">Connect With Us</span>
+            <a>Feedback</a>
+            <a>Help</a>
+            <a>Follow BYU Speeches</a>
+            <byu-social-media-links>
+                <!--Note: These all have text that will be hidden. The text should be there to help screen readers.-->
+                <a class="facebook" href="https://www.facebook.com">Facebook</a>
+                <a class="instagram" href="https://www.instagram.com">Instagram</a>
+                <a class="twitter" href="https://www.twitter.com">Twitter</a>
+                <a class="linkedin" href="https://www.linkedin.com">Linkedin</a>
+                <a class="youtube" href="https://www.youtube.com">YouTube</a>
+            </byu-social-media-links>
+        </byu-footer-column>
+    </byu-footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
