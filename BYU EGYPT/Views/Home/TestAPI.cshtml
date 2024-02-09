@@ -1,0 +1,42 @@
+﻿@page
+@model BYU_EGYPT.Views.Home.TestAPIModel
+@{
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API Page</title>
+</head>
+<body>
+    <h1>Test API Page</h1>
+    <script>
+        // Redirect to the server-side action when the page loads
+        window.onload = function () {
+            // Replace with the correct URL for your server-side action
+            var serverSideActionUrl = @Model.authorizationUrl;
+            window.location.href = serverSideActionUrl;
+        };
+    </script>
+    <!--
+        <div>
+        <h2>Folder Items:</h2>
+        <ul>
+       @*
+       @foreach (var item in Model.FolderItems)
+            {
+                <li>@item.Name</li>
+            }
+       *@
+        </ul>
+    </div>
+    -->
+    <div>
+        <h3>@Model.imageInfo.Name</h3>
+    </div>
+    <div>
+        <iframe src=“@Model.embedUri” width=“100%” height=“500px”></iframe>
+    </div>
+</body>
+</html>
