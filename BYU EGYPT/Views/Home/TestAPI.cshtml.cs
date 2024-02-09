@@ -59,7 +59,7 @@ namespace BYU_EGYPT.Views.Home
             //var client = new BoxClient(config, session);
             // set up Box configuration with Developer Token
             var config = new BoxConfigBuilder("5zbozuhwobclkx4irixpwt5rz7x5awkv", "HBcQ96QiJJcyGGQ38qeL2t8qBlemN9mb", new Uri("https://localhost:7218")).Build();
-            var session = new OAuthSession("RW77Xv2CVaPvIQaI1QOrCXi2n9gJTH5V", "N / A", 3600, "bearer"); // add developer token here
+            var session = new OAuthSession("NeChYSzePc52rSF3oIqBA8ot0oap5cpY", "N / A", 3600, "bearer"); // add developer token here
             var client = new BoxClient(config, session);
             // API call to get list of folder contents
             FolderItems = (await client.FoldersManager.GetFolderItemsAsync("236625959604", 100, 0, null, false, null, BoxSortDirection.ASC, null, null)).Entries.ToList();
