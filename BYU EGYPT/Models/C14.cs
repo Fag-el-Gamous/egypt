@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BYU_EGYPT.DataObjects;
+namespace BYU_EGYPT.Models;
 
 public partial class C14
 {
-    public int? C14id { get; set; }
+    public int C14id { get; set; }
 
     public string? Contents { get; set; }
 
@@ -38,4 +38,6 @@ public partial class C14
     public string? Notes { get; set; }
 
     public string? Other { get; set; }
+
+    public virtual ICollection<BiologicalSample> BiologicalSamples { get; set; } = new List<BiologicalSample>();
 }
