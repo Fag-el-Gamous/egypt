@@ -1,15 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
-
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
-
-@* <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,84 +7,38 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BYU_EGYPT.styles.css" asp-append-version="true" />
-<<<<<<< Updated upstream
-</head>
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BYU</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Data">Data</a>
-                        </li>
-                        <li class="nav-item nav-right" style="margin-left: auto;">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                        </li>
-=======
->>>>>>> Stashed changes
-
-     <script async src="https://cdn.byu.edu/byu-theme-components/2.x.x/byu-theme-components.min.js"></script>
+    <script async src="https://cdn.byu.edu/byu-theme-components/2.x.x/byu-theme-components.min.js"></script>
     <link rel="stylesheet" href="https://cdn.byu.edu/byu-theme-components/2.x.x/byu-theme-components.min.css" media="all">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        byu-menu a.nav-link {
+            display: inline-block; /* This makes each link line up horizontally */
+            margin-right: 20px; /* Adds some space between the links */
+        }
+    </style>
+
+
 </head>
 
 <body>
     <byu-header>
 
-       @*----*@
-            <!--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container-fluid">
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BYU</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Explore">Explore</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Search">Search</a>
-                            </li>
-                            <li class="nav-item nav-right">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
-                            </li>
 
-                        </ul>
-                    </div>
-                </div>
-            </nav>-->
-
-@*
         <span slot="site-title">BYU EGYPT</span>
         <byu-menu slot="nav">
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Explore">Explore</a>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Search">Search</a>
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Login">Login</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Research">Research</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Data">Data</a>
+        
         </byu-menu>
 
+        <byu-user-info slot="user">
+            <a slot="login" asp-area="" asp-controller="Home" asp-action="Login">Sign In</a>
+
+            <a slot="logout" href="#logout">Sign Out</a>
+        </byu-user-info>
 
     </byu-header>
 
@@ -153,4 +97,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
-</html> *@
+</html>
+

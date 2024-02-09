@@ -15,14 +15,15 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        
-        var c14List = egyptDbContext.C14s.ToList();
-     
-        return View(c14List);
+        return View();
     }
 
     public IActionResult About()
+    {
+        return View();
+    }
+
+    public IActionResult Research()
     {
         return View();
     }
@@ -32,14 +33,9 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Search()
-    {
-        return View();
-    }
-
     public IActionResult Login()
     {
-        return View();
+        return Redirect("https://cas.byu.edu/cas/login?service=https%3A%2F%2Fcas.byu.edu%2Fcas%2Fidp%2Fprofile%2FSAML2%2FCallback%3FentityId%3Dhttps%253A%252F%252Fegypt.byu.edu");
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
