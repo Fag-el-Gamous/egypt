@@ -30,7 +30,10 @@ public class HomeController : Controller
 
     public IActionResult Data()
     {
-        return View();
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var c14List = egyptDbContext.C14s.ToList();
+
+        return View(c14List);
     }
 
     public IActionResult Login()

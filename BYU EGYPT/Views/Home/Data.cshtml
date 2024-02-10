@@ -1,10 +1,8 @@
 ﻿@{
     ViewData["Title"] = "";
+    @model List<BYU_EGYPT.Models.C14>
 }
 <h1>@ViewData["Title"]</h1>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -109,9 +107,6 @@
         </a>
     </div>
 
-
-
-
     <!-- Artifacts Modal -->
     <div class="modal fade" id="artifactsModal" tabindex="-1" aria-labelledby="artifactsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -162,7 +157,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Burials Modal -->
     <div class="modal fade" id="burialsModal" tabindex="-1" aria-labelledby="burialsModalLabel" aria-hidden="true">
@@ -221,10 +215,6 @@
                             <input type="checkbox" class="form-check-input" id="west">
                             <label class="form-check-label" for="west">West</label>
                         </div>
-
-
-
-
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="Has Artifacts">
                             <label class="form-check-label" for="Has Artifacts">Has Artifacts</label>
@@ -248,9 +238,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <!-- Textiles Modal -->
     <div class="modal fade" id="textilesModal" tabindex="-1" aria-labelledby="textilesModalLabel" aria-hidden="true">
@@ -305,6 +292,21 @@
         </div>
         <br />
     </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>C14 Table</h2>
+                <ul>
+                    @foreach (var item in Model)
+                    {
+                        <li>C14id: @item.C14id, C14Age: @item.AgeBp</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
     <script>function toggleDropdown(dropdownId) {
             var dropdown = document.getElementById(dropdownId);
             dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
@@ -314,5 +316,3 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 </html>
-
-
