@@ -290,20 +290,34 @@
             <input type="text" placeholder="Search..." name="search">
             <button type="submit">Search</button>
         </div>
-        <br />
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2>C14 Table</h2>
-                <ul>
+        <div class="container">
+            <h2>C14 Table</h2>
+            <table id="c14Table" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <td>Rack</td>
+                        <td>Tube Num</td>
+                        <td>LocationDesc</td>
+                        <td>Questions</td>
+                        <td>Age Bp</td>
+                        <td>Sample Num</td>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach (var item in Model)
                     {
-                        <li>C14id: @item.C14id, C14Age: @item.AgeBp</li>
+                        <tr>
+                            <td>@item.Rack</td>
+                            <td>@item.TubeNum</td>
+                            <td>@item.LocationDescription</td>
+                            <td>@item.ResearchQuestions</td>
+                            <td>@item.AgeBp</td>
+                            <td>@item.C14sampleNum2017</td>
+                        </tr>
                     }
-                </ul>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -314,5 +328,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
 </body>
 </html>
