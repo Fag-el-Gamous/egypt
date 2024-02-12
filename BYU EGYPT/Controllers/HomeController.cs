@@ -32,7 +32,11 @@ public class HomeController : Controller
         return View();
     }
 
+<<<<<<< Updated upstream
     public IActionResult Search()
+=======
+    public IActionResult Test()
+>>>>>>> Stashed changes
     {
         return View();
     }
