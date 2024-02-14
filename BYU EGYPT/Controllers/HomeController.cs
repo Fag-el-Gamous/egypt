@@ -28,7 +28,13 @@ public class HomeController : Controller
         return View();
     }
 
+
+    public IActionResult Search()
+
+    public IActionResult Test()
+
     public IActionResult Data()
+
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
 
