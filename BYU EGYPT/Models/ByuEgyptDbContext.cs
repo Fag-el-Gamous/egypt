@@ -45,6 +45,8 @@ public partial class ByuEgyptDbContext : DbContext
 
     public virtual DbSet<Person> People { get; set; }
 
+    public virtual DbSet<PersonTextile> PersonTextiles { get; set; }
+
     public virtual DbSet<Photo> Photos { get; set; }
 
     public virtual DbSet<Textile> Textiles { get; set; }
@@ -69,15 +71,9 @@ public partial class ByuEgyptDbContext : DbContext
 
     public virtual DbSet<TextileStructure> TextileStructures { get; set; }
 
-    public virtual DbSet<TextileTextileColor> TextileTextileColors { get; set; }
-
-    public virtual DbSet<TextileTextileDecoration> TextileTextileDecorations { get; set; }
-
     public virtual DbSet<TextileTextileDimension> TextileTextileDimensions { get; set; }
 
     public virtual DbSet<TextileTextileFunction> TextileTextileFunctions { get; set; }
-
-    public virtual DbSet<TextileTextileStructure> TextileTextileStructures { get; set; }
 
     public virtual DbSet<TextileThickness> TextileThicknesses { get; set; }
 
@@ -86,7 +82,7 @@ public partial class ByuEgyptDbContext : DbContext
     public virtual DbSet<YarnManipulation> YarnManipulations { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-// To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=tcp:byu-egypt-db-server.database.windows.net,1433;Initial Catalog=BYU_Egypt_DB;Persist Security Info=False;User ID=byu-egypt-db-server-login;Password=rQC8%&wAyD5ig4;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -102,7 +98,7 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.ArtifactEra)
                 .HasMaxLength(30)
                 .IsUnicode(false);
-            entity.Property(e => e.Colors)
+            entity.Property(e => e.BurialNumber)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.Condition)
@@ -115,13 +111,9 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.Dimensions)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.EastOrWest)
-                .HasMaxLength(1)
-                .IsUnicode(false);
             entity.Property(e => e.ExcavatorNum)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.FindDate).HasColumnType("date");
             entity.Property(e => e.Finder)
                 .HasMaxLength(15)
                 .IsUnicode(false);
@@ -133,16 +125,10 @@ public partial class ByuEgyptDbContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Material)
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.NorthOrSouth)
-                .HasMaxLength(1)
+                .HasMaxLength(40)
                 .IsUnicode(false);
             entity.Property(e => e.Notes).IsUnicode(false);
             entity.Property(e => e.PersonId).HasColumnName("PersonID");
-            entity.Property(e => e.Position)
-                .HasMaxLength(50)
-                .IsUnicode(false);
             entity.Property(e => e.Provenance)
                 .HasMaxLength(30)
                 .IsUnicode(false);
@@ -220,6 +206,9 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.BiologicalSampleId)
                 .ValueGeneratedNever()
                 .HasColumnName("BiologicalSampleID ");
+            entity.Property(e => e.BurialNumber)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.C14id).HasColumnName("C14ID");
             entity.Property(e => e.Location)
                 .HasMaxLength(20)
@@ -252,6 +241,9 @@ public partial class ByuEgyptDbContext : DbContext
 
             entity.Property(e => e.Location)
                 .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.BurialNumber)
+                .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.AdultSubadult)
                 .HasMaxLength(5)
@@ -359,6 +351,9 @@ public partial class ByuEgyptDbContext : DbContext
                         j.IndexerProperty<string>("Location")
                             .HasMaxLength(20)
                             .IsUnicode(false);
+                        j.IndexerProperty<string>("BurialNumber")
+                            .HasMaxLength(50)
+                            .IsUnicode(false);
                         j.IndexerProperty<long>("BoxId").HasColumnName("BoxID");
                     });
         });
@@ -369,6 +364,9 @@ public partial class ByuEgyptDbContext : DbContext
 
             entity.ToTable("Burial_FieldbookPage");
 
+            entity.Property(e => e.BurialNumber)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.FieldBookId).HasColumnName("FieldBookID");
             entity.Property(e => e.PdfpageNumber).HasColumnName("PDFPageNumber");
             entity.Property(e => e.Location)
@@ -395,6 +393,9 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.BoxId).HasColumnName("BoxID");
             entity.Property(e => e.Location)
                 .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.BurialNumber)
+                .HasMaxLength(50)
                 .IsUnicode(false);
 
             entity.HasOne(d => d.Box).WithMany(p => p.BurialPhotos)
@@ -437,7 +438,7 @@ public partial class ByuEgyptDbContext : DbContext
 
         modelBuilder.Entity<Cranium>(entity =>
         {
-            entity.HasKey(e => e.CraniaId).HasName("PK__Crania__320D286FFAFBAA3F");
+            entity.HasKey(e => e.CraniaId).HasName("PK__Cranium__320D286F7EB63FB8");
 
             entity.ToTable("Cranium");
 
@@ -448,6 +449,9 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.BasionNasionLength).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.BasionProsthionLength).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.BizygomaticDiameter).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.BurialNumber)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.CalcBasionNasion).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.CalcBasionProsthion).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.CalcBizygomaticDiameter).HasColumnType("decimal(5, 2)");
@@ -612,25 +616,26 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.Notes)
                 .HasMaxLength(500)
                 .IsUnicode(false);
+        });
 
-            entity.HasMany(d => d.Textiles).WithMany(p => p.People)
-                .UsingEntity<Dictionary<string, object>>(
-                    "PersonTextile",
-                    r => r.HasOne<Textile>().WithMany()
-                        .HasForeignKey("TextileId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_Person_Textile_Textile"),
-                    l => l.HasOne<Person>().WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_Person_Textile_Person"),
-                    j =>
-                    {
-                        j.HasKey("PersonId", "TextileId");
-                        j.ToTable("Person_Textile");
-                        j.IndexerProperty<int>("PersonId").HasColumnName("PersonID");
-                        j.IndexerProperty<int>("TextileId").HasColumnName("TextileID");
-                    });
+        modelBuilder.Entity<PersonTextile>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("Person_Textile");
+
+            entity.Property(e => e.PersonId).HasColumnName("PersonID");
+            entity.Property(e => e.TextileId).HasColumnName("TextileID");
+
+            entity.HasOne(d => d.Person).WithMany()
+                .HasForeignKey(d => d.PersonId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Person_Textile_Person");
+
+            entity.HasOne(d => d.Textile).WithMany()
+                .HasForeignKey(d => d.TextileId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Person_Textile_Textile");
         });
 
         modelBuilder.Entity<Photo>(entity =>
@@ -661,8 +666,11 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.AnalysisType)
                 .HasMaxLength(20)
                 .IsUnicode(false);
+            entity.Property(e => e.BurialNumber)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Description)
-                .HasMaxLength(1000)
+                .HasMaxLength(2000)
                 .IsUnicode(false);
             entity.Property(e => e.Location)
                 .HasMaxLength(20)
@@ -679,6 +687,48 @@ public partial class ByuEgyptDbContext : DbContext
             entity.HasOne(d => d.Burial).WithMany(p => p.Textiles)
                 .HasForeignKey(d => new { d.Location, d.ExcavationYear, d.BurialNumber })
                 .HasConstraintName("FK_Textile_Burial");
+
+            entity.HasMany(d => d.TextileColors).WithMany(p => p.Textiles)
+                .UsingEntity<Dictionary<string, object>>(
+                    "TextileTextileColor",
+                    r => r.HasOne<TextileColor>().WithMany()
+                        .HasForeignKey("TextileColor")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_Textile_TextileColor_TextileColor"),
+                    l => l.HasOne<Textile>().WithMany()
+                        .HasForeignKey("TextileId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_Textile_TextileColor"),
+                    j =>
+                    {
+                        j.HasKey("TextileId", "TextileColor");
+                        j.ToTable("Textile_TextileColor");
+                        j.IndexerProperty<int>("TextileId").HasColumnName("TextileID");
+                        j.IndexerProperty<string>("TextileColor")
+                            .HasMaxLength(6)
+                            .IsUnicode(false);
+                    });
+
+            entity.HasMany(d => d.TextileDecorations).WithMany(p => p.Textiles)
+                .UsingEntity<Dictionary<string, object>>(
+                    "TextileTextileDecoration",
+                    r => r.HasOne<TextileDecoration>().WithMany()
+                        .HasForeignKey("TextileDecoration")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_Textile_TextileDecoration_TextileDecoration"),
+                    l => l.HasOne<Textile>().WithMany()
+                        .HasForeignKey("TextileId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_Textile_TextileDecoration"),
+                    j =>
+                    {
+                        j.HasKey("TextileId", "TextileDecoration");
+                        j.ToTable("Textile_TextileDecoration");
+                        j.IndexerProperty<int>("TextileId").HasColumnName("TextileID");
+                        j.IndexerProperty<string>("TextileDecoration")
+                            .HasMaxLength(50)
+                            .IsUnicode(false);
+                    });
         });
 
         modelBuilder.Entity<TextileColor>(entity =>
@@ -812,50 +862,27 @@ public partial class ByuEgyptDbContext : DbContext
                 .HasMaxLength(23)
                 .IsUnicode(false)
                 .HasColumnName("TextileStructure");
-        });
 
-        modelBuilder.Entity<TextileTextileColor>(entity =>
-        {
-            entity.HasKey(e => new { e.TextileId, e.TextileColor });
-
-            entity.ToTable("Textile_TextileColor");
-
-            entity.Property(e => e.TextileId).HasColumnName("TextileID");
-            entity.Property(e => e.TextileColor)
-                .HasMaxLength(6)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.TextileColorNavigation).WithMany(p => p.TextileTextileColors)
-                .HasForeignKey(d => d.TextileColor)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Textile_TextileColor_TextileColor");
-
-            entity.HasOne(d => d.Textile).WithMany(p => p.TextileTextileColors)
-                .HasForeignKey(d => d.TextileId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Textile_TextileColor");
-        });
-
-        modelBuilder.Entity<TextileTextileDecoration>(entity =>
-        {
-            entity.HasKey(e => new { e.TextileId, e.TextileDecoration });
-
-            entity.ToTable("Textile_TextileDecoration");
-
-            entity.Property(e => e.TextileId).HasColumnName("TextileID");
-            entity.Property(e => e.TextileDecoration)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.TextileDecorationNavigation).WithMany(p => p.TextileTextileDecorations)
-                .HasForeignKey(d => d.TextileDecoration)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Textile_TextileDecoration_TextileDecoration");
-
-            entity.HasOne(d => d.Textile).WithMany(p => p.TextileTextileDecorations)
-                .HasForeignKey(d => d.TextileId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Textile_TextileDecoration");
+            entity.HasMany(d => d.Textiles).WithMany(p => p.TextileStructures)
+                .UsingEntity<Dictionary<string, object>>(
+                    "TextileTextileStructure",
+                    r => r.HasOne<Textile>().WithMany()
+                        .HasForeignKey("TextileId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_Textile_TextileStructure"),
+                    l => l.HasOne<TextileStructure>().WithMany()
+                        .HasForeignKey("TextileStructure")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_Textile_TextileStructure_TextileStructure"),
+                    j =>
+                    {
+                        j.HasKey("TextileStructure", "TextileId");
+                        j.ToTable("Textile_TextileStructure");
+                        j.IndexerProperty<string>("TextileStructure")
+                            .HasMaxLength(23)
+                            .IsUnicode(false);
+                        j.IndexerProperty<int>("TextileId").HasColumnName("TextileID");
+                    });
         });
 
         modelBuilder.Entity<TextileTextileDimension>(entity =>
@@ -902,28 +929,6 @@ public partial class ByuEgyptDbContext : DbContext
                 .HasForeignKey(d => d.TextileId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Textile_TextileFunction");
-        });
-
-        modelBuilder.Entity<TextileTextileStructure>(entity =>
-        {
-            entity.HasKey(e => new { e.TextileStructure, e.TextileId });
-
-            entity.ToTable("Textile_TextileStructure");
-
-            entity.Property(e => e.TextileStructure)
-                .HasMaxLength(23)
-                .IsUnicode(false);
-            entity.Property(e => e.TextileId).HasColumnName("TextileID");
-
-            entity.HasOne(d => d.Textile).WithMany(p => p.TextileTextileStructures)
-                .HasForeignKey(d => d.TextileId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Textile_TextileStructure");
-
-            entity.HasOne(d => d.TextileStructureNavigation).WithMany(p => p.TextileTextileStructures)
-                .HasForeignKey(d => d.TextileStructure)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Textile_TextileStructure_TextileStructure");
         });
 
         modelBuilder.Entity<TextileThickness>(entity =>

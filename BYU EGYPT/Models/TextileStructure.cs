@@ -7,5 +7,5 @@ public partial class TextileStructure
 {
     public string TextileStructure1 { get; set; } = null!;
 
-    public virtual ICollection<TextileTextileStructure> TextileTextileStructures { get; set; } = new List<TextileTextileStructure>();
+    public virtual ICollection<Textile> Textiles { get; set; } = new List<Textile>();
 }

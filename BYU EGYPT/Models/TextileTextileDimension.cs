@@ -9,8 +9,6 @@ public partial class TextileTextileDimension
 
     public int DimensionId { get; set; }
 
-    public short? BurialNumber { get; set; }
-
     public decimal? CentimetersLength { get; set; }
 
     public virtual TextileDimension Dimension { get; set; } = null!;

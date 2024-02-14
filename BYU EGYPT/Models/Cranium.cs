@@ -11,7 +11,7 @@ public partial class Cranium
 
     public short? ExcavationYear { get; set; }
 
-    public short? BurialNumber { get; set; }
+    public string? BurialNumber { get; set; }
 
     public decimal? MaxCraniaLength { get; set; }
 

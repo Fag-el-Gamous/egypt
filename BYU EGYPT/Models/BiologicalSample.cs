@@ -15,7 +15,7 @@ public partial class BiologicalSample
 
     public short? ExcavationYear { get; set; }
 
-    public short? BurialNumber { get; set; }
+    public string? BurialNumber { get; set; }
 
     public short? BurialSampleNumber { get; set; }
 

@@ -15,11 +15,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        
-        var c14List = egyptDbContext.C14s.ToList();
-     
-        return View(c14List);
+        return View();
     }
 
     public IActionResult About()
@@ -27,28 +23,37 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Data()
+    public IActionResult Research()
     {
         return View();
     }
 
-<<<<<<< Updated upstream
+
     public IActionResult Search()
-=======
+
     public IActionResult Test()
->>>>>>> Stashed changes
+
+    public IActionResult Data()
+
     {
-        return View();
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+
+        var burialList = egyptDbContext.Burials.ToList();
+        //var testList = egyptDbContext.C14s
+        //.Where(x => x.C14id == 1)
+        //.OrderBy(x => x.C14id);
+        return View(burialList);
     }
 
     public IActionResult Login()
     {
-        return View();
+        return Redirect("https://cas.byu.edu/cas/login?service=https%3A%2F%2Fcas.byu.edu%2Fcas%2Fidp%2Fprofile%2FSAML2%2FCallback%3FentityId%3Dhttps%253A%252F%252Fegypt.byu.edu");
     }
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+      //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View();
     }
 }
 

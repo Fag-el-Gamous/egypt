@@ -11,7 +11,7 @@ public partial class BurialPhoto
 
     public short ExcavationYear { get; set; }
 
-    public short BurialNumber { get; set; }
+    public string BurialNumber { get; set; } = null!;
 
     public bool? IsCoverPhoto { get; set; }
 

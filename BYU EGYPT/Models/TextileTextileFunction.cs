@@ -9,8 +9,6 @@ public partial class TextileTextileFunction
 
     public string TextileFunction { get; set; } = null!;
 
-    public short? BurialNumber { get; set; }
-
     public string? Locale { get; set; }
 
     public virtual Textile Textile { get; set; } = null!;
