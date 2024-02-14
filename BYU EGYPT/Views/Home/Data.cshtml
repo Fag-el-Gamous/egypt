@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "";
-    // @model List<BYU_EGYPT.Models.Burial>
+    @model List<BYU_EGYPT.Models.Burial>
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -296,24 +296,34 @@
             <table id="burialTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <td>Column 0</td>
-                        <td>Column 1</td>
-                        <td>Column 2</td>
-                        <td>Column 3</td>
-                        <td>Column 4</td>
-                        <td>Column 5</td>
+                        <td>Excavation Year</td>
+                        <td>Location</td>
+                        <td>Burial Number</td>
+                        <td>Depth</td>
+                        <td>AgeGroup</td>
+                        <td>Sex</td>
+                        <td>BodyPreservationLevel</td>
+                        <td>WrappingLevel</td>
+                        <td>HasFaceBundle</td>
+                        <td>HairColor</td>
+                        <td>HeadDirection</td>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td>@item.ExcavationYear</td>
+                            <td>@item.Location</td>
                             <td>@item.BurialNumber</td>
-                            <td>@item.AdultSubadult</td>
-                            <td>@item.BiologicalSamples</td>
-                            <td>@item.BurialNotes</td>
-                            <td>@item.Crania</td>
-                            <td>@item.EstimateSex</td>
+                            <td>@item.Depth</td>
+                            <td>@item.AgeGroup</td>
+                            <td>@item.Sex</td>
+                            <td>@item.BodyPreservationLevel</td>
+                            <td>@item.WrappingLevel</td>
+                            <td>@item.HasFaceBundle</td>
+                            <td>@item.HairColor</td>
+                            <td>@item.HeadDirection</td>
                         </tr>
                     }
                 </tbody>
