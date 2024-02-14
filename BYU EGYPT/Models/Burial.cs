@@ -9,7 +9,7 @@ public partial class Burial
 
     public short ExcavationYear { get; set; }
 
-    public short BurialNumber { get; set; }
+    public string BurialNumber { get; set; } = null!;
 
     public string? HillDesignation { get; set; }
 

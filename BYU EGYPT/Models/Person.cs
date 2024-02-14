@@ -14,6 +14,4 @@ public partial class Person
     public string? Notes { get; set; }
 
     public virtual ICollection<Artifact> Artifacts { get; set; } = new List<Artifact>();
-
-    public virtual ICollection<Textile> Textiles { get; set; } = new List<Textile>();
 }

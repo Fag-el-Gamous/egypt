@@ -31,9 +31,12 @@ public class HomeController : Controller
     public IActionResult Data()
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var c14List = egyptDbContext.C14s.ToList();
 
-        return View(c14List);
+        var burialList = egyptDbContext.Burials.ToList();
+        //var testList = egyptDbContext.C14s
+        //.Where(x => x.C14id == 1)
+        //.OrderBy(x => x.C14id);
+        return View(burialList);
     }
 
     public IActionResult Login()
@@ -43,7 +46,8 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+      //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View();
     }
 }
 

@@ -7,5 +7,5 @@ public partial class TextileColor
 {
     public string TextileColor1 { get; set; } = null!;
 
-    public virtual ICollection<TextileTextileColor> TextileTextileColors { get; set; } = new List<TextileTextileColor>();
+    public virtual ICollection<Textile> Textiles { get; set; } = new List<Textile>();
 }
