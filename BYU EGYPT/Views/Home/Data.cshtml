@@ -109,6 +109,8 @@
             <ul>
                 <li><a href="#" class="load-partial" data-url="@Url.Action("LoadTable", "Home", new { tableName = "BurialTable" })">Burials</a></li>
                 <li><a href="#" class="load-partial" data-url="@Url.Action("LoadTable", "Home", new { tableName = "ArtifactTable" })">Artifacts</a></li>
+                <li><a href="#" class="load-partial" data-url="@Url.Action("LoadTable", "Home", new { tableName = "C14Table" })">C14</a></li>
+
             </ul>
         </div>
 
@@ -313,19 +315,9 @@
             <button type="submit">Search</button>
 
             <div id="dynamic-table">
+                @*dynamic table loads here*@
             </div>
         </div>
-
-       
-
-
-
-
-       
-
-
-
-
 
     </div>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>

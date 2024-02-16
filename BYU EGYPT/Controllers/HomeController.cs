@@ -14,10 +14,6 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-
-
-
-
     private List<C14> samples = new List<C14>
     {
             new C14 { Rack = 5, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 1 },
@@ -25,8 +21,6 @@ public class HomeController : Controller
             
         // Add more samples as needed
     };
-
-
 
     // GET: Sample/Details/5
     public IActionResult Details(int sampleNum)
@@ -41,21 +35,6 @@ public class HomeController : Controller
 
         return View(sample);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public IActionResult Index()
     {
@@ -94,6 +73,13 @@ public class HomeController : Controller
         {
             // Load and return the ArtifactTable partial view
             return PartialView("~/Views/Shared/PartialViews/ArtifactTable.cshtml");
+        }
+        else if (tableName == "C14Table")
+        {
+            var C14List = egyptDbContext.C14s.ToList();
+            ViewData["C14List"] = C14List;
+            // Load and return the ArtifactTable partial view
+            return PartialView("~/Views/Shared/PartialViews/C14Table.cshtml");
         }
         else
         {

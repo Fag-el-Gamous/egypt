@@ -1,0 +1,33 @@
+﻿@{
+    var C14List = ViewData["C14List"] as List<BYU_EGYPT.Models.C14>;
+
+}
+
+<div class="container">
+    <h2>C14 Table</h2>
+    <table id="c14Table" class="table table-bordered hoverable-table">
+        <thead>
+            <tr>
+                <td>Rack</td>
+                <td>Tube Num</td>
+                <td>LocationDesc</td>
+                <td>Questions</td>
+                <td>Age Bp</td>
+                <td>Sample Num</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in C14List)
+            {
+                <tr onclick="window.location.href='@Url.Action("Details", "Home", new { sampleNum = item.C14sampleNum2017 })';" style="cursor:pointer">
+                    <td>@item.Rack</td>
+                    <td>@item.TubeNum</td>
+                    <td>@item.LocationDescription</td>
+                    <td>@item.ResearchQuestions</td>
+                    <td>@item.AgeBp</td>
+                    <td>@item.C14sampleNum2017</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
