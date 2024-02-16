@@ -1,0 +1,55 @@
+﻿@model BYU_EGYPT.Models.Burial
+
+@{
+    ViewData["Title"] = "Sample Details - " + Model.BurialNumber;
+}
+
+<div class="container mt-3">
+    <style>
+        .minimalistic-btn {
+            background-color: transparent; /* No background color */
+            border: 1px solid #007bff; /* Border color similar to Bootstrap primary color */
+            color: #007bff; /* Text color similar to Bootstrap primary color */
+            text-align: center;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+
+            .minimalistic-btn:hover {
+                color: #fff; /* White text on hover */
+                background-color: #007bff; /* Bootstrap primary color background on hover */
+                border-color: #0056b3; /* Slightly darker border color on hover */
+                text-decoration: none; /* Remove underline from links */
+            }
+    </style>
+
+    <div class="btn-group mt-4" role="group" aria-label="Related Information">
+        <a href="@Url.Action("Artifacts", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Artifacts</a>
+        <a href="@Url.Action("Burials", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Burials</a>
+        <a href="@Url.Action("Textiles", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Textiles</a>
+    </div>
+
+
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Location</dt>
+        <dd class="col-sm-9">@Model.Location</dd>
+
+        <dt class="col-sm-3">ExcavationYear</dt>
+        <dd class="col-sm-9">@Model.ExcavationYear</dd>
+
+        <dt class="col-sm-3">BurialNumber</dt>
+        <dd class="col-sm-9">@Model.BurialNumber</dd>
+
+        <dt class="col-sm-3">HeadDirection</dt>
+        <dd class="col-sm-9">@Model.HeadDirection</dd>
+
+    </dl>
+
+
+
+    <a href="@Url.Action("Data", "Home")" class="btn btn-secondary">Back to List</a>
+</div>
