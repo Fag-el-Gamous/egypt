@@ -9,7 +9,7 @@ public partial class BurialFieldbookPage
 
     public short ExcavationYear { get; set; }
 
-    public short BurialNumber { get; set; }
+    public string BurialNumber { get; set; } = null!;
 
     public int FieldBookId { get; set; }
 

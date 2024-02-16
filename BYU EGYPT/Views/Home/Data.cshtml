@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "";
-    @model List<BYU_EGYPT.Models.C14>
+    @model List<BYU_EGYPT.Models.Burial>
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FagElGamous.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
     <!-- Additional styles here -->
     <style>
         .search-container {
@@ -100,8 +102,17 @@
 
 </head>
 <body>
+
     <!-- Side Menu -->
     <div class="side-menu float-start">
+        <div id="sidebar">
+            <ul>
+                <li><a href="#" class="load-partial" data-url="@Url.Action("LoadTable", "Home", new { tableName = "BurialTable" })">Burials</a></li>
+                <li><a href="#" class="load-partial" data-url="@Url.Action("LoadTable", "Home", new { tableName = "ArtifactTable" })">Artifacts</a></li>
+            </ul>
+        </div>
+
+            <!-- Add more options if needed -->
         <!-- Other menu items -->
         <a href="#" class="list-group-item list-group-item-action fs-4 py-3" data-bs-toggle="modal" data-bs-target="#artifactsModal"
            onclick="toggleDropdown('artifacts-dropdown')">
@@ -116,7 +127,6 @@
             Textiles <span>&gt;</span>
         </a>
     </div>
-
     <!-- Artifacts Modal -->
     <div class="modal fade" id="artifactsModal" tabindex="-1" aria-labelledby="artifactsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -301,46 +311,38 @@
         <div class="search-container">
             <input type="text" placeholder="Search..." name="search">
             <button type="submit">Search</button>
+
+            <div id="dynamic-table">
+            </div>
         </div>
 
+       
 
 
-        <div class="container">
-            <h2>C14 Table</h2>
 
-            <table id="c14Table" class="table table-bordered hoverable-table">
 
-                <thead>
-                    <tr>
-                        <td>Rack</td>
-                        <td>Tube Num</td>
-                        <td>LocationDesc</td>
-                        <td>Questions</td>
-                        <td>Age Bp</td>
-                        <td>Sample Num</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr onclick="window.location.href='@Url.Action("Details", "Home", new { sampleNum = item.C14sampleNum2017 })';" style="cursor:pointer">
-                            <td>@item.Rack</td>
-                            <td>@item.TubeNum</td>
-                            <td>@item.LocationDescription</td>
-                            <td>@item.ResearchQuestions</td>
-                            <td>@item.AgeBp</td>
-                            <td>@item.C14sampleNum2017</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+       
 
 
 
 
 
     </div>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".load-partial").click(function (e) {
+                e.preventDefault();
+                var url = $(this).data("url");
+                $.get(url, function (data) {
+                    $("#dynamic-table").html(data);
+                });
+            });
+        });
+    </script>
+
+    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
 
   
 
@@ -348,7 +350,6 @@
             var dropdown = document.getElementById(dropdownId);
             dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         }</script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 

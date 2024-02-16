@@ -75,9 +75,31 @@ public class HomeController : Controller
     public IActionResult Data()
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var c14List = egyptDbContext.C14s.ToList();
 
-        return View(c14List);
+        return View();
+    }
+
+    public IActionResult LoadTable(string tableName)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        // Depending on the value of partialName, load the corresponding partial view
+        if (tableName == "BurialTable")
+        {
+            var burialList = egyptDbContext.Burials.ToList();
+            ViewData["BurialList"] = burialList;
+            // Load and return the BurialTable partial view
+            return PartialView("~/Views/Shared/PartialViews/BurialTable.cshtml");
+        }
+        else if (tableName == "ArtifactTable")
+        {
+            // Load and return the ArtifactTable partial view
+            return PartialView("~/Views/Shared/PartialViews/ArtifactTable.cshtml");
+        }
+        else
+        {
+            // Return an empty result or handle the case where the partial view name is invalid
+            return Content("Partial view not found.");
+        }
     }
 
     public IActionResult Login()
@@ -87,7 +109,8 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+      //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        return View();
     }
 }
 

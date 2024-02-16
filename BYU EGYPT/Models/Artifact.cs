@@ -9,17 +9,7 @@ public partial class Artifact
 
     public string? Location { get; set; }
 
-    public string? Position { get; set; }
-
-    public short? MetersNorthSouth { get; set; }
-
-    public string? NorthOrSouth { get; set; }
-
-    public short? MetersEastWest { get; set; }
-
-    public string? EastOrWest { get; set; }
-
-    public short? BurialNumber { get; set; }
+    public string? BurialNumber { get; set; }
 
     public short? ExcavationYear { get; set; }
 
@@ -47,8 +37,6 @@ public partial class Artifact
 
     public short? FindYear { get; set; }
 
-    public DateTime? FindDate { get; set; }
-
     public string? Finder { get; set; }
 
     public string? ExcavatorNum { get; set; }
@@ -62,8 +50,6 @@ public partial class Artifact
     public string? ConservationNotes { get; set; }
 
     public bool? HasPhotos { get; set; }
-
-    public string? Colors { get; set; }
 
     public int? PersonId { get; set; }
 

@@ -25,10 +25,10 @@ namespace BYU_EGYPT
                 connection = Environment.GetEnvironmentVariable("AZUREDB_CONNECTION");
             }
 
-            //builder.Services.AddDbContext<EgyptDbContext>(options =>
-            //{
-            //    options.UseSqlServer(connection);
-            //});
+            builder.Services.AddDbContext<ByuEgyptDbContext>(options =>
+            {
+                options.UseSqlServer(connection);
+            });
 
             var app = builder.Build();
 

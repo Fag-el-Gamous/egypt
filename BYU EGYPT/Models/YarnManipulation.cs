@@ -9,8 +9,6 @@ public partial class YarnManipulation
 
     public int YarnManipulationId { get; set; }
 
-    public short? BurialNumber { get; set; }
-
     public string? Component { get; set; }
 
     public string? Material { get; set; }
