@@ -1,0 +1,43 @@
+﻿@{
+    //@model List<BYU_EGYPT.Models.Burial>
+    var burialList = ViewData["BurialList"] as List<BYU_EGYPT.Models.Burial>;
+}
+
+<div class="container">
+    <h2>Burial Table</h2>
+    <table id="burialTable" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <td>Excavation Year</td>
+                <td>Location</td>
+                <td>Burial Number</td>
+                <td>Depth</td>
+                <td>AgeGroup</td>
+                <td>Sex</td>
+                <td>BodyPreservationLevel</td>
+                <td>WrappingLevel</td>
+                <td>HasFaceBundle</td>
+                <td>HairColor</td>
+                <td>HeadDirection</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in burialList)
+            {
+                <tr>
+                    <td>@item.ExcavationYear</td>
+                    <td>@item.Location</td>
+                    <td>@item.BurialNumber</td>
+                    <td>@item.Depth</td>
+                    <td>@item.AgeGroup</td>
+                    <td>@item.Sex</td>
+                    <td>@item.BodyPreservationLevel</td>
+                    <td>@item.WrappingLevel</td>
+                    <td>@item.HasFaceBundle</td>
+                    <td>@item.HairColor</td>
+                    <td>@item.HeadDirection</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
