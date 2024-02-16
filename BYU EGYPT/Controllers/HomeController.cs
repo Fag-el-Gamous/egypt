@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BYU_EGYPT.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BYU_EGYPT.Controllers;
 
@@ -12,6 +13,49 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
+
+
+
+
+
+    private List<C14> samples = new List<C14>
+    {
+            new C14 { Rack = 5, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 1 },
+            new C14 { Rack = 31, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 2 },
+            
+        // Add more samples as needed
+    };
+
+
+
+    // GET: Sample/Details/5
+    public IActionResult Details(int sampleNum)
+    {
+        // Assumes samples is accessible here, you might need to retrieve it from the database instead
+        var sample = samples.FirstOrDefault(s => s.C14sampleNum2017 == sampleNum);
+
+        if (sample == null)
+        {
+            return NotFound();
+        }
+
+        return View(sample);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public IActionResult Index()
     {

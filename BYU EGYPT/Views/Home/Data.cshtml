@@ -86,7 +86,17 @@
             display: none;
             margin-left: 20px; /* Indent the dropdown content for visual hierarchy */
         }
+        /* Add this CSS to your stylesheet */
+        .hoverable-table tbody tr:hover {
+            background-color: #f5f5f5; /* Or any color you prefer */
+        }
+
+
+        .hoverable-table tbody tr:hover {
+            background-color: #f5f5f5; /* Or any color you prefer */
+        }
     </style>
+  
 
 </head>
 <body>
@@ -166,6 +176,7 @@
                     <h5 class="modal-title" id="burialsModalLabel">Burials Information</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
                 <div class="modal-body">
                     <!-- Burials Form Elements -->
                     <form id="burialsForm">
@@ -235,6 +246,7 @@
                         <button type="submit" class="btn btn-secondary">Back</button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
@@ -274,7 +286,7 @@
                                 <!-- Option elements here -->
                             </select>
                         </div>
-                      
+
                         <button type="submit" class="btn btn-primary">Search</button>
                         <button type="submit" class="btn btn-secondary">Back</button>
                     </form>
@@ -291,9 +303,13 @@
             <button type="submit">Search</button>
         </div>
 
+
+
         <div class="container">
             <h2>C14 Table</h2>
-            <table id="c14Table" class="table table-bordered">
+
+            <table id="c14Table" class="table table-bordered hoverable-table">
+
                 <thead>
                     <tr>
                         <td>Rack</td>
@@ -307,7 +323,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
+                        <tr onclick="window.location.href='@Url.Action("Details", "Home", new { sampleNum = item.C14sampleNum2017 })';" style="cursor:pointer">
                             <td>@item.Rack</td>
                             <td>@item.TubeNum</td>
                             <td>@item.LocationDescription</td>
@@ -319,7 +335,14 @@
                 </tbody>
             </table>
         </div>
+
+
+
+
+
     </div>
+
+  
 
     <script>function toggleDropdown(dropdownId) {
             var dropdown = document.getElementById(dropdownId);
@@ -328,6 +351,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+
 
 </body>
 </html>
