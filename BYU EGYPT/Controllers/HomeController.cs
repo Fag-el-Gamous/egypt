@@ -35,9 +35,7 @@ public class HomeController : Controller
             new C14 { Rack = 30, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 9 },
              new C14 { Rack = 4, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 20 },
              new C14 { Rack = 4, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 21 },
-
-         
-            
+  
         // Add more samples as needed
     };
 
@@ -54,9 +52,6 @@ public class HomeController : Controller
 
         return View(sample);
     }
-
-
-
 
     private List<Burial> Bsamples = new List<Burial>
     {
@@ -82,11 +77,6 @@ public class HomeController : Controller
         return View(Bsample);
     }
 
-
-
-
-
-
     public IActionResult Index()
     {
         return View();
@@ -109,35 +99,65 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult LoadTable(string tableName)
+    public IActionResult BurialTable()
+    {         
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var burialList = egyptDbContext.Burials.ToList();
+        return View(burialList);
+       }
+
+    public IActionResult ArtifactTable()
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        // Depending on the value of partialName, load the corresponding partial view
-        if (tableName == "BurialTable")
-        {
-            var burialList = egyptDbContext.Burials.ToList();
-            ViewData["BurialList"] = burialList;
-            // Load and return the BurialTable partial view
-            return PartialView("~/Views/Shared/PartialViews/BurialTable.cshtml");
-        }
-        else if (tableName == "ArtifactTable")
-        {
-            // Load and return the ArtifactTable partial view
-            return PartialView("~/Views/Shared/PartialViews/ArtifactTable.cshtml");
-        }
-        else if (tableName == "C14Table")
-        {
-            var C14List = egyptDbContext.C14s.ToList();
-            ViewData["C14List"] = C14List;
-            // Load and return the ArtifactTable partial view
-            return PartialView("~/Views/Shared/PartialViews/C14Table.cshtml");
-        }
-        else
-        {
-            // Return an empty result or handle the case where the partial view name is invalid
-            return Content("Partial view not found.");
-        }
+        var artifactList = egyptDbContext.Artifacts.ToList();
+        return View(artifactList);
     }
+
+    public IActionResult TextileTable()
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var textileList = egyptDbContext.Textiles.ToList();
+        return View(textileList);
+    }
+
+    public IActionResult C14Table()
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var c14List = egyptDbContext.C14s.ToList();
+        return View(c14List);
+    }
+
+    //This method loads partial views into the Data page based on the link the user clicks
+
+    //public IActionResult LoadTable(string tableName)
+    //{
+    //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+    //    // Depending on the value of partialName, load the corresponding partial view
+    //    if (tableName == "BurialTable")
+    //    {
+    //        var burialList = egyptDbContext.Burials.ToList();
+    //        ViewData["BurialList"] = burialList;
+    //        // Load and return the BurialTable partial view
+    //        return PartialView("~/Views/Shared/PartialViews/BurialTable.cshtml");
+    //    }
+    //    else if (tableName == "ArtifactTable")
+    //    {
+    //        // Load and return the ArtifactTable partial view
+    //        return PartialView("~/Views/Shared/PartialViews/ArtifactTable.cshtml");
+    //    }
+    //    else if (tableName == "C14Table")
+    //    {
+    //        var C14List = egyptDbContext.C14s.ToList();
+    //        ViewData["C14List"] = C14List;
+    //        // Load and return the ArtifactTable partial view
+    //        return PartialView("~/Views/Shared/PartialViews/C14Table.cshtml");
+    //    }
+    //    else
+    //    {
+    //        // Return an empty result or handle the case where the partial view name is invalid
+    //        return Content("Partial view not found.");
+    //    }
+    //}
 
     public IActionResult Login()
     {

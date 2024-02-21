@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "";
-    @model List<BYU_EGYPT.Models.Burial>
+    @model List<BYU_EGYPT.Models.Textile>
+
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -98,33 +99,26 @@
             background-color: #f5f5f5; /* Or any color you prefer */
         }
     </style>
-  
+
 </head>
 <body>
 
     <!-- Side Menu -->
     <div class="side-menu float-start">
-        <div id="sidebar">
-            <ul>
-                <li><a href="#" class="load-partial" data-url="@Url.Action("LoadTable", "Home", new { tableName = "BurialTable" })">Burials</a></li>
-                <li><a href="#" class="load-partial" data-url="@Url.Action("LoadTable", "Home", new { tableName = "ArtifactTable" })">Artifacts</a></li>
-                <li><a href="#" class="load-partial" data-url="@Url.Action("LoadTable", "Home", new { tableName = "C14Table" })">C14</a></li>
-
-            </ul>
-        </div>
-            <!-- Add more options if needed -->
-        <!-- Other menu items -->
-        <a href="#" class="list-group-item list-group-item-action fs-4 py-3" data-bs-toggle="modal" data-bs-target="#artifactsModal"
-           onclick="toggleDropdown('artifacts-dropdown')">
-            Artifacts <span>&gt;</span>
-        </a>
-        <a href="#" class="list-group-item list-group-item-action fs-4 py-3" data-bs-toggle="modal" data-bs-target="#burialsModal"
-           onclick="toggleDropdown('burials-dropdown')">
+        <a href="@Url.Action("BurialTable", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
             Burials <span>&gt;</span>
         </a>
-        <a href="#" class="list-group-item list-group-item-action fs-4 py-3" data-bs-toggle="modal" data-bs-target="#textilesModal"
-           onclick="toggleDropdown('textiles-dropdown')">
+
+        <a href="@Url.Action("ArtifactTable", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
+            Artifacts <span>&gt;</span>
+        </a>
+
+        <a href="@Url.Action("TextileTable", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
             Textiles <span>&gt;</span>
+        </a>
+
+        <a href="@Url.Action("C14Table", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
+            C14 <span>&gt;</span>
         </a>
     </div>
 
@@ -306,46 +300,41 @@
         </div>
     </div>
 
-    <!-- Original Content and Search Bar -->
+    <!-- Original Content -->
     <div class="text-center">
         <br />
-@*         <div class="search-container">
-            <input type="text" placeholder="Search..." name="search">
-            <button type="submit">Search</button>
+        <div class="container">
+            <h2>Textiles Table</h2>
 
-            <div id="dynamic-table">
-                @*dynamic table loads here
-            </div>
+            <table border="1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <!-- Add more columns if needed -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <!-- Add more data rows if needed -->
+                    </tr>
+                </tbody>
+            </table>
         </div>
-*@
-
     </div>
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
-    <script>
-        $(document).ready(function () {
-            $(".load-partial").click(function (e) {
-                e.preventDefault();
-                var url = $(this).data("url");
-                $.get(url, function (data) {
-                    $("#dynamic-table").html(data);
-                });
-            });
-        });
-    </script>
-
     <script src="/_framework/aspnetcore-browser-refresh.js"></script>
 
-  
-
-    <script>function toggleDropdown(dropdownId) {
+    <script>
+        function toggleDropdown(dropdownId) {
             var dropdown = document.getElementById(dropdownId);
             dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
         }</script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-
 
 </body>
 </html>

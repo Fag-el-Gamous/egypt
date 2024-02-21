@@ -46,7 +46,7 @@ namespace BYU_EGYPT.Views.Home
             // Redirect to your application’s home page or wherever you want the user to go after successful login
             return RedirectToAction("Index", "Home");
         }
-        public async Task OnGetAsync()
+        public async Task OnGetAsync() 
         {
             // set up Box configuration with OAuth 2.0
             //var redirectUrl = "https://localhost:7218/";
