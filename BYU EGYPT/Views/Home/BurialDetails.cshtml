@@ -32,11 +32,12 @@
         <a href="@Url.Action("Textiles", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Textiles</a>
     </div>
 
-
     <hr />
     <dl class="row">
         <dt class="col-sm-3">Location</dt>
-        <dd class="col-sm-9">@Model.Location</dd>
+        <dd class="col-sm-6">@Model.Location</dd>
+        <dd class="col-sm-3"><a asp-controller="Home" asp-action="EditRecord">Edit</a></dd>
+
 
         <dt class="col-sm-3">ExcavationYear</dt>
         <dd class="col-sm-9">@Model.ExcavationYear</dd>
@@ -52,4 +53,28 @@
 
 
     <a href="@Url.Action("BurialTable", "Home")" class="btn btn-secondary">Back to List</a>
+
+    <form method="post" asp-action="EditRecord" asp-controller="Home">
+        <input type="hidden" />
+        <div class="form-group">
+            <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
+            <div class="col-sm-9">
+                <input asp-for="Location" class="form-control" />
+            </div>
+            <label asp-for="ExcavationYear" class="col-sm-3 col-form-label">Excavation Year</label>
+            <div class="col-sm-9">
+                <input asp-for="ExcavationYear" class="form-control" />
+            </div>
+            <label asp-for="BurialNumber" class="col-sm-3 col-form-label">BurialNumber</label>
+            <div class="col-sm-9">
+                <input asp-for="BurialNumber" class="form-control" />
+            </div>
+            <label asp-for="HeadDirection" class="col-sm-3 col-form-label">HeadDirection</label>
+            <div class="col-sm-9">
+                <input asp-for="HeadDirection" class="form-control" />
+            </div>
+        </div>
+        <!-- Add similar fields for other properties -->
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
 </div>

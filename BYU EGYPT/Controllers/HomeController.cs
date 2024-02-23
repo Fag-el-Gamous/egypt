@@ -77,6 +77,18 @@ public class HomeController : Controller
         return View(Bsample);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> EditRecord(Burial burial)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        egyptDbContext.Update(burial);
+        egyptDbContext.SaveChanges();
+
+        var updatedBurials = egyptDbContext.Burials.ToList();
+        
+        return View("BurialTable", updatedBurials);
+    }
+
     public IActionResult Index()
     {
         return View();
