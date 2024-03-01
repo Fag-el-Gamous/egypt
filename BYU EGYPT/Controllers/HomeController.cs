@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using BYU_EGYPT.Models;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
 namespace BYU_EGYPT.Controllers;
@@ -8,16 +8,86 @@ namespace BYU_EGYPT.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-    private readonly ByuEgyptDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger, ByuEgyptDbContext context)
+    public HomeController(ILogger<HomeController> logger)
     {
         _logger = logger;
-        _context = context;
     }
 
+    private List<C14> samples = new List<C14>
+    {
+            new C14 { Rack = 5, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 1 },
+            new C14 { Rack = 31, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 2 },
+             new C14 { Rack = 13, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2126, C14sampleNum2017 = 3 },
+            new C14 { Rack = 8, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 6 },
+             new C14 { Rack = 3, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 11 },
+            new C14 { Rack = 15, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 14 },
+             new C14 { Rack = 14, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 16 },
+            new C14 { Rack = 3, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 8 },
+             new C14 { Rack = 10, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 10 },
+            new C14 { Rack = 30, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 15 },
+             new C14 { Rack = 4, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 18 },
+             new C14 { Rack = 3, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 12 },
+            new C14 { Rack = 15, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 13 },
+             new C14 { Rack = 14, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 17 },
+            new C14 { Rack = 3, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 19 },
+             new C14 { Rack = 10, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 7 },
+            new C14 { Rack = 30, TubeNum = 2, LocationDescription = "Hill B excavation; west side of Hill B; possibly from tomb 1", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2835, C14sampleNum2017 = 9 },
+             new C14 { Rack = 4, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 20 },
+             new C14 { Rack = 4, TubeNum = 1, LocationDescription = "Hill B excavation; east side of Hill B; possibly from tomb 5", ResearchQuestions = "Hill B burials are likely Ptolemaic contrasted with the open burials which date to Roman. Are Hill B burials Ptolemaic?", AgeBp = 2175, C14sampleNum2017 = 21 },
+  
+        // Add more samples as needed
+    };
+
+    // GET: Sample/Details/5
+    public IActionResult Details(int sampleNum)
+    {
+        // Assumes samples is accessible here, you might need to retrieve it from the database instead
+        var sample = samples.FirstOrDefault(s => s.C14sampleNum2017 == sampleNum);
+
+        if (sample == null)
+        {
+            return NotFound();
+        }
+
+        return View(sample);
+    }
+
+    private List<Burial> Bsamples = new List<Burial>
+    {
+        new Burial { Location = "160 N 10 E SW", ExcavationYear = 1992, BurialNumber = "1",  HeadDirection = "U" },
 
 
+
+
+        // Add more samples as needed
+    };
+
+    // GET: Sample/Details/5
+    public IActionResult BurialDetails(string BurialNumberID)
+    {
+        // Assumes samples is accessible here, you might need to retrieve it from the database instead
+        var Bsample = Bsamples.FirstOrDefault(s => s.BurialNumber == BurialNumberID);
+
+        if (Bsample == null)
+        {
+            return NotFound();
+        }
+
+        return View(Bsample);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditRecord(Burial burial)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        egyptDbContext.Update(burial);
+        egyptDbContext.SaveChanges();
+
+        var updatedBurials = egyptDbContext.Burials.ToList();
+        
+        return View("BurialTable", updatedBurials);
+    }
 
     public IActionResult Index()
     {
@@ -41,181 +111,65 @@ public class HomeController : Controller
         return View();
     }
 
-
-
-
-
-    //private List<Burial> Bsamples = new List<Burial>
-    //{
-    //    new Burial { Location = "160 N 10 E SW", ExcavationYear = 1992, BurialNumber = "1",  HeadDirection = "U" },
-
-
-
-
-    //    // Add more samples as needed
-    //};
-
-    //// GET: Sample/Details/5
-    //public IActionResult BurialDetails(string BurialNumberID)
-    //{
-    //    // Assumes samples is accessible here, you might need to retrieve it from the database instead
-    //    var Bsample = Bsamples.FirstOrDefault(s => s.BurialNumber == BurialNumberID);
-
-    //    if (Bsample == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    return View(Bsample);
-    //}
-
-    public IActionResult C14Table()
-    {
-        var list = _context.C14s.ToList();
-        ViewData["C14List"] = list;
-        return View();
-    }
-
-    public IActionResult C14Details(int? c14sampleNum2017)
-
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var textileList = egyptDbContext.Textiles.ToList();
-        if (!c14sampleNum2017.HasValue)
-        {
-            return NotFound();
-        }
-
-        var c14sample = _context.C14s.FirstOrDefault(x => x.C14sampleNum2017 == c14sampleNum2017.Value);
-        if (c14sample == null)
-        {
-            return NotFound();
-        }
-
-        return View("C14Details", c14sample); // Assuming C14Details view exists
-
-    }
-
-    public IActionResult C14TableData()
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var c14List = egyptDbContext.C14s.ToList();
-        return View(c14List);
-    }
-
-
-
-
-
-
-
-
     public IActionResult BurialTable()
-    {
-        var list = _context.Burials.ToList();
-        ViewData["burialList"] = list;
-        return View();
-    }
-
-    public IActionResult BurialDetails(string BurialNumberID)
-
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var textileList = egyptDbContext.Textiles.ToList();
-      
-
-        var burialsample = _context.Burials.FirstOrDefault(x => x.BurialNumber == BurialNumberID);
-        if (burialsample == null)
-        {
-            return NotFound();
-        }
-
-        return View("BurialDetails", burialsample); // Assuming C14Details view exists
-
-    }
-
-
-    public IActionResult BurialTableData()
-    {
+    {         
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         var burialList = egyptDbContext.Burials.ToList();
         return View(burialList);
-    }
-
-
-    //[HttpPost]
-    //public async Task<IActionResult> EditRecord(Burial burial)
-    //{
-    //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-    //    egyptDbContext.Update(burial);
-    //    egyptDbContext.SaveChanges();
-
-    //    var updatedBurials = egyptDbContext.Burials.ToList();
-
-    //    return View("BurialTable", updatedBurials);
-    //}
-    [HttpPost]
-    public async Task<IActionResult> EditRecord(Burial burial)
-    {
-
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        egyptDbContext.Update(burial);
-        await egyptDbContext.SaveChangesAsync(); // Use async version of SaveChanges
-
-        return RedirectToAction("BurialTableData"); // Redirect to the BurialTableData action
-    }
-
-
-
-
-
-
-
-
-
-
-
+       }
 
     public IActionResult ArtifactTable()
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var artifactList = egyptDbContext.Artifacts.ToList();
-        return View();
-    }
-
-    public IActionResult ArtifactTableData()
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         var artifactList = egyptDbContext.Artifacts.ToList();
         return View(artifactList);
     }
 
-
-
-
-
-
-
-
-
     public IActionResult TextileTable()
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var textileList = egyptDbContext.Textiles.ToList();
-        return View();
-    }
-
-
-
-    public IActionResult TextileTableData()
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         var textileList = egyptDbContext.Textiles.ToList();
         return View(textileList);
     }
 
-  
+    public IActionResult C14Table()
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var c14List = egyptDbContext.C14s.ToList();
+        return View(c14List);
+    }
 
+    //This method loads partial views into the Data page based on the link the user clicks
+
+    //public IActionResult LoadTable(string tableName)
+    //{
+    //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+    //    // Depending on the value of partialName, load the corresponding partial view
+    //    if (tableName == "BurialTable")
+    //    {
+    //        var burialList = egyptDbContext.Burials.ToList();
+    //        ViewData["BurialList"] = burialList;
+    //        // Load and return the BurialTable partial view
+    //        return PartialView("~/Views/Shared/PartialViews/BurialTable.cshtml");
+    //    }
+    //    else if (tableName == "ArtifactTable")
+    //    {
+    //        // Load and return the ArtifactTable partial view
+    //        return PartialView("~/Views/Shared/PartialViews/ArtifactTable.cshtml");
+    //    }
+    //    else if (tableName == "C14Table")
+    //    {
+    //        var C14List = egyptDbContext.C14s.ToList();
+    //        ViewData["C14List"] = C14List;
+    //        // Load and return the ArtifactTable partial view
+    //        return PartialView("~/Views/Shared/PartialViews/C14Table.cshtml");
+    //    }
+    //    else
+    //    {
+    //        // Return an empty result or handle the case where the partial view name is invalid
+    //        return Content("Partial view not found.");
+    //    }
+    //}
 
     public IActionResult Login()
     {
@@ -224,7 +178,7 @@ public class HomeController : Controller
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
-
+      //return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         return View();
     }
 }
