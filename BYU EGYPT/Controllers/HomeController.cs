@@ -127,14 +127,26 @@ public class HomeController : Controller
     }
 
 
-    public IActionResult BurialTableData()
+    //public IActionResult BurialTableData()
+    //{
+    //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+    //    var burialList = egyptDbContext.Burials.ToList();
+    //    return View(burialList);
+    //}
+
+    public IActionResult BurialTableData(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var burialList = egyptDbContext.Burials.ToList();
-        return View(burialList);
+        int pageSize = 20;
+
+        var burials = egyptDbContext.Burials
+            .OrderBy(b => b.BurialNumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+        //.ToList();
+        //var burialList = egyptDbContext.Burials.ToList();
+        return View(burials);
     }
-
-
     //[HttpPost]
     //public async Task<IActionResult> EditRecord(Burial burial)
     //{
