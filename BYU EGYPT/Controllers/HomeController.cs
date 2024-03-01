@@ -16,9 +16,6 @@ public class HomeController : Controller
         _context = context;
     }
 
-
-
-
     public IActionResult Index()
     {
         return View();
@@ -40,11 +37,7 @@ public class HomeController : Controller
 
         return View();
     }
-
-
-
-
-
+    
     //private List<Burial> Bsamples = new List<Burial>
     //{
     //    new Burial { Location = "160 N 10 E SW", ExcavationYear = 1992, BurialNumber = "1",  HeadDirection = "U" },
@@ -93,7 +86,6 @@ public class HomeController : Controller
         }
 
         return View("C14Details", c14sample); // Assuming C14Details view exists
-
     }
 
     public IActionResult C14TableData()
@@ -103,18 +95,18 @@ public class HomeController : Controller
         return View(c14List);
     }
 
-
-
-
-
-
-
-
-    public IActionResult BurialTable()
+    public IActionResult BurialTable(int pageNum = 1)
     {
-        var list = _context.Burials.ToList();
-        ViewData["burialList"] = list;
-        return View();
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 20;
+
+        var burials = egyptDbContext.Burials
+            .OrderBy(b => b.BurialNumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+            //.ToList();
+    //var burialList = egyptDbContext.Burials.ToList();
+        return View(burials);
     }
 
     public IActionResult BurialDetails(string BurialNumberID)
