@@ -117,23 +117,44 @@
         <div class="row">
             <div class="col-md-2">
                 <div class="side-menu float-start">
-                    <a href="@Url.Action("BurialTable", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
-                        Burials <span>&gt;</span>
-                    </a>
+                    <div class="list-group-item fs-4 py-3">
+                        <a href="@Url.Action("BurialTableData", "Home")" class="list-group-item-action">
+                            Burials <span>&gt;</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="@Url.Action("C14Table", "Home")" class="list-group-item-action">C14</a>
+                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Burials(2)</a>
+                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Burials(3)</a>
+                        </div>
+                    </div>
 
-                    <a href="@Url.Action("ArtifactTable", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
-                        Artifacts <span>&gt;</span>
-                    </a>
 
-                    <a href="@Url.Action("TextileTable", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
-                        Textiles <span>&gt;</span>
-                    </a>
+                    <div class="list-group-item fs-4 py-3">
+                        <a href="@Url.Action("ArtifactTable", "Home")" class="list-group-item-action">
+                            Artifacts <span>&gt;</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Artifacts(1)</a>
+                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Artifacts(2)</a>
+                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Artifacts(3)</a>
+                        </div>
+                    </div>
 
-                    <a href="@Url.Action("C14Table", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
-                        C14 <span>&gt;</span>
-                    </a>
+                    <div class="list-group-item fs-4 py-3">
+                        <a href="@Url.Action("TextileTable", "Home")" class="list-group-item-action">
+                            Textiles <span>&gt;</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Textiles(1)</a>
+                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Textiles(2)</a>
+                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Textiles(3)</a>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
+        </div>
 
             <!-- Artifacts Modal -->
             <div class="modal fade" id="artifactsModal" tabindex="-1" aria-labelledby="artifactsModalLabel" aria-hidden="true">
@@ -330,7 +351,7 @@
                                 <td>Burial Number</td>
                                 <td>Title</td>
                                 <td>Description</td>
-                                <td>Material(wip)</td>
+                                <td>Material</td>
                                 <td>Condition</td>
                                 <td>Dimensions</td>
                                 <td>HasPhotos</td>

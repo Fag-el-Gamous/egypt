@@ -187,32 +187,17 @@ public class HomeController : Controller
         return View(artifactList);
     }
 
-
-
-
-
-
-
-
-
-    public IActionResult TextileTable()
+    public IActionResult TextileTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var textileList = egyptDbContext.Textiles.ToList();
-        return View();
+        int pageSize = 10;
+
+        var textiles = egyptDbContext.Textiles
+            .OrderBy(b => b.TextileId)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+        return View(textiles);
     }
-
-
-
-    public IActionResult TextileTableData()
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var textileList = egyptDbContext.Textiles.ToList();
-        return View(textileList);
-    }
-
-  
-
 
     public IActionResult Login()
     {

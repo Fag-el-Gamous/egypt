@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "";
-    @model List<BYU_EGYPT.Models.Textile>
+    //@model List<BYU_EGYPT.Models.Textile>
+    @model IQueryable<BYU_EGYPT.Models.Textile>
 
 }
 <h1>@ViewData["Title"]</h1>
@@ -318,21 +319,42 @@
                     <br />
                     <div class="container">
                         <h2>Textile Table</h2>
+                        <a asp-action="TextileTable" asp-route-pageNum="1">1</a>
+                        <a asp-action="TextileTable" asp-route-pageNum="2">2</a>
+                        <a asp-action="TextileTable" asp-route-pageNum="3">3</a>
+                        <a asp-action="TextileTable" asp-route-pageNum="4">4</a>
+                        <a asp-action="TextileTable" asp-route-pageNum="5">5</a>
 
-                        <table border="1" class="table table-bordered table-striped">
+                        <table id="textileTable" class="table table-bordered hoverable-table">
                             <thead>
                                 <tr>
-                                    <th style="font-weight: bold; background-color: #f2f2f2;">Column 1</th>
-                                    <th style="font-weight: bold; background-color: #f2f2f2;">Column 2</th>
-                                    <!-- Add more columns if needed -->
+                                    <td>Excavation Year</td>
+                                    <td>Location</td>
+                                    <td>Burial Number</td>
+                                    <td>Textile Reference Num</td>
+                                    <td>HasPhotos</td>
+                                    <td>Material</td>
+                                    <td>Description</td>
+                                    <td>Colors</td>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Data 1</td>
-                                    <td>Data 2</td>
-                                    <!-- Add more data rows if needed -->
-                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.ExcavationYear</td>
+                                        <td>@item.Location</td>
+                                        <td>@item.BurialNumber</td>
+                                        <td>@item.TextileReferenceNumber</td>
+                                        <td>In Progress</td>
+                                        <td>In Progress</td>
+                                        <td>@item.Description</td>
+                                        <td>In Progress</td>
+
+                                        <td><a asp-controller="Home" asp-action="TextileDetails" asp-route-BurialNumberID="@item.TextileId">View</a></td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     </div>
