@@ -24,6 +24,25 @@
                 border-color: #0056b3; /* Slightly darker border color on hover */
                 text-decoration: none; /* Remove underline from links */
             }
+
+        .pdf-placeholder-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px; /* Adjust the space between items */
+        }
+
+        .pdf-placeholder {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 150px; /* Set a fixed width for each placeholder */
+            text-align: center;
+        }
+
+            .pdf-placeholder img {
+                width: 100%;
+                height: auto;
+            }
     </style>
 
     <div class="btn-group mt-4" role="group" aria-label="Related Information">
@@ -51,6 +70,44 @@
 
 
     </dl>
+    <br />
+    <br />
+    <div class="pdf-placeholder">
+        <embed id="pdfEmbed" type="application/pdf" width="900%" height="600px" src="path-to-your-placeholder.pdf">
+    </div>
+
+
+
+    <div class="pdf-placeholder-container">
+        <!-- Placeholder 1 -->
+        <div class="pdf-placeholder">
+            <a href="path-to-your-first-pdf.pdf" target="_blank">
+                <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+            </a>
+        </div>
+
+        <!-- Placeholder 2 -->
+        <div class="pdf-placeholder">
+            <a href="path-to-your-second-pdf.pdf" target="_blank">
+                <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+            </a>
+        </div>
+
+        <!-- Placeholder 3 -->
+        <div class="pdf-placeholder">
+            <a href="path-to-your-third-pdf.pdf" target="_blank">
+                <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+            </a>
+        </div>
+
+        <!-- Add more placeholders as needed -->
+    </div>
+
+
+
+
+
+
 
 
 
@@ -83,3 +140,62 @@
         <a href="@Url.Action("BurialTableData", "Home")" class="btn btn-secondary">Back to List</a>
     </form>
 </div>
+
+<br />
+<br />
+<br />
+<div class="container mt-3">
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseBodyAnalysis">
+                    Body Analysis
+                </a>
+            </div>
+            <div id="collapseBodyAnalysis" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    <!-- Placeholder for Body Analysis picture -->
+                    <img src="path_to_your_placeholder_image" alt="Body Analysis Placeholder" />
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseCrania">
+                    Crania
+                </a>
+            </div>
+            <div id="collapseCrania" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    <!-- Placeholder for Crania picture -->
+                    <img src="path_to_your_placeholder_image" alt="Crania Placeholder" />
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseFieldbooks">
+                    Fieldbooks
+                </a>
+            </div>
+            <div id="collapseFieldbooks" class="collapse" data-parent="#accordion">
+                <div class="card-body">
+                    <!-- Embed the PDF into the Fieldbooks placeholder -->
+                    <embed src="~/img/1992A.pdf" type="application/pdf" width="100%" height="600px">
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>
+
+@section Scripts {
+    <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- Then load Bootstrap's JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+}
