@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "";
-    @model List<BYU_EGYPT.Models.Burial>
+    //@model List<BYU_EGYPT.Models.Burial>
+    @model IQueryable<BYU_EGYPT.Models.Burial>
+
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -128,7 +130,9 @@
         <br />
         <div class="container">
             <h2>Burial Table</h2>
-
+                <a asp-action="BurialTable" asp-route-pageNum="1">1</a>
+                <a asp-action="BurialTable" asp-route-pageNum="2">2</a>
+                <a asp-action="BurialTable" asp-route-pageNum="3">3</a>
             <table id="burialTable" class="table table-bordered hoverable-table">
                 <thead>
                     <tr>
