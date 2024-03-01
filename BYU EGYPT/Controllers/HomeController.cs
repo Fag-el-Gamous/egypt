@@ -111,11 +111,18 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult BurialTable()
-    {         
+    public IActionResult BurialTable(int pageNum = 1)
+    {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var burialList = egyptDbContext.Burials.ToList();
-        return View(burialList);
+        int pageSize = 20;
+
+        var burials = egyptDbContext.Burials
+            .OrderBy(b => b.BurialNumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+            //.ToList();
+        //var burialList = egyptDbContext.Burials.ToList();
+        return View(burials);
        }
 
     public IActionResult ArtifactTable()
@@ -138,38 +145,6 @@ public class HomeController : Controller
         var c14List = egyptDbContext.C14s.ToList();
         return View(c14List);
     }
-
-    //This method loads partial views into the Data page based on the link the user clicks
-
-    //public IActionResult LoadTable(string tableName)
-    //{
-    //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-    //    // Depending on the value of partialName, load the corresponding partial view
-    //    if (tableName == "BurialTable")
-    //    {
-    //        var burialList = egyptDbContext.Burials.ToList();
-    //        ViewData["BurialList"] = burialList;
-    //        // Load and return the BurialTable partial view
-    //        return PartialView("~/Views/Shared/PartialViews/BurialTable.cshtml");
-    //    }
-    //    else if (tableName == "ArtifactTable")
-    //    {
-    //        // Load and return the ArtifactTable partial view
-    //        return PartialView("~/Views/Shared/PartialViews/ArtifactTable.cshtml");
-    //    }
-    //    else if (tableName == "C14Table")
-    //    {
-    //        var C14List = egyptDbContext.C14s.ToList();
-    //        ViewData["C14List"] = C14List;
-    //        // Load and return the ArtifactTable partial view
-    //        return PartialView("~/Views/Shared/PartialViews/C14Table.cshtml");
-    //    }
-    //    else
-    //    {
-    //        // Return an empty result or handle the case where the partial view name is invalid
-    //        return Content("Partial view not found.");
-    //    }
-    //}
 
     public IActionResult Login()
     {
