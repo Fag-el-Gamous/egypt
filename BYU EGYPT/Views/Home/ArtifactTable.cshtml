@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "";
-    @model List<BYU_EGYPT.Models.Artifact>
+    //@model List<BYU_EGYPT.Models.Artifact>
+    @model IQueryable<BYU_EGYPT.Models.Artifact>
 
 }
 <h1>@ViewData["Title"]</h1>
@@ -313,31 +314,50 @@
             </div>
 
             <!-- Original Content -->
-            <div class="col-md-10 ">
-                <div class="text-center">
-                    <br />
-                    <div class="container">
-                        <h2>Artifact Table</h2>
-
-                        <table border="1" class="table table-bordered table-striped">
-                            <thead>
+            <div class="text-center">
+                <br />
+                <div class="container">
+                    <h2>Artifact Table</h2>
+                    <a asp-action="ArtifactTable" asp-route-pageNum="1">1</a>
+                    <a asp-action="ArtifactTable" asp-route-pageNum="2">2</a>
+                    <a asp-action="ArtifactTable" asp-route-pageNum="3">3</a>
+                    <table id="artifactTable" class="table table-bordered hoverable-table">
+                        <thead>
+                            <tr>
+                                <td>Excavation Year</td>
+                                <td>ArtifactID</td>
+                                <td>Location</td>
+                                <td>Burial Number</td>
+                                <td>Title</td>
+                                <td>Description</td>
+                                <td>Material(wip)</td>
+                                <td>Condition</td>
+                                <td>Dimensions</td>
+                                <td>HasPhotos</td>
+                                <td>Notes</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
                                 <tr>
-                                    <th style="font-weight: bold; background-color: #f2f2f2;">Column 1</th>
-                                    <th style="font-weight: bold; background-color: #f2f2f2;">Column 2</th>
-                                    <!-- Add more columns if needed -->
+                                    <td>@item.ExcavationYear</td>
+                                    <td>@item.ArtifactId</td>
+                                    <td>@item.Location</td>
+                                    <td>@item.BurialNumber</td>
+                                    <td>@item.Title</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.Material</td>
+                                    <td>@item.Condition</td>
+                                    <td>@item.Dimensions</td>
+                                    <td>@item.HasPhotos</td>
+                                    <td>@item.Notes</td>
+                                    <td><a asp-controller="Home" asp-action="ArtifactDetails" asp-route-BurialNumberID="@item.ArtifactId">View</a></td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Data 1</td>
-                                    <td>Data 2</td>
-                                    <!-- Add more data rows if needed -->
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            }
+                        </tbody>
+                    </table>
                 </div>
-            </div>
         </div>
     </div>
                 <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>

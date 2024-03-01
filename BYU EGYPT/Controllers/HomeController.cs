@@ -126,7 +126,6 @@ public class HomeController : Controller
 
     }
 
-
     //public IActionResult BurialTableData()
     //{
     //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
@@ -137,7 +136,7 @@ public class HomeController : Controller
     public IActionResult BurialTableData(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 20;
+        int pageSize = 10;
 
         var burials = egyptDbContext.Burials
             .OrderBy(b => b.BurialNumber)
@@ -169,22 +168,16 @@ public class HomeController : Controller
         return RedirectToAction("BurialTableData"); // Redirect to the BurialTableData action
     }
 
-
-
-
-
-
-
-
-
-
-
-
-    public IActionResult ArtifactTable()
+    public IActionResult ArtifactTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var artifactList = egyptDbContext.Artifacts.ToList();
-        return View();
+        int pageSize = 10;
+
+        var artifacts = egyptDbContext.Artifacts
+            .OrderBy(b => b.ArtifactId)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+        return View(artifacts);
     }
 
     public IActionResult ArtifactTableData()
