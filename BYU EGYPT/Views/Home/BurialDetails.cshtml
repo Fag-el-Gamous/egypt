@@ -38,7 +38,6 @@
         <dd class="col-sm-6">@Model.Location</dd>
         <dd class="col-sm-3"><a asp-controller="Home" asp-action="EditRecord">Edit</a></dd>
 
-
         <dt class="col-sm-3">ExcavationYear</dt>
         <dd class="col-sm-9">@Model.ExcavationYear</dd>
 
@@ -48,11 +47,12 @@
         <dt class="col-sm-3">HeadDirection</dt>
         <dd class="col-sm-9">@Model.HeadDirection</dd>
 
+
+
+
     </dl>
 
 
-
-    <a href="@Url.Action("BurialTable", "Home")" class="btn btn-secondary">Back to List</a>
 
     <form method="post" asp-action="EditRecord" asp-controller="Home">
         <input type="hidden" />
@@ -75,6 +75,11 @@
             </div>
         </div>
         <!-- Add similar fields for other properties -->
+        <br />
+        <br />
+
+
         <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="@Url.Action("BurialTableData", "Home")" class="btn btn-secondary">Back to List</a>
     </form>
 </div>
