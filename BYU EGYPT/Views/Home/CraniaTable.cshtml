@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "";
-    //@model IQueryable<BYU_EGYPT.Models.>
+    @model IQueryable<BYU_EGYPT.Models.Cranium>
 
 }
 <h1>@ViewData["Title"]</h1>
@@ -140,37 +140,50 @@
     <div class="text-center">
         <br />
         <div class="container">
-            <h2>Osteology Table</h2>
-            <a asp-action="OsteologyTable" asp-route-pageNum="1">1</a>
-            <a asp-action="OsteologyTable" asp-route-pageNum="2">2</a>
-            <table id="osteologyTable" class="table table-bordered hoverable-table">
+            <h2>Crania Table</h2>
+            <a asp-action="CraniaTable" asp-route-pageNum="1">1</a>
+            <a asp-action="CraniaTable" asp-route-pageNum="2">2</a>
+            <table id="craniaTable" class="table table-bordered hoverable-table">
                 <thead>
                     <tr>
                         <td>Excavation Year</td>
                         <td>Location</td>
-                        <td>Burial Number</td>
-                        <td>Supraorbital Ridges Crania</td>
-                        <td>Orbit Edge Crania</td>
-                        <td>Nuchal Creset Crania</td>
-                        <td>Lamboid Suture Crania</td>
-                        <td>Tooth Eruption Description</td>
-                        <td>Tooth Eruption Age Estimate</td>
-                        <td>Subpubic Angle Pelvis</td>
-                        <td>Sciatic Notch Pelvis</td>
+                        <td>Max Crania Length</td>
+                        <td>Max Crania Breadth</td>
+                        <td>Basion Bregma Height</td>
+                        <td>Basion Nasion Length</td>
+                        <td>Basion Prosthion Length</td>
+                        <td>Bizygomatic Diameter</td>
+                        <td>Nasion Prosthion Height</td>
+                        <td>Max Nasal Breadth</td>
+                        <td>Interorbital Breadth</td>
+                        <td>Calculated Sex</td>
                         <td>Femur Head Diameter</td>
                         <td>Femur Length</td>
                     </tr>
                 </thead>
-@*                 <tbody>
+                <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>Placeholder</td>
-                            <td>@item.Contents</td>
-                            <td><a asp-controller="Home" asp-action="OsteologyDetails" asp-route-BurialNumberID="@item.Location">View</a></td>
+                            <td>@item.ExcavationYear</td>
+                            <td>@item.Location</td>
+                            <td>@item.MaxCraniaLength</td>
+                            <td>@item.MaxCraniaBreadth</td>
+                            <td>@item.BasionBregmaHeight</td>
+                            <td>@item.BasionNasionLength</td>
+                            <td>@item.BasionProsthionLength</td>
+                            <td>@item.BizygomaticDiameter</td>
+                            <td>@item.NasionProsthionHeight</td>
+                            <td>@item.MaxNasalBreadth</td>
+                            <td>@item.InterorbitalBreadth</td>
+                            <td>@item.CalculatedSex</td>
+                            <td>In Progress</td>
+                            <td>In Progress</td>
+                            <td><a asp-controller="Home" asp-action="OsteologyDetails" asp-route-BurialNumberID="@item.CraniaId">View</a></td>
                         </tr>
                     }
-                </tbody> *@
+                </tbody>
             </table>
         </div>
     </div>

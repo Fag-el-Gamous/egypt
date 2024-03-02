@@ -88,6 +88,19 @@ public class HomeController : Controller
         return View("osteologylist");
     }
 
+    public IActionResult CraniaTable(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 10;
+
+        var cranialist = egyptDbContext.Crania
+        .OrderBy(b => b.CraniaId)
+        .Skip((pageNum - 1) * pageSize)
+        .Take(pageSize);
+
+        return View(cranialist);
+    }
+
     public IActionResult C14Details(int? c14sampleNum2017)
 
     {
