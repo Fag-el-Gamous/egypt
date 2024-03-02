@@ -118,23 +118,37 @@
 <body>
     <!-- Side Menu -->
     <div class="side-menu float-start">
+
         <div class="list-group-item fs-4 py-3">
             <a href="@Url.Action("BurialTableData", "Home")" class="list-group-item-action">
                 Burials <span>&gt;</span>
             </a>
             <div class="dropdown-content">
-                <a href="@Url.Action("C14TableData", "Home")" class="list-group-item-action">C14</a>
+                <a href="@Url.Action("C14Table", "Home")" class="list-group-item-action">C14</a>
+                <a href="@Url.Action("OsteologyTable", "Home")" class="list-group-item-action">Osteology</a>
+                <a href="@Url.Action("CraniaTable", "Home")" class="list-group-item-action">Crania</a>
             </div>
         </div>
 
-        <a href="@Url.Action("ArtifactTableData", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
-            Artifacts <span>&gt;</span>
-        </a>
+        <div class="list-group-item fs-4 py-3">
+            <a href="@Url.Action("ArtifactTable", "Home")" class="list-group-item-action">
+                Artifacts <span>&gt;</span>
+            </a>
+            <div class="dropdown-content">
+                <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Artifacts(1)</a>
+                <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Artifacts(2)</a>
+            </div>
+        </div>
 
-        <a href="@Url.Action("TextileTableData", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
-            Textiles <span>&gt;</span>
-        </a>
-
+        <div class="list-group-item fs-4 py-3">
+            <a href="@Url.Action("TextileTable", "Home")" class="list-group-item-action">
+                Textiles <span>&gt;</span>
+            </a>
+            <div class="dropdown-content">
+                <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Textiles(1)</a>
+                <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Textiles(2)</a>
+            </div>
+        </div>
 
     </div>
 
