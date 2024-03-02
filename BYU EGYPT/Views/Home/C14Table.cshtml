@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "";
-    @model List<BYU_EGYPT.Models.C14>
-
+    //@model List<BYU_EGYPT.Models.C14>
+    @model IQueryable<BYU_EGYPT.Models.C14>
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -304,28 +304,33 @@
         <br />
         <div class="container">
             <h2>C14 Table</h2>
+            <a asp-action="C14Table" asp-route-pageNum="1">1</a>
+            <a asp-action="C14Table" asp-route-pageNum="2">2</a>
             <table id="c14Table" class="table table-bordered hoverable-table">
                 <thead>
                     <tr>
-                        <td>Rack</td>
-                        <td>Tube Num</td>
-                        <td>LocationDesc</td>
-                        <td>Questions</td>
-                        <td>Age Bp</td>
-                        <td>Sample Num</td>
+                        <td>Contents</td>
+                        <td>Location Description</td>
+                        <td>AgeBP</td>
+                        <td>Calendar Date</td>
+                        <td>Calendar Date Min95%</td>
+                        <td>Calendar Date Max95%</td>
+                        <td>Research Questions</td>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr onclick="window.location.href='@Url.Action("Details", "Home", new { sampleNum = item.C14sampleNum2017 })';" style="cursor:pointer">
-                            <td>@item.Rack</td>
-                            <td>@item.TubeNum</td>
-                            <td>@item.LocationDescription</td>
-                            <td>@item.ResearchQuestions</td>
-                            <td>@item.AgeBp</td>
-                            <td>@item.C14sampleNum2017</td>
-                        </tr>
+                    <tr>
+                        <td>@item.Contents</td>
+                        <td>@item.LocationDescription</td>
+                        <td>@item.AgeBp</td>
+                        <td>@item.CalendarDate</td>
+                        <td>@item.CalendarDateMin95</td>
+                        <td>@item.CalendarDateMax95</td>
+                        <td>@item.ResearchQuestions</td>
+                        <td><a asp-controller="Home" asp-action="C14Details" asp-route-BurialNumberID="@item.C14id">View</a></td>
+                    </tr>
                     }
                 </tbody>
             </table>

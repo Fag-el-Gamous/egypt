@@ -62,11 +62,30 @@ public class HomeController : Controller
     //    return View(Bsample);
     //}
 
-    public IActionResult C14Table()
+    public IActionResult C14Table(int pageNum = 1)
     {
-        var list = _context.C14s.ToList();
-        ViewData["C14List"] = list;
-        return View();
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 10;
+
+        var c14list = egyptDbContext.C14s
+            .OrderBy(b => b.C14id)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+
+        return View(c14list);
+    }
+
+    public IActionResult OsteologyTable(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 10;
+
+        //var osteologylist = egyptDbContext.Osteology
+            //.OrderBy(b => b.C14id)
+            //.Skip((pageNum - 1) * pageSize)
+            //.Take(pageSize);
+
+        return View("osteologylist");
     }
 
     public IActionResult C14Details(int? c14sampleNum2017)
@@ -126,13 +145,6 @@ public class HomeController : Controller
 
     }
 
-    //public IActionResult BurialTableData()
-    //{
-    //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-    //    var burialList = egyptDbContext.Burials.ToList();
-    //    return View(burialList);
-    //}
-
     public IActionResult BurialTableData(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
@@ -146,17 +158,7 @@ public class HomeController : Controller
         //var burialList = egyptDbContext.Burials.ToList();
         return View(burials);
     }
-    //[HttpPost]
-    //public async Task<IActionResult> EditRecord(Burial burial)
-    //{
-    //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-    //    egyptDbContext.Update(burial);
-    //    egyptDbContext.SaveChanges();
 
-    //    var updatedBurials = egyptDbContext.Burials.ToList();
-
-    //    return View("BurialTable", updatedBurials);
-    //}
     [HttpPost]
     public async Task<IActionResult> EditRecord(Burial burial)
     {
@@ -210,4 +212,3 @@ public class HomeController : Controller
         return View();
     }
 }
-
