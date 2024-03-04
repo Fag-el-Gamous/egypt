@@ -1,0 +1,6 @@
+CREATE TABLE [dbo].[PDF] (
+    [BoxID]    BIGINT        NOT NULL,
+    [FileName] VARCHAR (500) NULL,
+    CONSTRAINT [PK_PDF] PRIMARY KEY CLUSTERED ([BoxID] ASC)
+);
+
