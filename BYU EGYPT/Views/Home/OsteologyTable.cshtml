@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "";
-    //@model IQueryable<BYU_EGYPT.Models.>
-
+    @model IQueryable<BYU_EGYPT.Models.Burial>
 }
 <h1>@ViewData["Title"]</h1>
 
@@ -161,16 +160,27 @@
                         <td>Femur Length</td>
                     </tr>
                 </thead>
-@*                 <tbody>
+                <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>Placeholder</td>
-                            <td>@item.Contents</td>
+                            <td>@item.ExcavationYear</td>
+                            <td>@item.Location</td>
+                            <td>@item.BurialNumber</td>
+                            <td>@item.SupraorbitalRidgesCrania</td>
+                            <td>@item.OrbitEdgeCrania</td>
+                            <td>@item.NuchalCrestCrania</td>
+                            <td>@item.LamboidSutureCrania</td>
+                            <td>@item.ToothEruptionDescription</td>
+                            <td>@item.ToothEruptionAgeEstimate</td>
+                            <td>@item.SubpubicAnglePelvis</td>
+                            <td>@item.SciaticNotchPelvis</td>
+                            <td>@item.FemurHeadDiameter</td>
+                            <td>@item.FemurLength</td>
                             <td><a asp-controller="Home" asp-action="OsteologyDetails" asp-route-BurialNumberID="@item.Location">View</a></td>
                         </tr>
                     }
-                </tbody> *@
+                </tbody>
             </table>
         </div>
     </div>

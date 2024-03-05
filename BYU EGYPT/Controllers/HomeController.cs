@@ -80,12 +80,12 @@ public class HomeController : Controller
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         int pageSize = 10;
 
-        //var osteologylist = egyptDbContext.Osteology
-            //.OrderBy(b => b.C14id)
-            //.Skip((pageNum - 1) * pageSize)
-            //.Take(pageSize);
+        var osteologylist = egyptDbContext.Burials
+            .OrderBy(b => b.BurialNumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
 
-        return View("osteologylist");
+        return View(osteologylist);
     }
 
     public IActionResult CraniaTable(int pageNum = 1)
