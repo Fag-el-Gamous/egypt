@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "";
-    @*@model List<BYU_EGYPT.Models.Burial>*@
     @model IQueryable<BYU_EGYPT.Models.Burial>
 
 }
@@ -57,8 +56,6 @@
             padding: 20px;
         }
 
-
-
         .dropdown {
             position: relative;
             display: inline-block;
@@ -83,8 +80,6 @@
         .dropdown-content:hover {
             background-color: #BDD6E6;
         }
-
-
 
         .pagination {
             display: inline-block;
@@ -126,13 +121,13 @@
     </style>
 
 </head>
-<body>
-    <!-- Side Menu -->
 
+<body>
+
+    <!-- Side Menu -->
     <div class="side-menu">
         <hr />
         <div class="menu-item">
-
             <div class="dropdown" id="dropdownContainer">
                 <a href="#" onclick="toggleDropdown(); return false;" style="color: black; text-decoration: none;">
                     Burials <i class="arrow down"></i>
@@ -169,7 +164,7 @@
 
 
 
-    <!-- Original Content and Search Bar -->
+    <!-- Table -->
     <div class="content">
         <div class="text-center">
             <br />
@@ -221,6 +216,7 @@
                 </div>
 
             </div>
+        </div>
     </div>
 
 

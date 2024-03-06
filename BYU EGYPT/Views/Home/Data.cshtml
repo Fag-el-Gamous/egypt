@@ -8,139 +8,173 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Page Title</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FagElGamous.styles.css" asp-append-version="true" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-    <!-- Additional styles here -->
     <style>
-        .search-container {
-            text-align: center;
-            margin: auto; /* Center the search bar */
+
+        .hoverable-table tbody tr:hover {
+            background-color: #daecf7;
         }
 
-            .search-container input[type="text"] {
-                padding: 8px; /* Reduced padding to make it shorter */
-                font-size: 16px; /* Slightly smaller font size */
-                border: 1px solid #ccc; /* Adds a slight border */
-                width: 50%; /* Adjust based on preference */
-                background: #f1f1f1; /* Light grey background */
-            }
+        tr:nth-child(even) {
+            background-color: #BDD6E6;
+        }
 
-            .search-container button {
-                width: 10%; /* Matches the input field width */
-                padding: 8px; /* Reduced padding to make it shorter */
-                background: gray; /* Changed from navy to gray */
-                color: white;
-                font-size: 16px; /* Slightly smaller font size */
-                border: none;
-                cursor: pointer;
-            }
+        .container {
+            padding: 0;
+        }
 
-                .search-container button:hover {
-                    background: darkgray; /* Slightly darker gray on hover */
-                }
-
-            /* Clear floats */
-            .search-container::after {
-                content: "";
-                clear: both;
-                display: table;
-            }
-
-        /* Side Menu Styles */
         .side-menu {
-            width: 250px; /* Adjust the width as needed */
-            border-right: 1px solid #ccc;
-        }
-
-        .side-menu-header {
-            padding: 16px;
+            position: absolute;
+            left: 50px;
+            top: 200px;
+            height: 200px;
+            width: 250px;
+            color: #000000;
+            padding-top: 20px;
+            padding-left: 10px;
             font-size: 24px;
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #ccc;
+            font-weight: 400;
         }
 
-        .side-menu .list-group-item {
-            border: none;
-            border-bottom: 1px solid #ccc;
+        .menu-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-            .side-menu .list-group-item:last-child {
-                border-bottom: none;
+            .menu-item:hover {
+                background-color: #BDD6E6;
             }
 
-        .side-menu .list-group-item-action {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .content {
+            margin-left: 275px;
             padding: 20px;
         }
 
-            .side-menu .list-group-item-action:hover {
-                background-color: #e9ecef;
-            }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
         .dropdown-content {
             display: none;
-            margin-left: 20px; /* Indent the dropdown content for visual hierarchy */
-        }
-       
-
-        .dropdown-content a {
-            padding: 10px 15px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9em; /* Adjust the font size as needed */
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
         }
 
-            .dropdown-content a:hover {
-                background-color: #f1f1f1;
+            .dropdown-content a {
+                display: block;
+                padding: 8px 16px;
+                color: black;
+                text-decoration: none;
             }
+
+            .dropdown-content:hover {
+                background-color: #BDD6E6;
+            }
+
+        .pagination {
+            display: inline-block;
+        }
+
+            .pagination a {
+                color: black;
+                float: left;
+                padding: 8px 16px;
+                text-decoration: none;
+            }
+
+                .pagination a.active {
+                    background-color: #4CAF50;
+                    color: white;
+                    border-radius: 5px;
+                }
+
+                .pagination a:hover:not(.active) {
+                    background-color: #0072CE;
+                    border-radius: 5px;
+                    color: white;
+                }
+
+
+        .arrow {
+            border: solid black;
+            border-width: 0 3px 3px 0;
+            display: inline-block;
+            padding: 3px;
+            margin-left: 125px;
+        }
+
+        .down {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+        }
     </style>
 
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2">
-                <div class="side-menu float-start">
 
-                    <div class="list-group-item fs-4 py-3">
-                        <a href="@Url.Action("BurialTableData", "Home")" class="list-group-item-action">
-                            Burials <span>&gt;</span>
-                        </a>
-                        <div class="dropdown-content">
-                            <a href="@Url.Action("C14Table", "Home")" class="list-group-item-action">C14</a>
-                            <a href="@Url.Action("OsteologyTable", "Home")" class="list-group-item-action">Osteology</a>
-                            <a href="@Url.Action("CraniaTable", "Home")" class="list-group-item-action">Crania</a>
-                        </div>
-                    </div>
+    <!-- Side Menu -->
+    <div class="side-menu">
+        <hr />
+        <div class="menu-item">
+            <div class="dropdown" id="dropdownContainer">
+                <a href="#" onclick="toggleDropdown(); return false;" style="color: black; text-decoration: none;">
+                    Burials <i class="arrow down"></i>
+                </a>
 
-
-                    <div class="list-group-item fs-4 py-3">
-                        <a href="@Url.Action("ArtifactTable", "Home")" class="list-group-item-action">
-                            Artifacts <span>&gt;</span>
-                        </a>
-
-                    </div>
-
-                    <div class="list-group-item fs-4 py-3">
-                        <a href="@Url.Action("TextileTable", "Home")" class="list-group-item-action">
-                            Textiles <span>&gt;</span>
-                        </a>
-
-                    </div>
-
+                <div id="dropdownContent" class="dropdown-content">
+                    <a href="#" onclick="window.location.href='@Url.Action("C14Table", "Home")'; return false;" style="color: black; text-decoration: none;">
+                        C14
+                    </a>
+                    <a href="#" onclick="window.location.href='@Url.Action("OsteologyTable", "Home")'; return false;" style="color: black; text-decoration: none;">
+                        Osteology
+                    </a>
+                    <a href="#" onclick="window.location.href='@Url.Action("CraniaTable", "Home")'; return false;" style="color: black; text-decoration: none;">
+                        Crania
+                    </a>
                 </div>
-            </div>
 
-            
+            </div>
+        </div>
+
+        <div class="menu-item">
+            <a href="#" onclick="window.location.href='@Url.Action("ArtifactTable", "Home")'; return false;" style="color: black; text-decoration: none;">
+                Artifacts
+            </a>
+        </div>
+
+        <div class="menu-item">
+            <a href="#" onclick="window.location.href='@Url.Action("TextileTable", "Home")'; return false;" style="color: black; text-decoration: none;">
+                Textiles
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Content -->
+
+    <div class="content">
+        <div class="text-center">
+            <br />
+            <div class="container">
+
+
+                <h1>
+                    This is our data homepage. Click on the sidebar to see more.
+                </h1>
+                <br />
             </div>
         </div>
     </div>
+
 
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
@@ -154,21 +188,19 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-    @*<a href="@Url.Action("C14TableData", "Home")" class="list-group-item list-group-item-action fs-4 py-3">
-            C14 <span>&gt;</span>
-        </a>*@
 
+    <script>function toggleDropdown() {
+            var dropdownContent = document.getElementById('dropdownContent');
+            var dropdownContainer = document.getElementById('dropdownContainer');
 
-    @*<script>$(document).ready(function () {
-            $('.list-group-item').hover(
-                function () {
-                    $(this).find('.dropdown-content').slideDown(200); // Show dropdown on hover
-                },
-                function () {
-                    $(this).find('.dropdown-content').slideUp(200); // Hide dropdown when mouse leaves
-                }
-            );
-        });</script>*@
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+                dropdownContainer.style.height = 'auto'; // Reset the height to auto when the dropdown is closed
+            } else {
+                dropdownContent.style.display = 'block';
+                dropdownContainer.style.height = dropdownContent.offsetHeight + 'px'; // Set the height to match the dropdown content
+            }
+        }</script>
 
 
 </body>
