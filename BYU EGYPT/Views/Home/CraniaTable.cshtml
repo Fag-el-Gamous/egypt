@@ -98,113 +98,128 @@
         .hoverable-table tbody tr:hover {
             background-color: #f5f5f5; /* Or any color you prefer */
         }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            padding: 0;
+        }
+
     </style>
 
 </head>
 <body>
-    <div class="side-menu float-start">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="side-menu float-start">
 
-        <div class="list-group-item fs-4 py-3">
-            <a href="@Url.Action("BurialTableData", "Home")" class="list-group-item-action">
-                Burials <span>&gt;</span>
-            </a>
-            <div class="dropdown-content">
-                <a href="@Url.Action("C14Table", "Home")" class="list-group-item-action">C14</a>
-                <a href="@Url.Action("OsteologyTable", "Home")" class="list-group-item-action">Osteology</a>
-                <a href="@Url.Action("CraniaTable", "Home")" class="list-group-item-action">Crania</a>
+                    <div class="list-group-item fs-4 py-3">
+                        <a href="@Url.Action("BurialTableData", "Home")" class="list-group-item-action">
+                            Burials <span>&gt;</span>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="@Url.Action("C14Table", "Home")" class="list-group-item-action">C14</a>
+                            <a href="@Url.Action("OsteologyTable", "Home")" class="list-group-item-action">Osteology</a>
+                            <a href="@Url.Action("CraniaTable", "Home")" class="list-group-item-action">Crania</a>
+                        </div>
+                    </div>
+
+
+                    <div class="list-group-item fs-4 py-3">
+                        <a href="@Url.Action("ArtifactTable", "Home")" class="list-group-item-action">
+                            Artifacts <span>&gt;</span>
+                        </a>
+                       
+                    </div>
+
+                    <div class="list-group-item fs-4 py-3">
+                        <a href="@Url.Action("TextileTable", "Home")" class="list-group-item-action">
+                            Textiles <span>&gt;</span>
+                        </a>
+                       
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-10 ">
+                <div class="text-center">
+                    <br />
+                    <div class="container">
+                        <h2>Crania Table</h2>
+
+                        <table id="craniaTable" class="table table-bordered hoverable-table">
+                            <thead>
+                                <tr>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Max Crania Length</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Max Crania Breadth</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Basion Bregma Height</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Basion Nasion Length</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Basion Prosthion Length</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Bizygomatic Diameter</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Nasion Prosthion Height</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Max Nasal Breadth</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Interorbital Breadth</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Calculated Sex</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr onclick="window.location.href='@Url.Action("CraniaDetails", "Home", new { BurialNumberID = item.CraniaId })';" style="cursor:pointer">
+                                        <td>@item.ExcavationYear</td>
+                                        <td>@item.Location</td>
+                                        <td>@item.MaxCraniaLength</td>
+                                        <td>@item.MaxCraniaBreadth</td>
+                                        <td>@item.BasionBregmaHeight</td>
+                                        <td>@item.BasionNasionLength</td>
+                                        <td>@item.BasionProsthionLength</td>
+                                        <td>@item.BizygomaticDiameter</td>
+                                        <td>@item.NasionProsthionHeight</td>
+                                        <td>@item.MaxNasalBreadth</td>
+                                        <td>@item.InterorbitalBreadth</td>
+                                        <td>@item.CalculatedSex</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                        <a asp-action="CraniaTable" asp-route-pageNum="1">1</a>
+                        <a asp-action="CraniaTable" asp-route-pageNum="2">2</a>
+
+                    </div>
+                </div>
             </div>
         </div>
-
-
-        <div class="list-group-item fs-4 py-3">
-            <a href="@Url.Action("ArtifactTable", "Home")" class="list-group-item-action">
-                Artifacts <span>&gt;</span>
-            </a>
-            <div class="dropdown-content">
-                <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Artifacts(1)</a>
-                <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Artifacts(2)</a>
-            </div>
-        </div>
-
-        <div class="list-group-item fs-4 py-3">
-            <a href="@Url.Action("TextileTable", "Home")" class="list-group-item-action">
-                Textiles <span>&gt;</span>
-            </a>
-            <div class="dropdown-content">
-                <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Textiles(1)</a>
-                <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Textiles(2)</a>
-            </div>
-        </div>
-
     </div>
-    <div class="text-center">
-        <br />
-        <div class="container">
-            <h2>Crania Table</h2>
-            <a asp-action="CraniaTable" asp-route-pageNum="1">1</a>
-            <a asp-action="CraniaTable" asp-route-pageNum="2">2</a>
-            <table id="craniaTable" class="table table-bordered hoverable-table">
-                <thead>
-                    <tr>
-                        <td>Excavation Year</td>
-                        <td>Location</td>
-                        <td>Max Crania Length</td>
-                        <td>Max Crania Breadth</td>
-                        <td>Basion Bregma Height</td>
-                        <td>Basion Nasion Length</td>
-                        <td>Basion Prosthion Length</td>
-                        <td>Bizygomatic Diameter</td>
-                        <td>Nasion Prosthion Height</td>
-                        <td>Max Nasal Breadth</td>
-                        <td>Interorbital Breadth</td>
-                        <td>Calculated Sex</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.ExcavationYear</td>
-                            <td>@item.Location</td>
-                            <td>@item.MaxCraniaLength</td>
-                            <td>@item.MaxCraniaBreadth</td>
-                            <td>@item.BasionBregmaHeight</td>
-                            <td>@item.BasionNasionLength</td>
-                            <td>@item.BasionProsthionLength</td>
-                            <td>@item.BizygomaticDiameter</td>
-                            <td>@item.NasionProsthionHeight</td>
-                            <td>@item.MaxNasalBreadth</td>
-                            <td>@item.InterorbitalBreadth</td>
-                            <td>@item.CalculatedSex</td>
-                            <td><a asp-controller="Home" asp-action="OsteologyDetails" asp-route-BurialNumberID="@item.CraniaId">View</a></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
-    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
 
-        <script>$(document).ready(function () {
-            $('.list-group-item').hover(
-                function () {
-                    $(this).find('.dropdown-content').slideDown(200); // Show dropdown on hover
-                },
-                function () {
-                    $(this).find('.dropdown-content').slideUp(200); // Hide dropdown when mouse leaves
-                }
-            );
-        });</script>
+                <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
-    <script>
-        function toggleDropdown(dropdownId) {
-            var dropdown = document.getElementById(dropdownId);
-            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-        }</script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+                <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+
+                <script>$(document).ready(function () {
+                        $('.list-group-item').hover(
+                            function () {
+                                $(this).find('.dropdown-content').slideDown(200); // Show dropdown on hover
+                            },
+                            function () {
+                                $(this).find('.dropdown-content').slideUp(200); // Hide dropdown when mouse leaves
+                            }
+                        );
+                    });</script>
+
+                <script>function toggleDropdown(dropdownId) {
+                        var dropdown = document.getElementById(dropdownId);
+                        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+                    }</script>
+                <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="~/js/site.js" asp-append-version="true"></script>
 
 </body>
 </html>

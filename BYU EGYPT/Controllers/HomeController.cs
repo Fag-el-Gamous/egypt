@@ -31,11 +31,18 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Data()
+    public IActionResult Data(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
 
-        return View();
+        int pageSize = 10;
+
+        var burials = egyptDbContext.Burials
+            .OrderBy(b => b.BurialNumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+
+        return View(burials);
     }
     
     //private List<Burial> Bsamples = new List<Burial>

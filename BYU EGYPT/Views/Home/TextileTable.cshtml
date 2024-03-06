@@ -4,7 +4,6 @@
     @model IQueryable<BYU_EGYPT.Models.Textile>
 
 }
-<h1>@ViewData["Title"]</h1>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -133,20 +132,14 @@
                         <a href="@Url.Action("ArtifactTable", "Home")" class="list-group-item-action">
                             Artifacts <span>&gt;</span>
                         </a>
-                        <div class="dropdown-content">
-                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Artifacts(1)</a>
-                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Artifacts(2)</a>
-                        </div>
+                      
                     </div>
 
                     <div class="list-group-item fs-4 py-3">
                         <a href="@Url.Action("TextileTable", "Home")" class="list-group-item-action">
                             Textiles <span>&gt;</span>
                         </a>
-                        <div class="dropdown-content">
-                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Textiles(1)</a>
-                            <a href="@Url.Action("Data", "Home")" class="list-group-item-action">Textiles(2)</a>
-                        </div>
+                       
                     </div>
 
                 </div>
@@ -336,30 +329,26 @@
                     <br />
                     <div class="container">
                         <h2>Textile Table</h2>
-                        <a asp-action="TextileTable" asp-route-pageNum="1">1</a>
-                        <a asp-action="TextileTable" asp-route-pageNum="2">2</a>
-                        <a asp-action="TextileTable" asp-route-pageNum="3">3</a>
-                        <a asp-action="TextileTable" asp-route-pageNum="4">4</a>
-                        <a asp-action="TextileTable" asp-route-pageNum="5">5</a>
 
                         <table id="textileTable" class="table table-bordered hoverable-table">
                             <thead>
                                 <tr>
-                                    <td>Excavation Year</td>
-                                    <td>Location</td>
-                                    <td>Burial Number</td>
-                                    <td>Textile Reference Num</td>
-                                    <td>HasPhotos</td>
-                                    <td>Material</td>
-                                    <td>Description</td>
-                                    <td>Colors</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Textile Reference Number</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Has Photos</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Material</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Description</td>
+                                    <td style="font-weight: bold; background-color: #f2f2f2; ">Colors</td>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
+                            <tr onclick="window.location.href='@Url.Action("TextileDetails", "Home", new { BurialNumberID = item.TextileId })';" style="cursor:pointer">
+
                                         <td>@item.ExcavationYear</td>
                                         <td>@item.Location</td>
                                         <td>@item.BurialNumber</td>
@@ -368,16 +357,24 @@
                                         <td>In Progress</td>
                                         <td>@item.Description</td>
                                         <td>In Progress</td>
-                                        <td><a asp-controller="Home" asp-action="TextileDetails" asp-route-BurialNumberID="@item.TextileId">View</a></td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
+
+                        <a asp-action="TextileTable" asp-route-pageNum="1">1</a>
+                        <a asp-action="TextileTable" asp-route-pageNum="2">2</a>
+                        <a asp-action="TextileTable" asp-route-pageNum="3">3</a>
+                        <a asp-action="TextileTable" asp-route-pageNum="4">4</a>
+                        <a asp-action="TextileTable" asp-route-pageNum="5">5</a>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
     <script src="/_framework/aspnetcore-browser-refresh.js"></script>
