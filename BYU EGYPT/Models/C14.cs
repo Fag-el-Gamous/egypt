@@ -37,7 +37,5 @@ public partial class C14
 
     public string? Notes { get; set; }
 
-    public string? Other { get; set; }
-
     public virtual ICollection<BiologicalSample> BiologicalSamples { get; set; } = new List<BiologicalSample>();
 }

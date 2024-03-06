@@ -430,9 +430,6 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.Notes)
                 .HasMaxLength(255)
                 .IsUnicode(false);
-            entity.Property(e => e.Other)
-                .HasMaxLength(255)
-                .IsUnicode(false);
             entity.Property(e => e.ResearchQuestions).HasColumnType("text");
         });
 

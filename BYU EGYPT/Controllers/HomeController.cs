@@ -31,11 +31,18 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Data()
+    public IActionResult Data(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
 
-        return View();
+        int pageSize = 10;
+
+        var burials = egyptDbContext.Burials
+            .OrderBy(b => b.BurialNumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+
+        return View(burials);
     }
     
     //private List<Burial> Bsamples = new List<Burial>
@@ -62,11 +69,43 @@ public class HomeController : Controller
     //    return View(Bsample);
     //}
 
-    public IActionResult C14Table()
+    public IActionResult C14Table(int pageNum = 1)
     {
-        var list = _context.C14s.ToList();
-        ViewData["C14List"] = list;
-        return View();
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 10;
+
+        var c14list = egyptDbContext.C14s
+            .OrderBy(b => b.C14id)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+
+        return View(c14list);
+    }
+
+    public IActionResult OsteologyTable(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 10;
+
+        var osteologylist = egyptDbContext.Burials
+            .OrderBy(b => b.BurialNumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+
+        return View(osteologylist);
+    }
+
+    public IActionResult CraniaTable(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 10;
+
+        var cranialist = egyptDbContext.Crania
+        .OrderBy(b => b.CraniaId)
+        .Skip((pageNum - 1) * pageSize)
+        .Take(pageSize);
+
+        return View(cranialist);
     }
 
     public IActionResult C14Details(int? c14sampleNum2017)
@@ -126,18 +165,10 @@ public class HomeController : Controller
 
     }
 
-
-    //public IActionResult BurialTableData()
-    //{
-    //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-    //    var burialList = egyptDbContext.Burials.ToList();
-    //    return View(burialList);
-    //}
-
     public IActionResult BurialTableData(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 20;
+        int pageSize = 10;
 
         var burials = egyptDbContext.Burials
             .OrderBy(b => b.BurialNumber)
@@ -147,17 +178,7 @@ public class HomeController : Controller
         //var burialList = egyptDbContext.Burials.ToList();
         return View(burials);
     }
-    //[HttpPost]
-    //public async Task<IActionResult> EditRecord(Burial burial)
-    //{
-    //    ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-    //    egyptDbContext.Update(burial);
-    //    egyptDbContext.SaveChanges();
 
-    //    var updatedBurials = egyptDbContext.Burials.ToList();
-
-    //    return View("BurialTable", updatedBurials);
-    //}
     [HttpPost]
     public async Task<IActionResult> EditRecord(Burial burial)
     {
@@ -169,22 +190,16 @@ public class HomeController : Controller
         return RedirectToAction("BurialTableData"); // Redirect to the BurialTableData action
     }
 
-
-
-
-
-
-
-
-
-
-
-
-    public IActionResult ArtifactTable()
+    public IActionResult ArtifactTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var artifactList = egyptDbContext.Artifacts.ToList();
-        return View();
+        int pageSize = 10;
+
+        var artifacts = egyptDbContext.Artifacts
+            .OrderBy(b => b.ArtifactId)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+        return View(artifacts);
     }
 
     public IActionResult ArtifactTableData()
@@ -194,32 +209,17 @@ public class HomeController : Controller
         return View(artifactList);
     }
 
-
-
-
-
-
-
-
-
-    public IActionResult TextileTable()
+    public IActionResult TextileTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var textileList = egyptDbContext.Textiles.ToList();
-        return View();
+        int pageSize = 10;
+
+        var textiles = egyptDbContext.Textiles
+            .OrderBy(b => b.TextileId)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+        return View(textiles);
     }
-
-
-
-    public IActionResult TextileTableData()
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var textileList = egyptDbContext.Textiles.ToList();
-        return View(textileList);
-    }
-
-  
-
 
     public IActionResult Login()
     {
@@ -232,4 +232,3 @@ public class HomeController : Controller
         return View();
     }
 }
-
