@@ -149,7 +149,7 @@ public class HomeController : Controller
         return View(burials);
     }
 
-    public IActionResult BurialDetails(string BurialNumberID)
+    public IActionResult BurialDetails(string BurialNumberID, string Location, string ExcavationYear)
 
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();

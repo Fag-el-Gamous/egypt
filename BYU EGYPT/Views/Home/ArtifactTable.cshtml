@@ -117,6 +117,31 @@
         .container {
             padding: 0;
         }
+
+        .dropdown-content {
+            display: none;
+            margin-left: 20px; /* Indent the dropdown content for visual hierarchy */
+        }
+        /* Add this CSS to your stylesheet */
+        .hoverable-table tbody tr:hover {
+            background-color: #f5f5f5; /* Or any color you prefer */
+        }
+
+
+        .hoverable-table tbody tr:hover {
+            background-color: #f5f5f5; /* Or any color you prefer */
+        }
+
+        .dropdown-content a {
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9em; /* Adjust the font size as needed */
+        }
+
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
     </style>
 
 </head>
@@ -412,3 +437,183 @@
 
 </body>
 </html>
+
+<!-- Artifacts Modal -->
+<!--<div class="modal fade" id="artifactsModal" tabindex="-1" aria-labelledby="artifactsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="artifactsModalLabel">Artifact Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">-->
+                <!-- Artifact Form Elements -->
+                <!--<form id="artifactsForm">
+                    <div class="mb-3">
+                        <label for="artifactEra" class="form-label">Artifact Era</label>
+                        <select class="form-select" id="artifactEra">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="storageLocation" class="form-label">Storage Location</label>
+                        <select class="form-select" id="storageLocation">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="condition" class="form-label">Condition</label>
+                        <select class="form-select" id="condition">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="provenance" class="form-label">Provenance</label>
+                        <select class="form-select" id="provenance">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="foundOnSurface">
+                        <label class="form-check-label" for="foundOnSurface">Found on Surface</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="photos">
+                        <label class="form-check-label" for="photos">Photos</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-secondary">Back</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<!-- Burials Modal -->
+<!--<div class="modal fade" id="burialsModal" tabindex="-1" aria-labelledby="burialsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="burialsModalLabel">Burials Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">-->
+                <!-- Burials Form Elements -->
+                <!--<form id="burialsForm">
+                    <div class="mb-3">
+                        <label for="Head Direction" class="form-label">Head Direction</label>
+                        <select class="form-select" id="Head Direction">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Wrapping" class="form-label">Wrapping</label>
+                        <select class="form-select" id="Wrapping">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Hair Color" class="form-label">Hair Color</label>
+                        <select class="form-select" id="Hair Color">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Age At Death" class="form-label">Age At Death</label>
+                        <select class="form-select" id="Age At Death">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Sex" class="form-label">Sex</label>
+                        <select class="form-select" id="Sex">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="north">
+                        <label class="form-check-label" for="north">North</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="south">
+                        <label class="form-check-label" for="south">South</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="east">
+                        <label class="form-check-label" for="east">East</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="west">
+                        <label class="form-check-label" for="west">West</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="Has Artifacts">
+                        <label class="form-check-label" for="Has Artifacts">Has Artifacts</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="Has Textiles">
+                        <label class="form-check-label" for="Has Textiles">Has Textiles</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="Has Crenial Data">
+                        <label class="form-check-label" for="Has Crenial Data">Has Crenial Data</label>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="Has Photos">
+                        <label class="form-check-label" for="Has Photos">Has Photos</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-secondary">Back</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>-->
+
+<!-- Textiles Modal -->
+<!--<div class="modal fade" id="textilesModal" tabindex="-1" aria-labelledby="textilesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="textilesModalLabel">Textiles Information</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">-->
+                <!-- Textiles Form Elements -->
+                <!--<form id="textilesForm">
+                    <div class="mb-3">
+                        <label for="Color" class="form-label">Color</label>
+                        <select class="form-select" id="Color">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Function" class="form-label">Function</label>
+                        <select class="form-select" id="Function">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Dimension Type" class="form-label">Dimension Type</label>
+                        <select class="form-select" id="Dimension Type">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Textile Decoration" class="form-label">Textile Decoration</label>
+                        <select class="form-select" id="Textile Decoration">-->
+                            <!-- Option elements here -->
+                        <!--</select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="submit" class="btn btn-secondary">Back</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
