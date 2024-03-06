@@ -35,17 +35,9 @@ public class HomeController : Controller
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
 
-        //int pageSize = 10;
-
-        //var burials = egyptDbContext.Burials
-        //    .OrderBy(b => b.BurialNumber)
-        //    .Skip((pageNum - 1) * pageSize)
-        //    .Take(pageSize);
-
-        //return View(burials);
         return View();
     }
-    
+
     //private List<Burial> Bsamples = new List<Burial>
     //{
     //    new Burial { Location = "160 N 10 E SW", ExcavationYear = 1992, BurialNumber = "1",  HeadDirection = "U" },
@@ -70,71 +62,10 @@ public class HomeController : Controller
     //    return View(Bsample);
     //}
 
-    public IActionResult C14Table(int pageNum = 1)
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 10;
 
-        var c14list = egyptDbContext.C14s
-            .OrderBy(b => b.C14id)
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize);
+    // ------------------------------- TABLES -------------------------------
 
-        return View(c14list);
-    }
-
-    public IActionResult OsteologyTable(int pageNum = 1)
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 10;
-
-        var osteologylist = egyptDbContext.Burials
-            .OrderBy(b => b.BurialNumber)
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize);
-
-        return View(osteologylist);
-    }
-
-    public IActionResult CraniaTable(int pageNum = 1)
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 10;
-
-        var cranialist = egyptDbContext.Crania
-        .OrderBy(b => b.CraniaId)
-        .Skip((pageNum - 1) * pageSize)
-        .Take(pageSize);
-
-        return View(cranialist);
-    }
-
-    public IActionResult C14Details(int? c14sampleNum2017)
-
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var textileList = egyptDbContext.Textiles.ToList();
-        if (!c14sampleNum2017.HasValue)
-        {
-            return NotFound();
-        }
-
-        var c14sample = _context.C14s.FirstOrDefault(x => x.C14sampleNum2017 == c14sampleNum2017.Value);
-        if (c14sample == null)
-        {
-            return NotFound();
-        }
-
-        return View("C14Details", c14sample); // Assuming C14Details view exists
-    }
-
-    public IActionResult C14TableData()
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var c14List = egyptDbContext.C14s.ToList();
-        return View(c14List);
-    }
-
+    // Burial Table,
     public IActionResult BurialTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
@@ -144,28 +75,12 @@ public class HomeController : Controller
             .OrderBy(b => b.BurialNumber)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
-            //.ToList();
-    //var burialList = egyptDbContext.Burials.ToList();
+        //.ToList();
+        //var burialList = egyptDbContext.Burials.ToList();
         return View(burials);
     }
 
-    public IActionResult BurialDetails(string BurialNumberID, string Location, string ExcavationYear)
-
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var textileList = egyptDbContext.Textiles.ToList();
-      
-
-        var burialsample = _context.Burials.FirstOrDefault(x => x.BurialNumber == BurialNumberID);
-        if (burialsample == null)
-        {
-            return NotFound();
-        }
-
-        return View("BurialDetails", burialsample); // Assuming C14Details view exists
-
-    }
-
+    // Burial Table Data
     public IActionResult BurialTableData(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
@@ -180,17 +95,27 @@ public class HomeController : Controller
         return View(burials);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> EditRecord(Burial burial)
+
+    // Burial Details Page
+    public IActionResult BurialDetails(string BurialNumberID, string Location, string ExcavationYear)
+
     {
-
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        egyptDbContext.Update(burial);
-        await egyptDbContext.SaveChangesAsync(); // Use async version of SaveChanges
+        var textileList = egyptDbContext.Textiles.ToList();
 
-        return RedirectToAction("BurialTableData"); // Redirect to the BurialTableData action
+
+        var burialsample = _context.Burials.FirstOrDefault(x => x.BurialNumber == BurialNumberID);
+        if (burialsample == null)
+        {
+            return NotFound();
+        }
+
+        return View("BurialDetails", burialsample); // Assuming C14Details view exists
+
     }
 
+
+    // Artifact Table
     public IActionResult ArtifactTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
@@ -203,6 +128,7 @@ public class HomeController : Controller
         return View(artifacts);
     }
 
+    // Artifact Table Data
     public IActionResult ArtifactTableData()
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
@@ -210,6 +136,8 @@ public class HomeController : Controller
         return View(artifactList);
     }
 
+
+    // Textile Table
     public IActionResult TextileTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
@@ -222,6 +150,121 @@ public class HomeController : Controller
         return View(textiles);
     }
 
+    // C14 Table
+    public IActionResult C14Table(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 10;
+
+        var c14list = egyptDbContext.C14s
+            .OrderBy(b => b.C14id)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+
+        return View(c14list);
+    }
+
+    // C14 Table Data
+    public IActionResult C14TableData()
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var c14List = egyptDbContext.C14s.ToList();
+        return View(c14List);
+    }
+
+    // C14 Details Page
+    public IActionResult C14Details(string BurialNumberID, string Location, string ExcavationYear)
+
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var textileList = egyptDbContext.Textiles.ToList();
+
+        var burialsample = _context.Burials.FirstOrDefault(x => x.BurialNumber == BurialNumberID);
+        if (burialsample == null)
+        {
+            return NotFound();
+        }
+
+        return View("BurialDetails", burialsample);
+    }
+
+    // Osteology Table
+    public IActionResult OsteologyTable(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 10;
+
+        var osteologylist = egyptDbContext.Burials
+            .OrderBy(b => b.BurialNumber)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+
+        return View(osteologylist);
+    }
+
+    // Osteology Details Page
+    public IActionResult OsteologyDetails(string BurialNumberID, string Location, string ExcavationYear)
+
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var textileList = egyptDbContext.Textiles.ToList();
+
+        var burialsample = _context.Burials.FirstOrDefault(x => x.BurialNumber == BurialNumberID);
+        if (burialsample == null)
+        {
+            return NotFound();
+        }
+
+        return View("BurialDetails", burialsample);
+    }
+
+    // Crania Table
+    public IActionResult CraniaTable(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 10;
+
+        var cranialist = egyptDbContext.Crania
+        .OrderBy(b => b.CraniaId)
+        .Skip((pageNum - 1) * pageSize)
+        .Take(pageSize);
+
+        return View(cranialist);
+    }
+
+    // Crania Details Page
+    public IActionResult CraniaDetails(string BurialNumberID, string Location, string ExcavationYear)
+
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var textileList = egyptDbContext.Textiles.ToList();
+
+        var burialsample = _context.Burials.FirstOrDefault(x => x.BurialNumber == BurialNumberID);
+        if (burialsample == null)
+        {
+            return NotFound();
+        }
+
+        return View("BurialDetails", burialsample);
+    }
+
+
+    // ------------------------------- END OF TABLES -------------------------------
+
+
+    // Edit Record
+    [HttpPost]
+    public async Task<IActionResult> EditRecord(Burial burial)
+    {
+
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        egyptDbContext.Update(burial);
+        await egyptDbContext.SaveChangesAsync(); // Use async version of SaveChanges
+
+        return RedirectToAction("BurialTableData"); // Redirect to the BurialTableData action
+    }
+
+    // Login
     public IActionResult Login()
     {
         return Redirect("https://cas.byu.edu/cas/login?service=https%3A%2F%2Fcas.byu.edu%2Fcas%2Fidp%2Fprofile%2FSAML2%2FCallback%3FentityId%3Dhttps%253A%252F%252Fegypt.byu.edu");
