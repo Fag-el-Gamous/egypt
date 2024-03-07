@@ -136,6 +136,24 @@ public class HomeController : Controller
         return View(artifactList);
     }
 
+    // Artifact Details Page
+    public IActionResult ArtifactDetails(string ArtifactID)
+
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var textileList = egyptDbContext.Textiles.ToList();
+
+
+        var artifactsample = _context.Artifacts.FirstOrDefault(x => x.ArtifactId == ArtifactID);
+        if (artifactsample == null)
+        {
+            return NotFound();
+        }
+
+        return View("ArtifactDetails", artifactsample); // Assuming C14Details view exists
+
+    }
+
 
     // Textile Table
     public IActionResult TextileTable(int pageNum = 1)
@@ -148,6 +166,24 @@ public class HomeController : Controller
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
         return View(textiles);
+    }
+
+    // Textile Details Page
+    public IActionResult TextileDetails(int TextileID)
+
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        var textileList = egyptDbContext.Textiles.ToList();
+
+
+        var textilesample = _context.Textiles.FirstOrDefault(x => x.TextileId == TextileID);
+        if (textilesample == null)
+        {
+            return NotFound();
+        }
+
+        return View("TextileDetails", textilesample); // Assuming C14Details view exists
+
     }
 
     // C14 Table

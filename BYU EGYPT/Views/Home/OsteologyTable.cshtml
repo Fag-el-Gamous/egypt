@@ -191,7 +191,7 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr onclick="window.location.href='@Url.Action("OsteologyDetails", "Home", new { BurialNumberID = item.Location })';" style="cursor:pointer">
+                            <tr onclick="window.location.href='@Url.Action("OsteologyDetails", "Home", new { BurialNumberID = item.BurialNumber })';" style="cursor:pointer">
                                 <td>@item.ExcavationYear</td>
                                 <td>@item.Location</td>
                                 <td>@item.BurialNumber</td>

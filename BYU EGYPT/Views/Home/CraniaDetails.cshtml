@@ -1,6 +1,207 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model BYU_EGYPT.Models.Cranium
+
 @{
+    ViewData["Title"] = "Sample Details - " + Model.CraniaId;
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FagElGamous.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+    <style>
+        .minimalistic-btn {
+            background-color: transparent; /* No background color */
+            border: 1px solid #007bff; /* Border color similar to Bootstrap primary color */
+            color: #007bff; /* Text color similar to Bootstrap primary color */
+            text-align: center;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+
+            .minimalistic-btn:hover {
+                color: #fff; /* White text on hover */
+                background-color: #007bff; /* Bootstrap primary color background on hover */
+                border-color: #0056b3; /* Slightly darker border color on hover */
+                text-decoration: none; /* Remove underline from links */
+            }
+
+        .pdf-placeholder-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px; /* Adjust the space between items */
+        }
+
+        .pdf-placeholder {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 150px; /* Set a fixed width for each placeholder */
+            text-align: center;
+        }
+
+            .pdf-placeholder img {
+                width: 100%;
+                height: auto;
+            }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container mt-3">
+
+        <div class="btn-group mt-4" role="group" aria-label="Related Information">
+            <a href="@Url.Action("Burials", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Burials</a>
+            <a href="@Url.Action("Artifacts", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Artifacts</a>
+            <a href="@Url.Action("Textiles", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Textiles</a>
+        </div>
+
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Location</dt>
+            <dd class="col-sm-6">@Model.Location</dd>
+            <dd class="col-sm-3"><a asp-controller="Home" asp-action="EditRecord">Edit</a></dd>
+
+            <dt class="col-sm-3">Excavation Year</dt>
+            <dd class="col-sm-9">@Model.ExcavationYear</dd>
+
+            <dt class="col-sm-3">Burial Number</dt>
+            <dd class="col-sm-9">@Model.BurialNumber</dd>
+
+        </dl>
+        <br />
+        <br />
+
+        <div class="pdf-placeholder">
+            <embed id="pdfEmbed" type="application/pdf" width="900%" height="600px" src="path-to-your-placeholder.pdf">
+        </div>
+
+
+
+        <div class="pdf-placeholder-container">
+            <!-- Placeholder 1 -->
+            <div class="pdf-placeholder">
+                <a href="path-to-your-first-pdf.pdf" target="_blank">
+                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+                </a>
+            </div>
+
+            <!-- Placeholder 2 -->
+            <div class="pdf-placeholder">
+                <a href="path-to-your-second-pdf.pdf" target="_blank">
+                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+                </a>
+            </div>
+
+            <!-- Placeholder 3 -->
+            <div class="pdf-placeholder">
+                <a href="path-to-your-third-pdf.pdf" target="_blank">
+                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+                </a>
+            </div>
+
+            <!-- Add more placeholders as needed -->
+        </div>
+
+
+        <form method="post" asp-action="EditRecord" asp-controller="Home">
+            <input type="hidden" />
+            <div class="form-group">
+                <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
+                <div class="col-sm-9">
+                    <input asp-for="Location" class="form-control" />
+                </div>
+                <label asp-for="ExcavationYear" class="col-sm-3 col-form-label">Excavation Year</label>
+                <div class="col-sm-9">
+                    <input asp-for="ExcavationYear" class="form-control" />
+                </div>
+                <label asp-for="BurialNumber" class="col-sm-3 col-form-label">Burial Number</label>
+                <div class="col-sm-9">
+                    <input asp-for="BurialNumber" class="form-control" />
+                </div>
+            </div>
+            <!-- Add similar fields for other properties -->
+            <br />
+            <br />
+
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="@Url.Action("BurialTableData", "Home")" class="btn btn-secondary">Back to List</a>
+        </form>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="container mt-3">
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link" data-toggle="collapse" href="#collapseBodyAnalysis">
+                        Body Analysis
+                    </a>
+                </div>
+                <div id="collapseBodyAnalysis" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        <!-- Placeholder for Body Analysis picture -->
+                        <img src="path_to_your_placeholder_image" alt="Body Analysis Placeholder" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link" data-toggle="collapse" href="#collapseCrania">
+                        Crania
+                    </a>
+                </div>
+                <div id="collapseCrania" class="collapse" data-parent="#accordion">
+                    <div class="card-body">
+                        <!-- Placeholder for Crania picture -->
+                        <img src="path_to_your_placeholder_image" alt="Crania Placeholder" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <a class="card-link" data-toggle="collapse" href="#collapseFieldbooks">
+                        Fieldbooks
+                    </a>
+                </div>
+                <div id="collapseFieldbooks" class="collapse" data-parent="#accordion">
+                    <!-- These links will open the PDF in a new tab at the specified page -->
+                    <a class="card-link" href="~/img/1992A.pdf#page=5" target="_blank">Page 5</a>
+                    <a class="card-link" href="~/img/1992A.pdf#page=18" target="_blank">Page 30 & 31</a>
+                    <a class="card-link" href="~/img/1992A.pdf#page=19" target="_blank">Page 19</a>
+                    <embed src="~/img/1992A.pdf" type="application/pdf" width="100%" height="600px">
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+    @section Scripts {
+        <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <!-- Then load Bootstrap's JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    }
+
+</body>
+</html>
