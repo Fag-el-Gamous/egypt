@@ -98,15 +98,15 @@
             }
 
                 .pagination a.active {
-                    background-color: #4CAF50;
+                    background-color: #0072CE;
                     color: white;
                     border-radius: 5px;
                 }
 
                 .pagination a:hover:not(.active) {
-                    background-color: #0072CE;
+                    background-color: #BDD6E6;
                     border-radius: 5px;
-                    color: white;
+                    color: black;
                 }
 
 
@@ -214,9 +214,9 @@
                 </table>
 
                 <div class="pagination">
-                    <a asp-action="ArtifactTable" asp-route-pageNum="1">1</a>
-                    <a asp-action="ArtifactTable" asp-route-pageNum="2">2</a>
-                    <a asp-action="ArtifactTable" asp-route-pageNum="3">3</a>
+                    <a asp-action="ArtifactTable" asp-route-pageNum="1" class="@(ViewBag.CurrentPage == 1 ? "active" : "")">1</a>
+                    <a asp-action="ArtifactTable" asp-route-pageNum="2" class="@(ViewBag.CurrentPage == 2 ? "active" : "")">2</a>
+                    <a asp-action="ArtifactTable" asp-route-pageNum="3" class="@(ViewBag.CurrentPage == 3 ? "active" : "")">3</a>
                 </div>
             </div>
         </div>

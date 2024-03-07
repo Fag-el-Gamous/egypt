@@ -65,11 +65,11 @@ public class HomeController : Controller
 
     // ------------------------------- TABLES -------------------------------
 
-    // Burial Table,
+    // Burial Table
     public IActionResult BurialTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 20;
+        int pageSize = 12;
 
         var burials = egyptDbContext.Burials
             .OrderBy(b => b.BurialNumber)
@@ -84,12 +84,15 @@ public class HomeController : Controller
     public IActionResult BurialTableData(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 10;
+        int pageSize = 12;
 
         var burials = egyptDbContext.Burials
             .OrderBy(b => b.BurialNumber)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
+
+        ViewBag.CurrentPage = pageNum;
+
         //.ToList();
         //var burialList = egyptDbContext.Burials.ToList();
         return View(burials);
@@ -119,12 +122,15 @@ public class HomeController : Controller
     public IActionResult ArtifactTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 10;
+        int pageSize = 12;
 
         var artifacts = egyptDbContext.Artifacts
             .OrderBy(b => b.ArtifactId)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
+
+        ViewBag.CurrentPage = pageNum;
+
         return View(artifacts);
     }
 
@@ -159,12 +165,15 @@ public class HomeController : Controller
     public IActionResult TextileTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 10;
+        int pageSize = 12;
 
         var textiles = egyptDbContext.Textiles
             .OrderBy(b => b.TextileId)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
+
+        ViewBag.CurrentPage = pageNum;
+
         return View(textiles);
     }
 
@@ -190,12 +199,14 @@ public class HomeController : Controller
     public IActionResult C14Table(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 10;
+        int pageSize = 12;
 
         var c14list = egyptDbContext.C14s
             .OrderBy(b => b.C14id)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
+
+        ViewBag.CurrentPage = pageNum;
 
         return View(c14list);
     }
@@ -228,12 +239,14 @@ public class HomeController : Controller
     public IActionResult OsteologyTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 10;
+        int pageSize = 12;
 
         var osteologylist = egyptDbContext.Burials
             .OrderBy(b => b.BurialNumber)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
+
+        ViewBag.CurrentPage = pageNum;
 
         return View(osteologylist);
     }
@@ -258,12 +271,14 @@ public class HomeController : Controller
     public IActionResult CraniaTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 10;
+        int pageSize = 12;
 
         var cranialist = egyptDbContext.Crania
         .OrderBy(b => b.CraniaId)
         .Skip((pageNum - 1) * pageSize)
         .Take(pageSize);
+
+        ViewBag.CurrentPage = pageNum;
 
         return View(cranialist);
     }
