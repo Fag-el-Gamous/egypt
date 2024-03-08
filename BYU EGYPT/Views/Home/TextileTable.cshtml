@@ -16,6 +16,11 @@
 
     <style>
 
+        .scrollable-table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
         .hoverable-table tbody tr:hover {
             background-color: #daecf7;
         }
@@ -172,8 +177,8 @@
     <div class="content">
         <div class="text-center">
             <br />
-            <div class="container">
-                <h2>Textile Table</h2>
+            <h2>Textile Table</h2>
+            <div class="container scrollable-table-container">
                 <br />
                 <table id="textileTable" class="table table-bordered hoverable-table">
                     <thead>

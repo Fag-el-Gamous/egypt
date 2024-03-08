@@ -16,6 +16,11 @@
 
     <style>
 
+        .scrollable-table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
         .hoverable-table tbody tr:hover {
             background-color: #daecf7;
         }
@@ -176,8 +181,8 @@
     <div class="content">
         <div class="text-center">
             <br />
-            <div class="container">
-                <h2>Burial Table</h2>
+            <h2>Burial Table</h2>
+            <div class="container scrollable-table-container">
                 <br />
                 <table id="burialTable" class="table table-bordered hoverable-table">
                     <thead>

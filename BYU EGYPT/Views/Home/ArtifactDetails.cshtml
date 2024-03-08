@@ -58,6 +58,12 @@
                 color: #fff; /* Set the text color for the active tab */
             }
 
+            .box {
+                border: 1px solid #ccc;
+                padding: 20px;
+                width: 300px;
+            }
+
         </style>
 
 </head>
@@ -74,84 +80,105 @@
         </div>
 
         <hr />
+
+        <h1>@Model.ArtifactId</h1><br />
+
         <dl class="row">
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
             <dt class="col-sm-3">Location</dt>
-            <dd class="col-sm-6">@Model.Location</dd>
-            <dd class="col-sm-3"><a asp-controller="Home" asp-action="EditRecord">Edit</a></dd>
+            <dd class="col-sm-9">@Model.Location</dd>
 
-            <dt class="col-sm-3">Excavation Year</dt>
-            <dd class="col-sm-9">@Model.ExcavationYear</dd>
+            <dt class="col-sm-3">Material</dt>
+            <dd class="col-sm-9">@Model.Material</dd>
 
-            <dt class="col-sm-3">Burial Number</dt>
-            <dd class="col-sm-9">@Model.BurialNumber</dd>
+            <dt class="col-sm-3">Dimensions</dt>
+            <dd class="col-sm-9">@Model.Dimensions</dd>
 
-            <dt class="col-sm-3">Artifact ID</dt>
-            <dd class="col-sm-9">@Model.ArtifactId</dd>
+            <dt class="col-sm-3">Artifact Era</dt>
+            <dd class="col-sm-9">@Model.ArtifactEra</dd>
+
+            <dt class="col-sm-3">Provenance</dt>
+            <dd class="col-sm-9">@Model.Provenance</dd>
+
+            <dt class="col-sm-3">Surface Find</dt>
+            <dd class="col-sm-9">@Model.IsSurfaceFind</dd>
+
+            <dt class="col-sm-3">Finder</dt>
+            <dd class="col-sm-9">@Model.Finder</dd>
+
+            <dt class="col-sm-3">Located At</dt>
+            <dd class="col-sm-9">@Model.LocationAtSite</dd>
+
+            <dt class="col-sm-3">Entered Kom Aushim</dt>
+            <dd class="col-sm-9">@Model.KomAushimEntryDate</dd>
+
+            <dt class="col-sm-3">Find Date</dt>
+            <dd class="col-sm-9">@Model.FindYear</dd>
 
         </dl>
         <br />
+
+        <div class="col-sm-3" style="font-weight:bold">Notes:</div><br />
+        <div class="col-sm-3 box">@Model.Notes</div>
+
+
+        @*<div class="pdf-placeholder">
+            <embed id="pdfEmbed" type="application/pdf" width="900%" height="600px" src="path-to-your-placeholder.pdf">
+        </div>*@
+
+
+
+        <!--<div class="pdf-placeholder-container">-->
+        <!-- Placeholder 1 -->
+        <!--<div class="pdf-placeholder">
+        <a href="path-to-your-first-pdf.pdf" target="_blank">
+            <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+        </a>
+    </div>-->
+        <!-- Placeholder 2 -->
+        <!--<div class="pdf-placeholder">
+        <a href="path-to-your-second-pdf.pdf" target="_blank">
+            <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+        </a>
+    </div>-->
+        <!-- Placeholder 3 -->
+        <!--<div class="pdf-placeholder">
+        <a href="path-to-your-third-pdf.pdf" target="_blank">
+            <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+        </a>
+    </div>-->
+        <!-- Add more placeholders as needed -->
+        <!--</div>-->
+        <!--<form method="post" asp-action="EditRecord" asp-controller="Home">
+        <input type="hidden" />
+        <div class="form-group">
+            <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
+            <div class="col-sm-9">
+                <input asp-for="Location" class="form-control" />
+            </div>
+            <label asp-for="ExcavationYear" class="col-sm-3 col-form-label">Excavation Year</label>
+            <div class="col-sm-9">
+                <input asp-for="ExcavationYear" class="form-control" />
+            </div>
+            <label asp-for="BurialNumber" class="col-sm-3 col-form-label">Burial Number</label>
+            <div class="col-sm-9">
+                <input asp-for="BurialNumber" class="form-control" />
+            </div>
+            <label asp-for="ArtifactId" class="col-sm-3 col-form-label">Artifact ID</label>
+            <div class="col-sm-9">
+                <input asp-for="ArtifactId" class="form-control" />
+            </div>
+        </div>-->
+        <!-- Add similar fields for other properties -->
+        <!--<br />
         <br />
 
-        <div class="pdf-placeholder">
-            <embed id="pdfEmbed" type="application/pdf" width="900%" height="600px" src="path-to-your-placeholder.pdf">
-        </div>
 
-
-
-        <div class="pdf-placeholder-container">
-            <!-- Placeholder 1 -->
-            <div class="pdf-placeholder">
-                <a href="path-to-your-first-pdf.pdf" target="_blank">
-                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
-                </a>
-            </div>
-
-            <!-- Placeholder 2 -->
-            <div class="pdf-placeholder">
-                <a href="path-to-your-second-pdf.pdf" target="_blank">
-                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
-                </a>
-            </div>
-
-            <!-- Placeholder 3 -->
-            <div class="pdf-placeholder">
-                <a href="path-to-your-third-pdf.pdf" target="_blank">
-                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
-                </a>
-            </div>
-
-            <!-- Add more placeholders as needed -->
-        </div>
-
-
-        <form method="post" asp-action="EditRecord" asp-controller="Home">
-            <input type="hidden" />
-            <div class="form-group">
-                <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
-                <div class="col-sm-9">
-                    <input asp-for="Location" class="form-control" />
-                </div>
-                <label asp-for="ExcavationYear" class="col-sm-3 col-form-label">Excavation Year</label>
-                <div class="col-sm-9">
-                    <input asp-for="ExcavationYear" class="form-control" />
-                </div>
-                <label asp-for="BurialNumber" class="col-sm-3 col-form-label">Burial Number</label>
-                <div class="col-sm-9">
-                    <input asp-for="BurialNumber" class="form-control" />
-                </div>
-                <label asp-for="ArtifactId" class="col-sm-3 col-form-label">Artifact ID</label>
-                <div class="col-sm-9">
-                    <input asp-for="ArtifactId" class="form-control" />
-                </div>
-            </div>
-            <!-- Add similar fields for other properties -->
-            <br />
-            <br />
-
-
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            <a href="@Url.Action("BurialTableData", "Home")" class="btn btn-secondary">Back to List</a>
-        </form>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a href="@Url.Action("BurialTableData", "Home")" class="btn btn-secondary">Back to List</a>
+    </form>-->
     </div>
 
     <br />

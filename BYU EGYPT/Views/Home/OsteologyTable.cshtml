@@ -15,6 +15,11 @@
 
     <style>
 
+        .scrollable-table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
         .hoverable-table tbody tr:hover {
             background-color: #daecf7;
         }
@@ -122,11 +127,6 @@
             -webkit-transform: rotate(45deg);
         }
 
-        table {
-            position: relative;
-            right: 40px;
-        }
-
     </style>
 
 </head>
@@ -178,8 +178,8 @@
     <div class="content">
         <div class="text-center">
             <br />
-            <div class="container">
-                <h2>Osteology Table</h2>
+            <h2>Osteology Table</h2>
+            <div class="container scrollable-table-container">
 
                 <table id="osteologyTable" class="table table-bordered hoverable-table">
                     <thead>
