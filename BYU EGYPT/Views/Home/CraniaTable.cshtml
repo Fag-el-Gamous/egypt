@@ -16,6 +16,11 @@
 
     <style>
 
+        .scrollable-table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+
         .hoverable-table tbody tr:hover {
             background-color: #daecf7;
         }
@@ -122,6 +127,7 @@
             transform: rotate(45deg);
             -webkit-transform: rotate(45deg);
         }
+
     </style>
 
 </head>
@@ -173,14 +179,15 @@
     <div class="content">
         <div class="text-center">
             <br />
-            <div class="container">
-                <h2>Crania Table</h2>
+            <h2>Crania Table</h2>
+            <div class="container scrollable-table-container">
 
                 <table id="craniaTable" class="table table-bordered hoverable-table">
                     <thead>
                         <tr>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Excavation Year</td>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Location</td>
+                            <td style="font-weight: bold; background-color: #BDD6E6; ">Burial Number</td>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Max Crania Length</td>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Max Crania Breadth</td>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Basion Bregma Height</td>
@@ -199,6 +206,7 @@
                             <tr onclick="window.location.href='@Url.Action("CraniaDetails", "Home", new { BurialNumberID = item.CraniaId })';" style="cursor:pointer">
                                 <td>@item.ExcavationYear</td>
                                 <td>@item.Location</td>
+                                <td>@item.BurialNumber</td>
                                 <td>@item.MaxCraniaLength</td>
                                 <td>@item.MaxCraniaBreadth</td>
                                 <td>@item.BasionBregmaHeight</td>

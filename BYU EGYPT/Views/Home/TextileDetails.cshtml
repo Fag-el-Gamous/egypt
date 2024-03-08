@@ -58,6 +58,12 @@
             color: #fff; /* Set the text color for the active tab */
         }
 
+        .box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 300px;
+        }
+
     </style>
 
 </head>
@@ -74,10 +80,16 @@
         </div>
 
         <hr />
+        <h1>Textile #@Model.TextileId</h1><br />
+
         <dl class="row">
+
+
+            <dt class="col-sm-3">Description</dt>
+            <dd class="col-sm-9">@Model.Description</dd>
+
             <dt class="col-sm-3">Location</dt>
-            <dd class="col-sm-6">@Model.Location</dd>
-            <dd class="col-sm-3"><a asp-controller="Home" asp-action="EditRecord">Edit</a></dd>
+            <dd class="col-sm-9">@Model.Location</dd>
 
             <dt class="col-sm-3">Excavation Year</dt>
             <dd class="col-sm-9">@Model.ExcavationYear</dd>
@@ -88,8 +100,24 @@
             <dt class="col-sm-3">Textile Reference Number</dt>
             <dd class="col-sm-9">@Model.TextileReferenceNumber</dd>
 
+            <dt class="col-sm-3">Has Photos</dt>
+            <dd class="col-sm-9">@Model.TextilePhotos</dd>
+
+            <dt class="col-sm-3">Material</dt>
+            <dd class="col-sm-9">@Model.YarnManipulations</dd>
+
+            <dt class="col-sm-3">Colors</dt>
+            <dd class="col-sm-9">@Model.TextileColors</dd>
+
         </dl>
+
         <br />
+
+        <div class="col-sm-3" style="font-weight:bold">Dimensions:</div><br />
+        <div class="col-sm-3 box">@Model.TextileTextileDimensions</div>
+
+
+        <!--<br />
         <br />
 
         <div class="pdf-placeholder">
@@ -98,60 +126,55 @@
 
 
 
-        <div class="pdf-placeholder-container">
-            <!-- Placeholder 1 -->
-            <div class="pdf-placeholder">
-                <a href="path-to-your-first-pdf.pdf" target="_blank">
-                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
-                </a>
+        <div class="pdf-placeholder-container">-->
+        <!-- Placeholder 1 -->
+        <!--<div class="pdf-placeholder">
+            <a href="path-to-your-first-pdf.pdf" target="_blank">
+                <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+            </a>
+        </div>-->
+        <!-- Placeholder 2 -->
+        <!--<div class="pdf-placeholder">
+            <a href="path-to-your-second-pdf.pdf" target="_blank">
+                <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+            </a>
+        </div>-->
+        <!-- Placeholder 3 -->
+        <!--<div class="pdf-placeholder">
+            <a href="path-to-your-third-pdf.pdf" target="_blank">
+                <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+            </a>
+        </div>-->
+        <!-- Add more placeholders as needed -->
+        <!--</div>-->
+        <!--<form method="post" asp-action="EditRecord" asp-controller="Home">
+        <input type="hidden" />
+        <div class="form-group">
+            <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
+            <div class="col-sm-9">
+                <input asp-for="Location" class="form-control" />
             </div>
-
-            <!-- Placeholder 2 -->
-            <div class="pdf-placeholder">
-                <a href="path-to-your-second-pdf.pdf" target="_blank">
-                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
-                </a>
+            <label asp-for="ExcavationYear" class="col-sm-3 col-form-label">Excavation Year</label>
+            <div class="col-sm-9">
+                <input asp-for="ExcavationYear" class="form-control" />
             </div>
-
-            <!-- Placeholder 3 -->
-            <div class="pdf-placeholder">
-                <a href="path-to-your-third-pdf.pdf" target="_blank">
-                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
-                </a>
+            <label asp-for="BurialNumber" class="col-sm-3 col-form-label">Burial Number</label>
+            <div class="col-sm-9">
+                <input asp-for="BurialNumber" class="form-control" />
             </div>
-
-            <!-- Add more placeholders as needed -->
-        </div>
-
-
-        <form method="post" asp-action="EditRecord" asp-controller="Home">
-            <input type="hidden" />
-            <div class="form-group">
-                <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
-                <div class="col-sm-9">
-                    <input asp-for="Location" class="form-control" />
-                </div>
-                <label asp-for="ExcavationYear" class="col-sm-3 col-form-label">Excavation Year</label>
-                <div class="col-sm-9">
-                    <input asp-for="ExcavationYear" class="form-control" />
-                </div>
-                <label asp-for="BurialNumber" class="col-sm-3 col-form-label">Burial Number</label>
-                <div class="col-sm-9">
-                    <input asp-for="BurialNumber" class="form-control" />
-                </div>
-                <label asp-for="TextileReferenceNumber" class="col-sm-3 col-form-label">Textile Reference Number</label>
-                <div class="col-sm-9">
-                    <input asp-for="TextileReferenceNumber" class="form-control" />
-                </div>
+            <label asp-for="TextileReferenceNumber" class="col-sm-3 col-form-label">Textile Reference Number</label>
+            <div class="col-sm-9">
+                <input asp-for="TextileReferenceNumber" class="form-control" />
             </div>
-            <!-- Add similar fields for other properties -->
-            <br />
+        </div>-->
+        <!-- Add similar fields for other properties -->
+        <!--<br />
             <br />
 
 
             <button type="submit" class="btn btn-primary">Save Changes</button>
             <a href="@Url.Action("BurialTableData", "Home")" class="btn btn-secondary">Back to List</a>
-        </form>
+        </form>-->
     </div>
 
     <br />
