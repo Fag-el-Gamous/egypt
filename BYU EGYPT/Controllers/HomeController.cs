@@ -2,6 +2,7 @@
 using BYU_EGYPT.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using BYU_EGYPT.Models.ViewModel;
 
 namespace BYU_EGYPT.Controllers;
 
@@ -37,31 +38,6 @@ public class HomeController : Controller
 
         return View();
     }
-
-    //private List<Burial> Bsamples = new List<Burial>
-    //{
-    //    new Burial { Location = "160 N 10 E SW", ExcavationYear = 1992, BurialNumber = "1",  HeadDirection = "U" },
-
-
-
-
-    //    // Add more samples as needed
-    //};
-
-    //// GET: Sample/Details/5
-    //public IActionResult BurialDetails(string BurialNumberID)
-    //{
-    //    // Assumes samples is accessible here, you might need to retrieve it from the database instead
-    //    var Bsample = Bsamples.FirstOrDefault(s => s.BurialNumber == BurialNumberID);
-
-    //    if (Bsample == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    return View(Bsample);
-    //}
-
 
     // ------------------------------- TABLES -------------------------------
 
@@ -160,21 +136,43 @@ public class HomeController : Controller
 
     }
 
-
     // Textile Table
     public IActionResult TextileTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         int pageSize = 12;
 
-        var textiles = egyptDbContext.Textiles
-            .OrderBy(b => b.TextileId)
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize);
+        var textileColors = egyptDbContext.TextileColors;
+        var textilePhoto = egyptDbContext.TextilePhotos;
+        IEnumerable<textileViewModel> joinedTextiles = null;
+
+        joinedTextiles = (from t in egyptDbContext.Textiles
+                 join tp in textilePhoto on t.TextileId equals tp.TextileId into tpGroup
+                 from tp in tpGroup.DefaultIfEmpty()
+                 select new textileViewModel
+                 {
+                     TextileId = t.TextileId,
+                     BurialNumber = t.BurialNumber,
+                     ExcavationYear = t.ExcavationYear,
+                     Location = t.Location,
+                     TextileReferenceNumber = t.TextileReferenceNumber,
+                     AnalysisType = t.AnalysisType,
+                     AnalysisDate = t.AnalysisDate,
+                     SampleTakenDate = t.SampleTakenDate,
+                     Description = t.Description,
+                     AnalysisBy = t.AnalysisBy,
+                     HasPhoto = tp != null ? "Yes" : "No"
+                 }
+            ).ToList();
+
+        //var textiles = egyptDbContext.Textiles
+        //    .OrderBy(b => b.TextileId)
+        //    .Skip((pageNum - 1) * pageSize)
+        //    .Take(pageSize);
 
         ViewBag.CurrentPage = pageNum;
 
-        return View(textiles);
+        return View(joinedTextiles);
     }
 
     // Textile Details Page
@@ -299,10 +297,7 @@ public class HomeController : Controller
         return View("BurialDetails", burialsample);
     }
 
-
     // ------------------------------- END OF TABLES -------------------------------
-
-
     // Edit Record
     [HttpPost]
     public async Task<IActionResult> EditRecord(Burial burial)
@@ -315,7 +310,6 @@ public class HomeController : Controller
         return RedirectToAction("BurialTableData"); // Redirect to the BurialTableData action
     }
 
-    // Login
     public IActionResult Login()
     {
         return Redirect("https://cas.byu.edu/cas/login?service=https%3A%2F%2Fcas.byu.edu%2Fcas%2Fidp%2Fprofile%2FSAML2%2FCallback%3FentityId%3Dhttps%253A%252F%252Fegypt.byu.edu");

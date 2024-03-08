@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "";
-    @model IQueryable<BYU_EGYPT.Models.Textile>
-
+    @model List<BYU_EGYPT.Models.ViewModel.textileViewModel>
+    //@model IQueryable<BYU_EGYPT.Models.Textile>
 }
 
 <!DOCTYPE html>
@@ -109,7 +109,6 @@
                     color: black;
                 }
 
-
         .arrow {
             border: solid black;
             border-width: 0 3px 3px 0;
@@ -150,7 +149,6 @@
                         Crania Data
                     </a>
                 </div>
-
             </div>
         </div>
 
@@ -198,7 +196,7 @@
                                 <td>@item.Location</td>
                                 <td>@item.BurialNumber</td>
                                 <td>@item.TextileReferenceNumber</td>
-                                <td>In Progress</td>
+                                <td>@item.HasPhoto</td>
                                 <td>In Progress</td>
                                 <td>@item.Description</td>
                                 <td>In Progress</td>
@@ -213,12 +211,8 @@
                     <a asp-action="TextileTable" asp-route-pageNum="3" class="@(ViewBag.CurrentPage == 3 ? "active" : "")">3</a>
                     <a asp-action="TextileTable" asp-route-pageNum="4" class="@(ViewBag.CurrentPage == 4 ? "active" : "")">4</a>
                     <a asp-action="TextileTable" asp-route-pageNum="5" class="@(ViewBag.CurrentPage == 5 ? "active" : "")">5</a>
-                </div>
-            </div>
         </div>
     </div>
-
-
 
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
