@@ -47,13 +47,12 @@ public class HomeController : Controller
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         int pageSize = 12;
 
-        var burials = egyptDbContext.Burials
-            .OrderBy(b => b.BurialNumber)
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize);
-        //.ToList();
-        //var burialList = egyptDbContext.Burials.ToList();
-        return View(burials);
+
+        //var burials = egyptDbContext.Burials
+        //    .OrderBy(b => b.BurialNumber)
+        //    .Skip((pageNum - 1) * pageSize)
+        //    .Take(pageSize);
+        return View();
     }
 
     // Burial Table Data
@@ -133,7 +132,6 @@ public class HomeController : Controller
         }
 
         return View("ArtifactDetails", artifactsample); // Assuming C14Details view exists
-
     }
 
     // Textile Table
@@ -144,11 +142,14 @@ public class HomeController : Controller
 
         var textileColors = egyptDbContext.TextileColors;
         var textilePhoto = egyptDbContext.TextilePhotos;
+        var yarnManipulation = egyptDbContext.YarnManipulations;
         IEnumerable<textileViewModel> joinedTextiles = null;
 
         joinedTextiles = (from t in egyptDbContext.Textiles
                  join tp in textilePhoto on t.TextileId equals tp.TextileId into tpGroup
                  from tp in tpGroup.DefaultIfEmpty()
+                 join ym in yarnManipulation on t.TextileId equals ym.TextileId into ymGroup
+                 from ym in ymGroup.DefaultIfEmpty()
                  select new textileViewModel
                  {
                      TextileId = t.TextileId,
@@ -161,14 +162,13 @@ public class HomeController : Controller
                      SampleTakenDate = t.SampleTakenDate,
                      Description = t.Description,
                      AnalysisBy = t.AnalysisBy,
-                     HasPhoto = tp != null ? "Yes" : "No"
+                     HasPhoto = tp != null ? "Yes" : "No",
+                     yarnMaterial = ym != null ? ym.Material : null
                  }
-            ).ToList();
-
-        //var textiles = egyptDbContext.Textiles
-        //    .OrderBy(b => b.TextileId)
-        //    .Skip((pageNum - 1) * pageSize)
-        //    .Take(pageSize);
+            ).OrderBy(b => b.TextileId)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
 
         ViewBag.CurrentPage = pageNum;
 

@@ -30,5 +30,7 @@
 
         public string HasPhoto { get; set; } = "No";
 
+        public string? yarnMaterial { get; set; }
+
     }
 }
