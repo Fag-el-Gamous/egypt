@@ -49,14 +49,65 @@ public class HomeController : Controller
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         int pageSize = 12;
 
-        var burials = egyptDbContext.Burials
+       var burialList = egyptDbContext.Burials
             .OrderBy(b => b.BurialNumber)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
 
-        ViewBag.CurrentPage = pageNum;
+        return View(burialList);
+    }
 
-        return View(burials);
+    // Burial Table Data
+    public IActionResult BurialTableData(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 12;
+
+        var textiles = egyptDbContext.Textiles;
+        var artifacts = egyptDbContext.Artifacts;
+
+        IEnumerable<burialViewModel> joinedData = null;
+        //on new { b.Location, b.ExcavationYear, b.BurialNumber }
+
+        joinedData = (from b in egyptDbContext.Burials
+                      join t in textiles
+                      on new { b.Location, b.ExcavationYear, b.BurialNumber }
+                      equals new { Location = (string?)t.Location, ExcavationYear = (short)t.ExcavationYear, BurialNumber = (string?)t.BurialNumber }
+                      into textileGroup
+                      from t in textileGroup.DefaultIfEmpty()
+                      join a in artifacts
+                      on new { b.Location, b.ExcavationYear, b.BurialNumber }
+                      equals new { a.Location, ExcavationYear = (short)a.ExcavationYear, a.BurialNumber }
+                      into artifactGroup
+                      from a in artifactGroup.DefaultIfEmpty()
+                      select new burialViewModel
+                      {
+                          TextileId = t.TextileId,
+                          BurialNumber = b.BurialNumber,
+                          ExcavationYear = b.ExcavationYear,
+                          Location = b.Location,
+                          TextileReferenceNumber = t.TextileReferenceNumber,
+                          AnalysisType = t.AnalysisType,
+                          AnalysisDate = t.AnalysisDate,
+                          SampleTakenDate = t.SampleTakenDate,
+                          Description = t.Description,
+                          AnalysisBy = t.AnalysisBy,
+                          Depth = b.Depth,
+                          AgeGroup = b.AgeGroup,
+                          Sex = b.Sex,
+                          HairColor = b.HairColor,
+                          HeadDirection = b.HeadDirection,
+                          HasTextileInfo = t != null ? "Yes" : "No",
+                          HasArtifactInfo = a != null ? "Yes" : "No",
+                          HasArtifactPhoto = a.HasPhotos != null ? "Yes" : "No",
+                          yarnMaterial = null,
+                          HasBodyAnalysisInfo = b.BodyExaminationDate != null ? "Yes" : "No"
+                      }
+                 ).OrderBy(b => b.BurialNumber)
+                 .Skip((pageNum - 1) * pageSize)
+                 .Take(pageSize);
+
+        return View(joinedData);
     }
 
 

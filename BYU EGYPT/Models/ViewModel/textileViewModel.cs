@@ -26,9 +26,9 @@
 
         public virtual Location? LocationNavigation { get; set; }
 
-        public string TextileColor1 { get; set; } = null!;
+        public string? TextileColor1 { get; set; } = null!;
 
-        public string HasPhoto { get; set; } = "No";
+        public string? HasPhoto { get; set; } = "No";
 
         public string? yarnMaterial { get; set; }
 

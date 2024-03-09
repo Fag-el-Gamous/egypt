@@ -125,11 +125,76 @@
         public string? CariesPeriodontalDisease { get; set; }
 
         public string? BodyAnalysisNotes { get; set; }
+        public int? TextileId { get; set; }
+        public string? TextileReferenceNumber { get; set; }
+
+        public string? AnalysisType { get; set; }
+
+        public DateTime? AnalysisDate { get; set; }
+
+        public DateTime? SampleTakenDate { get; set; }
+
+        public string? Description { get; set; }
+
+        public string? AnalysisBy { get; set; }
+
+        public virtual Burial? Burial { get; set; }
+
+        public virtual Location? LocationNavigation { get; set; }
+
+        public string TextileColor1 { get; set; } = null!;
+
+        public string? yarnMaterial { get; set; }
 
         public string? HasBodyAnalysisInfo { get; set; }
         public string? HasTextileInfo { get; set; }
         public string? HasArtifactInfo { get; set; }
-        public string? HasPhoto { get; set; } = "No";
+        public string? HasBurialPhoto { get; set; } = "No";
+
+        public string? HasArtifactPhoto { get; set; }
+
+        public string? HasTextilePhoto { get; set; } = "No";
+        public string ArtifactId { get; set; } = null!;
+
+        public string? Title { get; set; }
+
+        public string? Material { get; set; }
+
+        public string? Condition { get; set; }
+
+        public string? Dimensions { get; set; }
+
+        public string? Notes { get; set; }
+
+        public string? ArtifactEra { get; set; }
+
+        public string? Provenance { get; set; }
+
+        public bool? IsSurfaceFind { get; set; }
+
+        public byte? FindDay { get; set; }
+
+        public byte? FindMonth { get; set; }
+
+        public short? FindYear { get; set; }
+
+        public string? Finder { get; set; }
+
+        public string? ExcavatorNum { get; set; }
+
+        public DateTime? KomAushimEntryDate { get; set; }
+
+        public string? StorageSite { get; set; }
+
+        public string? LocationAtSite { get; set; }
+
+        public string? ConservationNotes { get; set; }
+
+        public int? PersonId { get; set; }
+
+        public virtual ICollection<ArtifactPhoto> ArtifactPhotos { get; set; } = new List<ArtifactPhoto>();
+
+        public virtual Person? Person { get; set; }
 
         public virtual ICollection<Artifact> Artifacts { get; set; } = new List<Artifact>();
 
@@ -140,8 +205,6 @@
         public virtual ICollection<BurialPhoto> BurialPhotos { get; set; } = new List<BurialPhoto>();
 
         public virtual ICollection<Cranium> Crania { get; set; } = new List<Cranium>();
-
-        public virtual Location LocationNavigation { get; set; } = null!;
 
         public virtual ICollection<Textile> Textiles { get; set; } = new List<Textile>();
 
