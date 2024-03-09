@@ -13,6 +13,10 @@ public partial class FieldBook
 
     public string? Notes { get; set; }
 
+    public string? FilePath { get; set; }
+
+    public string? FileName { get; set; }
+
     public virtual Pdf? Box { get; set; }
 
     public virtual ICollection<BurialFieldbookPage> BurialFieldbookPages { get; set; } = new List<BurialFieldbookPage>();
