@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "";
-    @model IQueryable<BYU_EGYPT.Models.Burial>
+    @model IQueryable<BYU_EGYPT.Models.ViewModel.burialViewModel>
 
 }
 
@@ -175,8 +175,6 @@
 
     </div>
 
-
-
     <!-- Table -->
     <div class="content">
         <div class="text-center">
@@ -187,18 +185,18 @@
                 <table id="burialTable" class="table table-bordered hoverable-table">
                     <thead>
                         <tr>
-
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Excavation Year</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Location</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Burial Number</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Depth</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Age Group</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Sex</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Body Preservation Level</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Wrapping Level</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Has Face Bundle</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Hair Color</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Head Direction</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Body Analysis</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Textile Info</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Artifact Info</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Artifact Photo</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Depth(m)</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Age Group</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Sex</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Hair Color</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Head Direction</td>
 
                         </tr>
                     </thead>
@@ -209,12 +207,13 @@
                                 <td>@item.ExcavationYear</td>
                                 <td>@item.Location</td>
                                 <td>@item.BurialNumber</td>
+                                <td>@item.HasBodyAnalysisInfo</td>
+                                <td>@item.HasTextileInfo</td>
+                                <td>@item.HasArtifactInfo</td>
+                                <td>@item.HasArtifactPhoto</td>
                                 <td>@item.Depth</td>
                                 <td>@item.AgeGroup</td>
                                 <td>@item.Sex</td>
-                                <td>@item.BodyPreservationLevel</td>
-                                <td>@item.WrappingLevel</td>
-                                <td>@item.HasFaceBundle</td>
                                 <td>@item.HairColor</td>
                                 <td>@item.HeadDirection</td>
                             </tr>
