@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "";
-    @model IQueryable<BYU_EGYPT.Models.Burial>
+    @model IQueryable<BYU_EGYPT.Models.ViewModel.burialViewModel>
 
 }
 
@@ -175,8 +175,6 @@
 
     </div>
 
-
-
     <!-- Table -->
     <div class="content">
         <div class="text-center">
@@ -187,18 +185,18 @@
                 <table id="burialTable" class="table table-bordered hoverable-table">
                     <thead>
                         <tr>
-
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Excavation Year</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Location</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Burial Number</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Depth</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Age Group</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Sex</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Body Preservation Level</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Wrapping Level</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Has Face Bundle</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Hair Color</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Head Direction</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Body Analysis</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Textile Info</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Artifact Info</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Artifact Photo</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Depth(m)</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Age Group</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Sex</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Hair Color</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Head Direction</td>
 
                         </tr>
                     </thead>
@@ -209,12 +207,13 @@
                                 <td>@item.ExcavationYear</td>
                                 <td>@item.Location</td>
                                 <td>@item.BurialNumber</td>
+                                <td>@item.HasBodyAnalysisInfo</td>
+                                <td>@item.HasTextileInfo</td>
+                                <td>@item.HasArtifactInfo</td>
+                                <td>@item.HasArtifactPhoto</td>
                                 <td>@item.Depth</td>
                                 <td>@item.AgeGroup</td>
                                 <td>@item.Sex</td>
-                                <td>@item.BodyPreservationLevel</td>
-                                <td>@item.WrappingLevel</td>
-                                <td>@item.HasFaceBundle</td>
                                 <td>@item.HairColor</td>
                                 <td>@item.HeadDirection</td>
                             </tr>
@@ -223,9 +222,9 @@
                 </table>
 
                 <div class="pagination">
-                    <a asp-action="BurialTableData" asp-route-pageNum="1" class="@(ViewBag.CurrentPage == 1 ? "active" : "")">1</a>
-                    <a asp-action="BurialTableData" asp-route-pageNum="2" class="@(ViewBag.CurrentPage == 2 ? "active" : "")">2</a>
-                    <a asp-action="BurialTableData" asp-route-pageNum="3" class="@(ViewBag.CurrentPage == 3 ? "active" : "")">3</a>
+                    <a asp-action="BurialTable" asp-route-pageNum="1" class="@(ViewBag.CurrentPage == 1 ? "active" : "")">1</a>
+                    <a asp-action="BurialTable" asp-route-pageNum="2" class="@(ViewBag.CurrentPage == 2 ? "active" : "")">2</a>
+                    <a asp-action="BurialTable" asp-route-pageNum="3" class="@(ViewBag.CurrentPage == 3 ? "active" : "")">3</a>
                 </div>
 
             </div>
@@ -240,7 +239,8 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-    <script>function removeAllHighlights() {
+    <script>
+        function removeAllHighlights() {
             // Remove the 'highlight' class from all elements
             var elements = document.querySelectorAll('.highlight');
             elements.forEach(function (element) {
@@ -248,12 +248,14 @@
             });
         }</script>
 
-    <script>function highlightItem(element) {
+    <script>
+        function highlightItem(element) {
             // Add the 'highlight' class to the hovered element
             element.classList.add('highlight');
         }</script>
 
-    <script>function toggleDropdown() {
+    <script>
+        function toggleDropdown() {
             removeAllHighlights();
 
             var dropdown = document.getElementById('dropdownContainer');
@@ -268,11 +270,12 @@
             }
         }</script>
 
-    <script>function handleItemHover(element) {
+    <script>
+        function handleItemHover(element) {
             removeAllHighlights();
             highlightItem(element);
         }</script>
 
 
 </body>
-</html >
+</html>

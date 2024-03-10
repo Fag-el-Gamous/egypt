@@ -41,24 +41,8 @@ public class HomeController : Controller
 
     // ------------------------------- TABLES -------------------------------
 
- 
-
     // Burial Data
     public IActionResult BurialTable(int pageNum = 1)
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 12;
-
-       var burialList = egyptDbContext.Burials
-            .OrderBy(b => b.BurialNumber)
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize);
-
-        return View(burialList);
-    }
-
-    // Burial Table Data
-    public IActionResult BurialTableData(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         int pageSize = 12;
@@ -109,7 +93,6 @@ public class HomeController : Controller
 
         return View(joinedData);
     }
-
 
     // Burial Details Page
     public IActionResult BurialDetails(string BurialNumberID, string Location, string ExcavationYear)
