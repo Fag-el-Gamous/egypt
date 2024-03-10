@@ -41,7 +41,9 @@ public class HomeController : Controller
 
     // ------------------------------- TABLES -------------------------------
 
-    // Burial Table
+ 
+
+    // Burial Data
     public IActionResult BurialTable(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
