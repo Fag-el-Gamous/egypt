@@ -187,7 +187,6 @@
                         <tr>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Excavation Year</td>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Location</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Burial Number</td>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Max Crania Length</td>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Max Crania Breadth</td>
                             <td style="font-weight: bold; background-color: #BDD6E6; ">Basion Bregma Height</td>
@@ -206,7 +205,6 @@
                             <tr onclick="window.location.href='@Url.Action("CraniaDetails", "Home", new { BurialNumberID = item.CraniaId })';" style="cursor:pointer">
                                 <td>@item.ExcavationYear</td>
                                 <td>@item.Location</td>
-                                <td>@item.BurialNumber</td>
                                 <td>@item.MaxCraniaLength</td>
                                 <td>@item.MaxCraniaBreadth</td>
                                 <td>@item.BasionBregmaHeight</td>

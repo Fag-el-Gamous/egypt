@@ -198,7 +198,7 @@ public class HomeController : Controller
                      Description = t.Description,
                      AnalysisBy = t.AnalysisBy,
                      HasPhoto = tp != null ? "Yes" : "No",
-                     yarnMaterial = ym != null ? ym.Material : null
+                     yarnMaterial = ym.Material
                  }
             ).OrderBy(b => b.TextileId)
             .Skip((pageNum - 1) * pageSize)
