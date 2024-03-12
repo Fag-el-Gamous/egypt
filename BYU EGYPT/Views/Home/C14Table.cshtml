@@ -183,13 +183,13 @@
                 <table id="c14Table" class="table table-bordered hoverable-table">
                     <thead>
                         <tr>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Contents</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Location Description</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">14 Age BP</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">14 Calendar Date</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Calendar Date Min 95%</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Calendar Date Max 95%</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Research Questions</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Contents</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Location Description</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">14 Age BP</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">14 Calendar Date</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Calendar Date Min 95%</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Calendar Date Max 95%</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Research Questions</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -197,12 +197,12 @@
                         {
                             <tr onclick="window.location.href='@Url.Action("C14Details", "Home", new { BurialNumberID = item.C14id })';" style="cursor:pointer">
                                 <td>@item.Contents</td>
-                                <td>@item.LocationDescription</td>
+                                <td class="truncate">@item.LocationDescription</td>
                                 <td>@item.AgeBp</td>
                                 <td>@item.CalendarDate</td>
                                 <td>@item.CalendarDateMin95</td>
                                 <td>@item.CalendarDateMax95</td>
-                                <td>@item.ResearchQuestions</td>
+                                <td class="truncate">@item.ResearchQuestions</td>
                             </tr>
                         }
                     </tbody>
@@ -257,6 +257,18 @@
             removeAllHighlights();
             highlightItem(element);
         }</script>
+
+    <script>var truncateCells = document.querySelectorAll('.truncate');
+
+        truncateCells.forEach(function (cell) {
+            var text = cell.textContent.trim();
+
+            var truncatedText = text.slice(0, 50);
+
+            var displayText = truncatedText + (text.length > 50 ? '...' : '');
+
+            cell.textContent = displayText;
+        });</script>
 
 
 </body>

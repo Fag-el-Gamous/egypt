@@ -127,6 +127,11 @@
             -webkit-transform: rotate(45deg);
         }
 
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 125px;
+        }
+
     </style>
 
 </head>
@@ -184,19 +189,19 @@
                 <table id="osteologyTable" class="table table-bordered hoverable-table">
                     <thead>
                         <tr>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Excavation Year</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Location</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Burial Number</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Supraorbital Ridges Crania</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Orbit Edge Crania</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Nuchal Creset Crania</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Lamboid Suture Crania</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Tooth Eruption Description</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Tooth Eruption Age Estimate</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Subpubic Angle Pelvis</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Sciatic Notch Pelvis</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Femur Head Diameter</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Femur Length</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Supraorbital Ridges Crania</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Orbit Edge Crania</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Nuchal Creset Crania</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Lamboid Suture Crania</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Tooth Eruption Description</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Tooth Eruption Age Estimate</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Subpubic Angle Pelvis</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Sciatic Notch Pelvis</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Femur Head Diameter</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Femur Length</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -210,7 +215,7 @@
                                 <td>@item.OrbitEdgeCrania</td>
                                 <td>@item.NuchalCrestCrania</td>
                                 <td>@item.LamboidSutureCrania</td>
-                                <td>@item.ToothEruptionDescription</td>
+                                <td class="truncate">@item.ToothEruptionDescription</td>
                                 <td>@item.ToothEruptionAgeEstimate</td>
                                 <td>@item.SubpubicAnglePelvis</td>
                                 <td>@item.SciaticNotchPelvis</td>
@@ -269,6 +274,18 @@
             removeAllHighlights();
             highlightItem(element);
         }</script>
+
+    <script>var truncateCells = document.querySelectorAll('.truncate');
+
+        truncateCells.forEach(function (cell) {
+            var text = cell.textContent.trim();
+
+            var truncatedText = text.slice(0, 50);
+
+            var displayText = truncatedText + (text.length > 50 ? '...' : '');
+
+            cell.textContent = displayText;
+        });</script>
 
 </body>
 </html>

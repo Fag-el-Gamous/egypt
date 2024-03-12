@@ -126,6 +126,12 @@
             transform: rotate(45deg);
             -webkit-transform: rotate(45deg);
         }
+
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 125px;
+        }
+
     </style>
 
 </head>
@@ -181,14 +187,14 @@
                 <table id="textileTable" class="table table-bordered hoverable-table">
                     <thead>
                         <tr>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Excavation Year</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Location</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Burial Number</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Textile Reference Number</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Has Photos</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Material</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Description</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Colors</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Textile Reference Number</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Photos</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Material</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Description</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Colors</td>
 
                         </tr>
                     </thead>
@@ -203,7 +209,7 @@
                                 <td>@item.TextileReferenceNumber</td>
                                 <td>@item.HasPhoto</td>
                                 <td>@item.yarnMaterial</td>
-                                <td>@item.Description</td>
+                                <td class="truncate">@item.Description</td>
                                 <td>In Progress</td>
                             </tr>
                         }
@@ -216,48 +222,61 @@
                     <a asp-action="TextileTable" asp-route-pageNum="3" class="@(ViewBag.CurrentPage == 3 ? "active" : "")">3</a>
                     <a asp-action="TextileTable" asp-route-pageNum="4" class="@(ViewBag.CurrentPage == 4 ? "active" : "")">4</a>
                     <a asp-action="TextileTable" asp-route-pageNum="5" class="@(ViewBag.CurrentPage == 5 ? "active" : "")">5</a>
-        </div>
-    </div>
+                </div>
+            </div>
 
-    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+            <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
-    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+            <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-    <script>function removeAllHighlights() {
-            // Remove the 'highlight' class from all elements
-            var elements = document.querySelectorAll('.highlight');
-            elements.forEach(function (element) {
-                element.classList.remove('highlight');
-            });
-        }</script>
+            <script>function removeAllHighlights() {
+                    // Remove the 'highlight' class from all elements
+                    var elements = document.querySelectorAll('.highlight');
+                    elements.forEach(function (element) {
+                        element.classList.remove('highlight');
+                    });
+                }</script>
 
-    <script>function highlightItem(element) {
-            // Add the 'highlight' class to the hovered element
-            element.classList.add('highlight');
-        }</script>
+            <script>function highlightItem(element) {
+                    // Add the 'highlight' class to the hovered element
+                    element.classList.add('highlight');
+                }</script>
 
-    <script>function toggleDropdown() {
-            removeAllHighlights();
+            <script>function toggleDropdown() {
+                    removeAllHighlights();
 
-            var dropdown = document.getElementById('dropdownContainer');
-            dropdown.classList.toggle('open');
-            var dropdownContent = document.getElementById("dropdownContent");
+                    var dropdown = document.getElementById('dropdownContainer');
+                    dropdown.classList.toggle('open');
+                    var dropdownContent = document.getElementById("dropdownContent");
 
-            if (dropdown.classList.contains("open")) {
-                var dropdownHeight = dropdownContent.offsetHeight;
-                dropdown.style.marginBottom = dropdownHeight + "px";
-            } else {
-                dropdown.style.marginBottom = "0";
-            }
-        }</script>
+                    if (dropdown.classList.contains("open")) {
+                        var dropdownHeight = dropdownContent.offsetHeight;
+                        dropdown.style.marginBottom = dropdownHeight + "px";
+                    } else {
+                        dropdown.style.marginBottom = "0";
+                    }
+                }</script>
 
-    <script>function handleItemHover(element) {
-            removeAllHighlights();
-            highlightItem(element);
-        }</script>
+            <script>function handleItemHover(element) {
+                    removeAllHighlights();
+                    highlightItem(element);
+                }</script>
+
+            <script>
+                var truncateCells = document.querySelectorAll('.truncate');
+
+                truncateCells.forEach(function (cell) {
+                    var text = cell.textContent.trim();
+
+                    var truncatedText = text.slice(0, 50);
+
+                    var displayText = truncatedText + (text.length > 50 ? '...' : '');
+
+                    cell.textContent = displayText;
+                });</script>
 
 </body>
 </html>

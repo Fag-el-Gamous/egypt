@@ -127,6 +127,12 @@
             transform: rotate(45deg);
             -webkit-transform: rotate(45deg);
         }
+
+        th:nth-child(3),
+        td:nth-child(3) {
+            width: 125px;
+        }
+
     </style>
 
 
@@ -185,17 +191,17 @@
                 <table id="artifactTable" class="table table-bordered hoverable-table">
                     <thead>
                         <tr>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Excavation Year</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Artifact ID</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Location</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Burial Number</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Title</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Description</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Material</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Condition</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Dimensions</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Has Photos</td>
-                            <td style="font-weight: bold; background-color: #BDD6E6; ">Notes</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Artifact ID</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Title</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Description</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Material</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Condition</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Dimensions</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Photos</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Notes</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -207,12 +213,12 @@
                                 <td>@item.Location</td>
                                 <td>@item.BurialNumber</td>
                                 <td>@item.Title</td>
-                                <td>@item.Description</td>
-                                <td>@item.Material</td>
+                                <td class="truncate">@item.Description</td>
+                                <td class="truncate">@item.Material</td>
                                 <td>@item.Condition</td>
                                 <td>@item.Dimensions</td>
                                 <td>@item.HasPhotos</td>
-                                <td>@item.Notes</td>
+                                <td class="truncate">@item.Notes</td>
                             </tr>
                         }
                     </tbody>
@@ -267,6 +273,17 @@
             highlightItem(element);
         }</script>
 
+    <script>var truncateCells = document.querySelectorAll('.truncate');
+
+        truncateCells.forEach(function (cell) {
+            var text = cell.textContent.trim();
+
+            var truncatedText = text.slice(0, 50);
+
+            var displayText = truncatedText + (text.length > 50 ? '...' : '');
+
+            cell.textContent = displayText;
+        });</script>
 
 </body>
 </html>
