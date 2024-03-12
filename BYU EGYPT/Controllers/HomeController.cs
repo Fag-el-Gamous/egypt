@@ -91,6 +91,8 @@ public class HomeController : Controller
                  .Skip((pageNum - 1) * pageSize)
                  .Take(pageSize);
 
+        ViewBag.CurrentPage = pageNum;
+
         return View(joinedData);
     }
 
@@ -318,6 +320,7 @@ public class HomeController : Controller
     }
 
     // ------------------------------- END OF TABLES -------------------------------
+
     // Edit Record
     [HttpPost]
     public async Task<IActionResult> EditRecord(Burial burial)
