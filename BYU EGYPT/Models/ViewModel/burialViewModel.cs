@@ -7,7 +7,6 @@
         public short ExcavationYear { get; set; }
 
         public string BurialNumber { get; set; } = null!;
-        public int? BurialNumberInt { get; set; }
 
         public string? HillDesignation { get; set; }
 

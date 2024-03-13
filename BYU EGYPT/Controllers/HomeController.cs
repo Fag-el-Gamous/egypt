@@ -88,7 +88,7 @@ public class HomeController : Controller
                           HasBodyAnalysisInfo = b.BodyExaminationDate != null ? "Yes" : "No"
                       }
                  ).OrderBy(b => b.Location)
-                 .ThenBy(b => b.BurialNumber)
+                 .ThenBy(b => Convert.ToInt32(b.BurialNumber))
                  .Skip((pageNum - 1) * pageSize)
                  .Take(pageSize);
 
@@ -224,6 +224,7 @@ public class HomeController : Controller
 
         var c14list = egyptDbContext.C14s
             .OrderBy(b => b.C14id)
+            //.ThenBy(b => b.BurialNumber) c14 has no burial number column
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
 
@@ -297,7 +298,7 @@ public class HomeController : Controller
 
         var cranialist = egyptDbContext.Crania
         .OrderBy(b => b.Location)
-        .ThenBy(b => b.BurialNumber)
+        .ThenBy(b => b.BurialNumber) //Cannot convert Cranium burialnumber to int because it has letters in its values (ex. 2A)
         .Skip((pageNum - 1) * pageSize)
         .Take(pageSize);
 
