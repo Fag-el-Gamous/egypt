@@ -87,7 +87,8 @@ public class HomeController : Controller
                           yarnMaterial = null,
                           HasBodyAnalysisInfo = b.BodyExaminationDate != null ? "Yes" : "No"
                       }
-                 ).OrderBy(b => b.BurialNumber)
+                 ).OrderBy(b => b.Location)
+                 .ThenBy(b => b.BurialNumber)
                  .Skip((pageNum - 1) * pageSize)
                  .Take(pageSize);
 
@@ -262,7 +263,8 @@ public class HomeController : Controller
         int pageSize = 12;
 
         var osteologylist = egyptDbContext.Burials
-            .OrderBy(b => b.BurialNumber)
+            .OrderBy(b => b.Location)
+            .ThenBy(b => Convert.ToInt32(b.BurialNumber))
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize);
 
@@ -294,7 +296,8 @@ public class HomeController : Controller
         int pageSize = 12;
 
         var cranialist = egyptDbContext.Crania
-        .OrderBy(b => b.CraniaId)
+        .OrderBy(b => b.Location)
+        .ThenBy(b => b.BurialNumber)
         .Skip((pageNum - 1) * pageSize)
         .Take(pageSize);
 
