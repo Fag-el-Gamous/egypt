@@ -3,6 +3,7 @@ using BYU_EGYPT.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using BYU_EGYPT.Models.ViewModel;
+using BYU_EGYPT.Data;
 
 namespace BYU_EGYPT.Controllers;
 
@@ -10,15 +11,20 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly ByuEgyptDbContext _context;
+    //private readonly AWSDbContext _db; //This is the AWS database context
 
+    //add "AWSDbContext db" to the parameters below to use the AWS database
     public HomeController(ILogger<HomeController> logger, ByuEgyptDbContext context)
     {
         _logger = logger;
         _context = context;
+        //_db = db; // This is the AWS database context instance
     }
 
     public IActionResult Index()
     {
+        //var CraniumSheetData = _db.CraniumAnalysisSheet.ToList(); //This is the data from the AWS database
+        //return View(CraniumSheetData);
         return View();
     }
 
@@ -51,7 +57,6 @@ public class HomeController : Controller
         var artifacts = egyptDbContext.Artifacts;
 
         IEnumerable<burialViewModel> joinedData = null;
-        //on new { b.Location, b.ExcavationYear, b.BurialNumber }
 
         joinedData = (from b in egyptDbContext.Burials
                       join t in textiles
@@ -115,7 +120,6 @@ public class HomeController : Controller
 
     }
 
-
     // Artifact Table
     public IActionResult ArtifactTable(int pageNum = 1)
     {
@@ -169,25 +173,25 @@ public class HomeController : Controller
         IEnumerable<textileViewModel> joinedTextiles = null;
 
         joinedTextiles = (from t in egyptDbContext.Textiles
-                 join tp in textilePhoto on t.TextileId equals tp.TextileId into tpGroup
-                 from tp in tpGroup.DefaultIfEmpty()
-                 join ym in yarnManipulation on t.TextileId equals ym.TextileId into ymGroup
-                 from ym in ymGroup.DefaultIfEmpty()
-                 select new textileViewModel
-                 {
-                     TextileId = t.TextileId,
-                     BurialNumber = t.BurialNumber,
-                     ExcavationYear = t.ExcavationYear,
-                     Location = t.Location,
-                     TextileReferenceNumber = t.TextileReferenceNumber,
-                     AnalysisType = t.AnalysisType,
-                     AnalysisDate = t.AnalysisDate,
-                     SampleTakenDate = t.SampleTakenDate,
-                     Description = t.Description,
-                     AnalysisBy = t.AnalysisBy,
-                     HasPhoto = tp != null ? "Yes" : "No",
-                     yarnMaterial = ym.Material
-                 }
+                          join tp in textilePhoto on t.TextileId equals tp.TextileId into tpGroup
+                          from tp in tpGroup.DefaultIfEmpty()
+                          join ym in yarnManipulation on t.TextileId equals ym.TextileId into ymGroup
+                          from ym in ymGroup.DefaultIfEmpty()
+                          select new textileViewModel
+                          {
+                              TextileId = t.TextileId,
+                              BurialNumber = t.BurialNumber,
+                              ExcavationYear = t.ExcavationYear,
+                              Location = t.Location,
+                              TextileReferenceNumber = t.TextileReferenceNumber,
+                              AnalysisType = t.AnalysisType,
+                              AnalysisDate = t.AnalysisDate,
+                              SampleTakenDate = t.SampleTakenDate,
+                              Description = t.Description,
+                              AnalysisBy = t.AnalysisBy,
+                              HasPhoto = tp != null ? "Yes" : "No",
+                              yarnMaterial = ym.Material
+                          }
             ).OrderBy(b => b.TextileId)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize)
@@ -213,7 +217,6 @@ public class HomeController : Controller
         }
 
         return View("TextileDetails", textilesample); // Assuming C14Details view exists
-
     }
 
     // C14 Table
