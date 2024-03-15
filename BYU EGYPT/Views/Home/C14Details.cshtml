@@ -61,13 +61,10 @@
 
     <div class="container mt-3">
 
-        @*<div class="btn-group mt-4" role="group" aria-label="Related Information">
-            <a href="@Url.Action("Burials", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Burials</a>
-            <a href="@Url.Action("Artifacts", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Artifacts</a>
-            <a href="@Url.Action("Textiles", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Textiles</a>
-        </div>*@
-
         <hr />
+
+        @*<h1>Burial #@Model.BurialNumber</h1><br />*@
+
         <dl class="row">
             <dt class="col-sm-3">Contents</dt>
             <dd class="col-sm-6">@Model.Contents</dd>

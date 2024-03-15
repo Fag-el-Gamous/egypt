@@ -75,8 +75,8 @@
 
         <div class="btn-group mt-4" role="group" aria-label="Related Information">
             <a href="javascript:void(0);" onclick="location.reload();" class="btn minimalistic-btn active-tab">Textile</a>
-            <a href="@Url.Action("BurialDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Burials</a>
-            <a href="@Url.Action("ArtifactDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
+            <a href="@Url.Action("RelatedBurials", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Burials</a>
+            <a href="@Url.Action("RelatedArtifacts", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
         </div>
 
         <hr />

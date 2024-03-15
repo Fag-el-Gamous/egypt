@@ -47,8 +47,63 @@ public class HomeController : Controller
 
     // ------------------------------- TABLES -------------------------------
 
-    // Burial Data
+    // Burial Table
     public IActionResult BurialTable(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 12;
+
+        var textiles = egyptDbContext.Textiles;
+        var artifacts = egyptDbContext.Artifacts;
+
+        IEnumerable<burialViewModel> joinedData = null;
+
+        joinedData = (from b in egyptDbContext.Burials
+                      join t in textiles
+                      on new { b.Location, b.ExcavationYear, b.BurialNumber }
+                      equals new { Location = (string?)t.Location, ExcavationYear = (short)t.ExcavationYear, BurialNumber = (string?)t.BurialNumber }
+                      into textileGroup
+                      from t in textileGroup.DefaultIfEmpty()
+                      join a in artifacts
+                      on new { b.Location, b.ExcavationYear, b.BurialNumber }
+                      equals new { a.Location, ExcavationYear = (short)a.ExcavationYear, a.BurialNumber }
+                      into artifactGroup
+                      from a in artifactGroup.DefaultIfEmpty()
+                      select new burialViewModel
+                      {
+                          TextileId = t.TextileId,
+                          BurialNumber = b.BurialNumber,
+                          ExcavationYear = b.ExcavationYear,
+                          Location = b.Location,
+                          TextileReferenceNumber = t.TextileReferenceNumber,
+                          AnalysisType = t.AnalysisType,
+                          AnalysisDate = t.AnalysisDate,
+                          SampleTakenDate = t.SampleTakenDate,
+                          Description = t.Description,
+                          AnalysisBy = t.AnalysisBy,
+                          Depth = b.Depth,
+                          AgeGroup = b.AgeGroup,
+                          Sex = b.Sex,
+                          HairColor = b.HairColor,
+                          HeadDirection = b.HeadDirection,
+                          HasTextileInfo = t != null ? "Yes" : "No",
+                          HasArtifactInfo = a != null ? "Yes" : "No",
+                          HasArtifactPhoto = a.HasPhotos != null ? "Yes" : "No",
+                          yarnMaterial = null,
+                          HasBodyAnalysisInfo = b.BodyExaminationDate != null ? "Yes" : "No"
+                      }
+                 ).OrderBy(b => b.Location)
+                 .ThenBy(b => Convert.ToInt32(b.BurialNumber))
+                 .Skip((pageNum - 1) * pageSize)
+                 .Take(pageSize);
+
+        ViewBag.CurrentPage = pageNum;
+
+        return View(joinedData);
+    }
+
+    // Related Burials Table
+    public IActionResult RelatedBurials(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         int pageSize = 12;
@@ -136,12 +191,20 @@ public class HomeController : Controller
         return View(artifacts);
     }
 
-    // Artifact Table Data
-    public IActionResult ArtifactTableData()
+    // Related Artifacts Table
+    public IActionResult RelatedArtifacts(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var artifactList = egyptDbContext.Artifacts.ToList();
-        return View(artifactList);
+        int pageSize = 12;
+
+        var artifacts = egyptDbContext.Artifacts
+            .OrderBy(b => b.ArtifactId)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+
+        ViewBag.CurrentPage = pageNum;
+
+        return View(artifacts);
     }
 
     // Artifact Details Page
@@ -163,6 +226,47 @@ public class HomeController : Controller
 
     // Textile Table
     public IActionResult TextileTable(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 12;
+
+        var textileColors = egyptDbContext.TextileColors;
+        var textilePhoto = egyptDbContext.TextilePhotos;
+        var yarnManipulation = egyptDbContext.YarnManipulations;
+        IEnumerable<textileViewModel> joinedTextiles = null;
+
+        joinedTextiles = (from t in egyptDbContext.Textiles
+                          join tp in textilePhoto on t.TextileId equals tp.TextileId into tpGroup
+                          from tp in tpGroup.DefaultIfEmpty()
+                          join ym in yarnManipulation on t.TextileId equals ym.TextileId into ymGroup
+                          from ym in ymGroup.DefaultIfEmpty()
+                          select new textileViewModel
+                          {
+                              TextileId = t.TextileId,
+                              BurialNumber = t.BurialNumber,
+                              ExcavationYear = t.ExcavationYear,
+                              Location = t.Location,
+                              TextileReferenceNumber = t.TextileReferenceNumber,
+                              AnalysisType = t.AnalysisType,
+                              AnalysisDate = t.AnalysisDate,
+                              SampleTakenDate = t.SampleTakenDate,
+                              Description = t.Description,
+                              AnalysisBy = t.AnalysisBy,
+                              HasPhoto = tp != null ? "Yes" : "No",
+                              yarnMaterial = ym.Material
+                          }
+            ).OrderBy(b => b.TextileId)
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        ViewBag.CurrentPage = pageNum;
+
+        return View(joinedTextiles);
+    }
+
+    // Related Textiles Table
+    public IActionResult RelatedTextiles(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         int pageSize = 12;
@@ -236,14 +340,6 @@ public class HomeController : Controller
         return View(c14list);
     }
 
-    // C14 Table Data
-    public IActionResult C14TableData()
-    {
-        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        var c14List = egyptDbContext.C14s.ToList();
-        return View(c14List);
-    }
-
     // C14 Details Page
     public IActionResult C14Details(string BurialNumberID, string Location, string ExcavationYear)
 
@@ -262,6 +358,23 @@ public class HomeController : Controller
 
     // Osteology Table
     public IActionResult OsteologyTable(int pageNum = 1)
+    {
+        ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
+        int pageSize = 12;
+
+        var osteologylist = egyptDbContext.Burials
+            .OrderBy(b => b.Location)
+            .ThenBy(b => Convert.ToInt32(b.BurialNumber))
+            .Skip((pageNum - 1) * pageSize)
+            .Take(pageSize);
+
+        ViewBag.CurrentPage = pageNum;
+
+        return View(osteologylist);
+    }
+
+    // Related Osteology Table
+    public IActionResult RelatedOsteology(int pageNum = 1)
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
         int pageSize = 12;
