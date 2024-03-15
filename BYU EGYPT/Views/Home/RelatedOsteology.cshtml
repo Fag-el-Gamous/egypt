@@ -1,4 +1,4 @@
-﻿@model IQueryable<BYU_EGYPT.Models.Burial>
+﻿@model BYU_EGYPT.Models.Burial
 
 @{
     //ViewData["Title"] = "Sample Details - " + Model.BurialNumber;
@@ -75,61 +75,128 @@
 
         <hr />
 
-        <!-- Table -->
-        <div class="content">
-            <div class="text-center">
-                <br />
-                <h2>Osteology Table</h2>
-                <div class="container scrollable-table-container">
+        @*<h1>Artifact: @Model.ArtifactId</h1><br />*@
 
-                    <table id="osteologyTable" class="table table-bordered hoverable-table">
-                        <thead>
-                            <tr>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Supraorbital Ridges Crania</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Orbit Edge Crania</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Nuchal Creset Crania</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Lamboid Suture Crania</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Tooth Eruption Description</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Tooth Eruption Age Estimate</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Subpubic Angle Pelvis</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Sciatic Notch Pelvis</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Femur Head Diameter</td>
-                                <td style="font-weight: bold; background-color: #f2f2f2; ">Femur Length</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr onclick="window.location.href='@Url.Action("OsteologyDetails", "Home", new { BurialNumberID = item.BurialNumber })';" style="cursor:pointer">
-                                    <td>@item.ExcavationYear</td>
-                                    <td>@item.Location</td>
-                                    <td>@item.BurialNumber</td>
-                                    <td>@item.SupraorbitalRidgesCrania</td>
-                                    <td>@item.OrbitEdgeCrania</td>
-                                    <td>@item.NuchalCrestCrania</td>
-                                    <td>@item.LamboidSutureCrania</td>
-                                    <td class="truncate">@item.ToothEruptionDescription</td>
-                                    <td>@item.ToothEruptionAgeEstimate</td>
-                                    <td>@item.SubpubicAnglePelvis</td>
-                                    <td>@item.SciaticNotchPelvis</td>
-                                    <td>@item.FemurHeadDiameter</td>
-                                    <td>@item.FemurLength</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+        <dl class="row">
+            <dt class="col-sm-3">Body Examination Date</dt>
+            <dd class="col-sm-9">@Model.BodyExaminationDate</dd>
 
-                    <div class="pagination">
-                        <a asp-action="OsteologyTable" asp-route-pageNum="1" class="@(ViewBag.CurrentPage == 1 ? "active" : "")">1</a>
-                        <a asp-action="OsteologyTable" asp-route-pageNum="2" class="@(ViewBag.CurrentPage == 2 ? "active" : "")">2</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <dt class="col-sm-3">Body Preservation Index</dt>
+            <dd class="col-sm-9">@Model.BodyPreservationIndex</dd>
+
+            <dt class="col-sm-3">Robust Crania</dt>
+            <dd class="col-sm-9">@Model.RobustCrania</dd>
+
+            <dt class="col-sm-3">Supraorbital Ridges Crania</dt>
+            <dd class="col-sm-9">@Model.SupraorbitalRidgesCrania</dd>
+
+            <dt class="col-sm-3">Orbit Edge Crania</dt>
+            <dd class="col-sm-9">@Model.OrbitEdgeCrania</dd>
+
+            <dt class="col-sm-3">Parietal Bossing Crania</dt>
+            <dd class="col-sm-9">@Model.ParietalBossingCrania</dd>
+
+            <dt class="col-sm-3">Gonion Crania</dt>
+            <dd class="col-sm-9">@Model.GonionCrania</dd>
+
+            <dt class="col-sm-3">Nuchal Crest Crania</dt>
+            <dd class="col-sm-9">@Model.NuchalCrestCrania</dd>
+
+            <dt class="col-sm-3">Zygomatic Crest Crania</dt>
+            <dd class="col-sm-9">@Model.ZygomaticCrestCrania</dd>
+
+            <dt class="col-sm-3">Spheno-Occipital Synchondrosis Crania</dt>
+            <dd class="col-sm-9">@Model.SphenoOccipitalSynchondrosisCrania</dd>
+
+            <dt class="col-sm-3">Lamboid Suture Crania</dt>
+            <dd class="col-sm-9">@Model.LamboidSutureCrania</dd>
+
+            <dt class="col-sm-3">Squamous Suture Crania</dt>
+            <dd class="col-sm-9">@Model.SquamousSutureCrania</dd>
+
+            <dt class="col-sm-3">Tooth Attrition</dt>
+            <dd class="col-sm-9">@Model.ToothAttrition</dd>
+
+            <dt class="col-sm-3">Tooth Eruption Description</dt>
+            <dd class="col-sm-9">@Model.ToothEruptionDescription</dd>
+
+            <dt class="col-sm-3">Tooth Eruption Age Estimate</dt>
+            <dd class="col-sm-9">@Model.ToothEruptionAgeEstimate</dd>
+
+            <dt class="col-sm-3">Ventral Arc Pelvis</dt>
+            <dd class="col-sm-9">@Model.VentralArcPelvis</dd>
+
+            <dt class="col-sm-3">Subpubic Angle Pelvis</dt>
+            <dd class="col-sm-9">@Model.SubpubicAnglePelvis</dd>
+
+            <dt class="col-sm-3">Sciatic Notch Pelvis</dt>
+            <dd class="col-sm-9">@Model.SciaticNotchPelvis</dd>
+
+            <dt class="col-sm-3">Pubic Bone Pelvis</dt>
+            <dd class="col-sm-9">@Model.PubicBonePelvis</dd>
+
+            <dt class="col-sm-3">Preauricular Sulcus Pelvis</dt>
+            <dd class="col-sm-9">@Model.PreauricularSulcusPelvis</dd>
+
+            <dt class="col-sm-3">Medial Ipramus Pelvis</dt>
+            <dd class="col-sm-9">@Model.MedialIpramusPelvis</dd>
+
+            <dt class="col-sm-3">Dorsal Pitting Pelvis</dt>
+            <dd class="col-sm-9">@Model.DorsalPittingPelvis</dd>
+
+
+            <dt class="col-sm-3">Femur Epiphyseal Union</dt>
+            <dd class="col-sm-9">@Model.FemurEpiphysealUnion</dd>
+
+
+            <dt class="col-sm-3">Humerus Epiphyseal Union</dt>
+            <dd class="col-sm-9">@Model.HumerusEpiphysealUnion</dd>
+
+
+            <dt class="col-sm-3">Femur Head Diameter</dt>
+            <dd class="col-sm-9">@Model.FemurHeadDiameter</dd>
+
+
+            <dt class="col-sm-3">Humerus Head Diameter</dt>
+            <dd class="col-sm-9">@Model.HumerusHeadDiameter</dd>
+
+
+            <dt class="col-sm-3">Femur Length</dt>
+            <dd class="col-sm-9">@Model.FemurLength</dd>
+
+
+            <dt class="col-sm-3">Humerus Length</dt>
+            <dd class="col-sm-9">@Model.HumerusLength</dd>
+
+
+            <dt class="col-sm-3">Tibia Length</dt>
+            <dd class="col-sm-9">@Model.TibiaLength</dd>
+
+
+            <dt class="col-sm-3">Estimate Stature</dt>
+            <dd class="col-sm-9">@Model.EstimateStature</dd>
+
+
+            <dt class="col-sm-3">Estimate Sex</dt>
+            <dd class="col-sm-9">@Model.EstimateSex</dd>
+
+
+            <dt class="col-sm-3">Osteophytosis</dt>
+            <dd class="col-sm-9">@Model.Osteophytosis</dd>
+
+
+            <dt class="col-sm-3">Caries Periodontal Disease</dt>
+            <dd class="col-sm-9">@Model.CariesPeriodontalDisease</dd>
+
+        </dl>
+        <br />
+
+        <div class="col-sm-3" style="font-weight:bold">Body Analysis Notes:</div><br />
+        <div class="col-sm-3 box">@Model.BodyAnalysisNotes</div>
+
     </div>
+
+
 
 
     @section Scripts {

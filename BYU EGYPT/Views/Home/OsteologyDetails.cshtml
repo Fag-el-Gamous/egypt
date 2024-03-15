@@ -1,1 +1,228 @@
-﻿
+﻿@model BYU_EGYPT.Models.Burial
+
+@{
+    //ViewData["Title"] = "Sample Details - " + Model.BurialNumber;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FagElGamous.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+    <style>
+        .minimalistic-btn {
+            background-color: transparent; /* No background color */
+            border: 1px solid #007bff; /* Border color similar to Bootstrap primary color */
+            color: #007bff; /* Text color similar to Bootstrap primary color */
+            text-align: center;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+
+            .minimalistic-btn:hover {
+                color: #fff; /* White text on hover */
+                background-color: #007bff; /* Bootstrap primary color background on hover */
+                border-color: #0056b3; /* Slightly darker border color on hover */
+                text-decoration: none; /* Remove underline from links */
+            }
+
+        .pdf-placeholder-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px; /* Adjust the space between items */
+        }
+
+        .pdf-placeholder {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 150px; /* Set a fixed width for each placeholder */
+            text-align: center;
+        }
+
+            .pdf-placeholder img {
+                width: 100%;
+                height: auto;
+            }
+
+        .active-tab {
+            background-color: #0072CE; /* Set your preferred highlight color */
+            color: #fff; /* Set the text color for the active tab */
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container mt-3">
+
+        @*<div class="btn-group mt-4" role="group" aria-label="Related Information">
+                <a href="javascript:void(0);" onclick="location.reload();" class="btn minimalistic-btn active-tab">Burial</a>
+                <a href="@Url.Action("ArtifactDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
+                <a href="@Url.Action("TextileDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Textiles</a>
+                <a href="@Url.Action("OsteologyDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Osteology</a>
+            </div>*@
+
+        <hr />
+
+        @*<h1>Artifact: @Model.ArtifactId</h1><br />*@
+
+        <dl class="row">
+            <dt class="col-sm-3">Body Examination Date</dt>
+            <dd class="col-sm-9">@Model.BodyExaminationDate</dd>
+
+            <dt class="col-sm-3">Body Preservation Index</dt>
+            <dd class="col-sm-9">@Model.BodyPreservationIndex</dd>
+
+            <dt class="col-sm-3">Robust Crania</dt>
+            <dd class="col-sm-9">@Model.RobustCrania</dd>
+
+            <dt class="col-sm-3">Supraorbital Ridges Crania</dt>
+            <dd class="col-sm-9">@Model.SupraorbitalRidgesCrania</dd>
+
+            <dt class="col-sm-3">Orbit Edge Crania</dt>
+            <dd class="col-sm-9">@Model.OrbitEdgeCrania</dd>
+
+            <dt class="col-sm-3">Parietal Bossing Crania</dt>
+            <dd class="col-sm-9">@Model.ParietalBossingCrania</dd>
+
+            <dt class="col-sm-3">Gonion Crania</dt>
+            <dd class="col-sm-9">@Model.GonionCrania</dd>
+
+            <dt class="col-sm-3">Nuchal Crest Crania</dt>
+            <dd class="col-sm-9">@Model.NuchalCrestCrania</dd>
+
+            <dt class="col-sm-3">Zygomatic Crest Crania</dt>
+            <dd class="col-sm-9">@Model.ZygomaticCrestCrania</dd>
+
+            <dt class="col-sm-3">Spheno-Occipital Synchondrosis Crania</dt>
+            <dd class="col-sm-9">@Model.SphenoOccipitalSynchondrosisCrania</dd>
+
+            <dt class="col-sm-3">Lamboid Suture Crania</dt>
+            <dd class="col-sm-9">@Model.LamboidSutureCrania</dd>
+
+            <dt class="col-sm-3">Squamous Suture Crania</dt>
+            <dd class="col-sm-9">@Model.SquamousSutureCrania</dd>
+
+            <dt class="col-sm-3">Tooth Attrition</dt>
+            <dd class="col-sm-9">@Model.ToothAttrition</dd>
+
+            <dt class="col-sm-3">Tooth Eruption Description</dt>
+            <dd class="col-sm-9">@Model.ToothEruptionDescription</dd>
+
+            <dt class="col-sm-3">Tooth Eruption Age Estimate</dt>
+            <dd class="col-sm-9">@Model.ToothEruptionAgeEstimate</dd>
+
+            <dt class="col-sm-3">Ventral Arc Pelvis</dt>
+            <dd class="col-sm-9">@Model.VentralArcPelvis</dd>
+
+            <dt class="col-sm-3">Subpubic Angle Pelvis</dt>
+            <dd class="col-sm-9">@Model.SubpubicAnglePelvis</dd>
+
+            <dt class="col-sm-3">Sciatic Notch Pelvis</dt>
+            <dd class="col-sm-9">@Model.SciaticNotchPelvis</dd>
+
+            <dt class="col-sm-3">Pubic Bone Pelvis</dt>
+            <dd class="col-sm-9">@Model.PubicBonePelvis</dd>
+
+            <dt class="col-sm-3">Preauricular Sulcus Pelvis</dt>
+            <dd class="col-sm-9">@Model.PreauricularSulcusPelvis</dd>
+
+            <dt class="col-sm-3">Medial Ipramus Pelvis</dt>
+            <dd class="col-sm-9">@Model.MedialIpramusPelvis</dd>
+
+            <dt class="col-sm-3">Dorsal Pitting Pelvis</dt>
+            <dd class="col-sm-9">@Model.DorsalPittingPelvis</dd>
+
+
+            <dt class="col-sm-3">Femur Epiphyseal Union</dt>
+            <dd class="col-sm-9">@Model.FemurEpiphysealUnion</dd>
+
+
+            <dt class="col-sm-3">Humerus Epiphyseal Union</dt>
+            <dd class="col-sm-9">@Model.HumerusEpiphysealUnion</dd>
+
+
+            <dt class="col-sm-3">Femur Head Diameter</dt>
+            <dd class="col-sm-9">@Model.FemurHeadDiameter</dd>
+
+
+            <dt class="col-sm-3">Humerus Head Diameter</dt>
+            <dd class="col-sm-9">@Model.HumerusHeadDiameter</dd>
+
+
+            <dt class="col-sm-3">Femur Length</dt>
+            <dd class="col-sm-9">@Model.FemurLength</dd>
+
+
+            <dt class="col-sm-3">Humerus Length</dt>
+            <dd class="col-sm-9">@Model.HumerusLength</dd>
+
+
+            <dt class="col-sm-3">Tibia Length</dt>
+            <dd class="col-sm-9">@Model.TibiaLength</dd>
+
+
+            <dt class="col-sm-3">Estimate Stature</dt>
+            <dd class="col-sm-9">@Model.EstimateStature</dd>
+
+
+            <dt class="col-sm-3">Estimate Sex</dt>
+            <dd class="col-sm-9">@Model.EstimateSex</dd>
+
+
+            <dt class="col-sm-3">Osteophytosis</dt>
+            <dd class="col-sm-9">@Model.Osteophytosis</dd>
+
+
+            <dt class="col-sm-3">Caries Periodontal Disease</dt>
+            <dd class="col-sm-9">@Model.CariesPeriodontalDisease</dd>
+
+        </dl>
+        <br />
+
+        <div class="col-sm-3" style="font-weight:bold">Body Analysis Notes:</div><br />
+        <div class="col-sm-3 box">@Model.BodyAnalysisNotes</div>
+
+    </div>
+
+
+
+
+    @section Scripts {
+        <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <!-- Then load Bootstrap's JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>$(document).ready(function () {
+                // Get the current page URL
+                var currentPage = window.location.href;
+
+                // Find the tab that matches the current URL
+                var activeTab = $('.btn[data-tab]').filter(function () {
+                    return currentPage.indexOf($(this).attr('href')) > -1;
+                });
+
+                // Remove the active class from all tabs
+                $('.btn[data-tab]').removeClass('active-tab');
+
+                // Add the active class to the matched tab
+                activeTab.addClass('active-tab');
+            });</script>
+
+    }
+
+</body>
+</html>
