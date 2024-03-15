@@ -72,31 +72,81 @@
         <div class="btn-group mt-4" role="group" aria-label="Related Information">
             <a href="javascript:void(0);" onclick="location.reload();" class="btn minimalistic-btn active-tab">Burial Details</a>
             <a href="@Url.Action("RelatedOsteology", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Osteology Analysis</a>
-            <a href="@Url.Action("RelatedCrania", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Crania Analysis</a>
-            <a href="@Url.Action("RelatedC14", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Carbon Dating Info</a>
+            <a href="@Url.Action("Related", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Crania Analysis</a>
+            <a href="@Url.Action("RelatedArtifacts", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Carbon Dating Info</a>
             <a href="@Url.Action("RelatedTextiles", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Textiles</a>
             <a href="@Url.Action("RelatedArtifacts", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
         </div>
+    </div>
 
         <hr />
 
-        <dl class="row">
-            <dt class="col-sm-3">Location</dt>
-            <dd class="col-sm-6">@Model.Location</dd>
-            <dd class="col-sm-3"><a asp-controller="Home" asp-action="EditRecord">Edit</a></dd>
+    <dl class="row">
+        <dt class="col-sm-3">Location</dt>
+        <dd class="col-sm-9">@Model.Location</dd>
 
-            <dt class="col-sm-3">Excavation Year</dt>
-            <dd class="col-sm-9">@Model.ExcavationYear</dd>
+        <dt class="col-sm-3">Excavation Year</dt>
+        <dd class="col-sm-9">@Model.ExcavationYear</dd>
 
-            <dt class="col-sm-3">Burial Number</dt>
-            <dd class="col-sm-9">@Model.BurialNumber</dd>
+        <dt class="col-sm-3">Burial Number</dt>
+        <dd class="col-sm-9">@Model.BurialNumber</dd>
 
-            <dt class="col-sm-3">Head Direction</dt>
-            <dd class="col-sm-9">@Model.HeadDirection</dd>
+        <dt class="col-sm-3">Max Crania Length</dt>
+        <dd class="col-sm-9">@Model.MaxCraniaLength</dd>
 
+        <dt class="col-sm-3">Max Crania Breadth</dt>
+        <dd class="col-sm-9">@Model.MaxCraniaBreadth</dd>
 
+        <dt class="col-sm-3">Basion Bregma Height</dt>
+        <dd class="col-sm-9">@Model.BasionBregmaHeight</dd>
 
-        </dl>
+        <dt class="col-sm-3">Basion Nasion Length</dt>
+        <dd class="col-sm-9">@Model.BasionNasionLength</dd>
+
+        <dt class="col-sm-3">Basion Prosthion Length</dt>
+        <dd class="col-sm-9">@Model.BasionProsthionLength</dd>
+
+        <dt class="col-sm-3">Bizygomatic Diameter</dt>
+        <dd class="col-sm-9">@Model.BizygomaticDiameter</dd>
+
+        <dt class="col-sm-3">Nasion Prosthion Height</dt>
+        <dd class="col-sm-9">@Model.NasionProsthionHeight</dd>
+
+        <dt class="col-sm-3">Max Nasal Breadth</dt>
+        <dd class="col-sm-9">@Model.MaxNasalBreadth</dd>
+
+        <dt class="col-sm-3">Interorbital Breadth</dt>
+        <dd class="col-sm-9">@Model.InterorbitalBreadth</dd>
+
+        <dt class="col-sm-3">Sex</dt>
+        <dd class="col-sm-9">@Model.Sex</dd>
+
+        <dt class="col-sm-3">Calculated Sex</dt>
+        <dd class="col-sm-9">@Model.CalculatedSex</dd>
+
+        <dt class="col-sm-3">Sex Match</dt>
+        <dd class="col-sm-9">@Model.SexMatch</dd>
+
+        <dt class="col-sm-3">Calc Max Crania Length</dt>
+        <dd class="col-sm-9">@Model.CalcMaxCraniaLength</dd>
+
+        <dt class="col-sm-3">Calc Basion Nasion</dt>
+        <dd class="col-sm-9">@Model.CalcBasionNasion</dd>
+
+        <dt class="col-sm-3">Calc Basion Prosthion</dt>
+        <dd class="col-sm-9">@Model.CalcBasionProsthion</dd>
+
+        <dt class="col-sm-3">Calc Bizygomatic Diameter</dt>
+        <dd class="col-sm-9">@Model.CalcBizygomaticDiameter</dd>
+
+        <dt class="col-sm-3">Calc Nasion Prosthion Height</dt>
+        <dd class="col-sm-9">@Model.CalcNasionProsthionHeight</dd>
+
+        <dt class="col-sm-3">Crania Calc Sum</dt>
+        <dd class="col-sm-9">@Model.CraniaCalcSum</dd>
+
+    </dl>
+
         <br />
         <br />
 
@@ -132,100 +182,6 @@
         </div>
 
 
-        <form method="post" asp-action="EditRecord" asp-controller="Home">
-            <input type="hidden" />
-            <div class="form-group">
-                <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
-                <div class="col-sm-9">
-                    <input asp-for="Location" class="form-control" />
-                </div>
-                <label asp-for="ExcavationYear" class="col-sm-3 col-form-label">Excavation Year</label>
-                <div class="col-sm-9">
-                    <input asp-for="ExcavationYear" class="form-control" />
-                </div>
-                <label asp-for="BurialNumber" class="col-sm-3 col-form-label">Burial Number</label>
-                <div class="col-sm-9">
-                    <input asp-for="BurialNumber" class="form-control" />
-                </div>
-                <label asp-for="HeadDirection" class="col-sm-3 col-form-label">Head Direction</label>
-                <div class="col-sm-9">
-                    <input asp-for="HeadDirection" class="form-control" />
-                </div>
-            </div>
-            <!-- Add similar fields for other properties -->
-            <br />
-            <br />
-
-
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            <a href="@Url.Action("BurialTable", "Home")" class="btn btn-secondary">Back to List</a>
-        </form>
-    </div>
-
-    <br />
-    <br />
-    <br />
-
-    <div class="container mt-3">
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#collapseBodyAnalysis">
-                        Body Analysis
-                    </a>
-                </div>
-                <div id="collapseBodyAnalysis" class="collapse" data-parent="#accordion">
-                    <div class="card-body">
-                        <!-- Placeholder for Body Analysis picture -->
-                        <img src="path_to_your_placeholder_image" alt="Body Analysis Placeholder" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#collapseCrania">
-                        Crania
-                    </a>
-                </div>
-                <div id="collapseCrania" class="collapse" data-parent="#accordion">
-                    <div class="card-body">
-                        <!-- Placeholder for Crania picture -->
-                        <img src="path_to_your_placeholder_image" alt="Crania Placeholder" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#collapseFieldbooks">
-                        Fieldbooks
-                    </a>
-                </div>
-                <div id="collapseFieldbooks" class="collapse" data-parent="#accordion">
-                    <!-- These links will open the PDF in a new tab at the specified page -->
-
-
-
-
-
-
-
-
-                    <a class="card-link" href="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf#page=5" target="_blank">Page 5</a>
-                    <a class="card-link" href="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf#page=18" target="_blank">Page 30 & 31</a>
-                    <a class="card-link" href="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf#page=19" target="_blank">Page 19</a>
-                    <embed src="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf" type="application/pdf" width="100%" height="600px">
-
-
-                </div>
-
-            </div>
-
-
-
-        </div>
-    </div>
 
     @section Scripts {
         <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
