@@ -1,4 +1,5 @@
 ﻿using BYU_EGYPT.Models;
+using BYU_EGYPT.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -14,6 +15,13 @@ namespace BYU_EGYPT
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            //UNCOMMENT THIS TO USE AWS DATABASE
+            //builder.Services.AddDbContext<AWSDbContext>(options =>
+            //{
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("AWSDB_CONNECTION"));
+            //});
+
+            //COMMENT THIS TO USE AWS DATABASE
             var connection = String.Empty;
             if (builder.Environment.IsDevelopment())
             {
@@ -29,6 +37,7 @@ namespace BYU_EGYPT
             {
                 options.UseSqlServer(connection);
             });
+            //----------------------------------------------
 
             var app = builder.Build();
 
