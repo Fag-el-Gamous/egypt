@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home";
+    //@model IEnumerable<BYU_EGYPT.Models.CraniumAnalysisSheet> pulls in model from new AWS DB!!!
 }
 
 <!DOCTYPE html>
@@ -86,6 +87,28 @@
     <div class="hero-section">
         <img src="/img/10.png" alt="Fag el-Gamous">
         <button class="btn">Explore the Cemetery</button>
+
+@*      PROOF OF CONCEPT TABLE FOR CRANIUMANALYSISTABLE (FROM NEW AWS DB)   
+        <table id="burialTable" class="table table-bordered hoverable-table">
+            <thead>
+                <tr>
+                    <td style="font-weight: bold; background-color: #f2f2f2; ">CraniumID</td>
+                    <td style="font-weight: bold; background-color: #f2f2f2; ">CraniumFilePath</td>
+                    <td style="font-weight: bold; background-color: #f2f2f2; ">CraniumFileName</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.CraniumID</td>
+                        <td>@item.CraniumAnalysisSheetFilePath</td>
+                        <td>@item.CraniumAnalysisSheetFileName</td>
+                    </tr>
+                }
+            </tbody>
+        </table> *@
     </div>
 
     <div class="grid">

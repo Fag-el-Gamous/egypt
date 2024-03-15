@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using BYU_EGYPT.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BYU_EGYPT.Models;
+namespace BYU_EGYPT.Data;
 
 public partial class ByuEgyptDbContext : DbContext
 {
