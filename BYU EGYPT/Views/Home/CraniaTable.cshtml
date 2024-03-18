@@ -207,11 +207,11 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr onclick="window.location.href='@Url.Action("CraniaDetails", "Home", new { BurialNumberID = item.CraniaId })';" style="cursor:pointer">
+                            <tr onclick="window.location.href='@Url.Action("CraniaDetails", "Home", new { BurialNumberID = item.CraniumId })';" style="cursor:pointer">
                                 <td>@item.ExcavationYear</td>
                                 <td>@item.Location</td>
-                                <td>@item.MaxCraniaLength</td>
-                                <td>@item.MaxCraniaBreadth</td>
+                                <td>@item.MaxCraniumLength</td>
+                                <td>@item.MaxCraniumBreadth</td>
                                 <td>@item.BasionBregmaHeight</td>
                                 <td>@item.BasionNasionLength</td>
                                 <td>@item.BasionProsthionLength</td>

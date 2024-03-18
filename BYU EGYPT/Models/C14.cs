@@ -7,6 +7,8 @@ public partial class C14
 {
     public int C14id { get; set; }
 
+    public int? BiologicalSampleId { get; set; }
+
     public string? Contents { get; set; }
 
     public string? LocationDescription { get; set; }
@@ -37,5 +39,5 @@ public partial class C14
 
     public string? Notes { get; set; }
 
-    public virtual ICollection<BiologicalSample> BiologicalSamples { get; set; } = new List<BiologicalSample>();
+    public virtual BiologicalSample? BiologicalSample { get; set; }
 }

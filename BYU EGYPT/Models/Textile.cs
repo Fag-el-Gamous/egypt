@@ -7,11 +7,11 @@ public partial class Textile
 {
     public int TextileId { get; set; }
 
-    public string? BurialNumber { get; set; }
-
     public short? ExcavationYear { get; set; }
 
     public string? Location { get; set; }
+
+    public string? BurialNumber { get; set; }
 
     public string? TextileReferenceNumber { get; set; }
 
@@ -29,6 +29,8 @@ public partial class Textile
 
     public virtual Location? LocationNavigation { get; set; }
 
+    public virtual ICollection<TextileAnalysisSheet> TextileAnalysisSheets { get; set; } = new List<TextileAnalysisSheet>();
+
     public virtual ICollection<TextilePhoto> TextilePhotos { get; set; } = new List<TextilePhoto>();
 
     public virtual ICollection<TextileTextileDimension> TextileTextileDimensions { get; set; } = new List<TextileTextileDimension>();
@@ -36,8 +38,6 @@ public partial class Textile
     public virtual ICollection<TextileTextileFunction> TextileTextileFunctions { get; set; } = new List<TextileTextileFunction>();
 
     public virtual ICollection<YarnManipulation> YarnManipulations { get; set; } = new List<YarnManipulation>();
-
-    public virtual ICollection<Pdf> Boxes { get; set; } = new List<Pdf>();
 
     public virtual ICollection<TextileColor> TextileColors { get; set; } = new List<TextileColor>();
 

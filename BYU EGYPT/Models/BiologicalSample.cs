@@ -11,25 +11,25 @@ public partial class BiologicalSample
 
     public short? BagNumber { get; set; }
 
-    public string? Location { get; set; }
+    public short? TubeNumber { get; set; }
 
-    public short? ExcavationYear { get; set; }
+    public double? SizeMl { get; set; }
+
+    public string? Location { get; set; }
 
     public string? BurialNumber { get; set; }
 
-    public short? BurialSampleNumber { get; set; }
+    public short? ExcavationYear { get; set; }
 
-    public short? Date { get; set; }
+    public string? Contents { get; set; }
 
-    public string? PreviouslySampled { get; set; }
+    public string? StorageNotes { get; set; }
 
-    public string? Notes { get; set; }
-
-    public int? C14id { get; set; }
+    public string? Initials { get; set; }
 
     public virtual Burial? Burial { get; set; }
 
-    public virtual C14? C14 { get; set; }
+    public virtual ICollection<C14> C14s { get; set; } = new List<C14>();
 
     public virtual Location? LocationNavigation { get; set; }
 }

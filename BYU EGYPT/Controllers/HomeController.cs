@@ -11,20 +11,15 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly ByuEgyptDbContext _context;
-    //private readonly AWSDbContext _db; //This is the AWS database context
 
-    //add "AWSDbContext db" to the parameters below to use the AWS database
     public HomeController(ILogger<HomeController> logger, ByuEgyptDbContext context)
     {
         _logger = logger;
         _context = context;
-        //_db = db; // This is the AWS database context instance
     }
 
     public IActionResult Index()
     {
-        //var CraniumSheetData = _db.CraniumAnalysisSheet.ToList(); //This is the data from the AWS database
-        //return View(CraniumSheetData);
         return View();
     }
 

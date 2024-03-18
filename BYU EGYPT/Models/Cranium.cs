@@ -5,7 +5,7 @@ namespace BYU_EGYPT.Models;
 
 public partial class Cranium
 {
-    public int CraniaId { get; set; }
+    public int CraniumId { get; set; }
 
     public string? Location { get; set; }
 
@@ -13,9 +13,9 @@ public partial class Cranium
 
     public string? BurialNumber { get; set; }
 
-    public decimal? MaxCraniaLength { get; set; }
+    public decimal? MaxCraniumLength { get; set; }
 
-    public decimal? MaxCraniaBreadth { get; set; }
+    public decimal? MaxCraniumBreadth { get; set; }
 
     public decimal? BasionBregmaHeight { get; set; }
 
@@ -37,7 +37,7 @@ public partial class Cranium
 
     public bool? SexMatch { get; set; }
 
-    public decimal? CalcMaxCraniaLength { get; set; }
+    public decimal? CalcMaxCraniumLength { get; set; }
 
     public decimal? CalcBasionNasion { get; set; }
 
@@ -47,7 +47,7 @@ public partial class Cranium
 
     public decimal? CalcNasionProsthionHeight { get; set; }
 
-    public decimal? CraniaCalcSum { get; set; }
+    public decimal? CraniumCalcSum { get; set; }
 
     public virtual Burial? Burial { get; set; }
 

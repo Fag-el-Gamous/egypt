@@ -7,11 +7,11 @@ public partial class ArtifactPhoto
 {
     public string ArtifactId { get; set; } = null!;
 
-    public long BoxId { get; set; }
+    public string ArtifactPhotoFilePath { get; set; } = null!;
+
+    public string ArtifactPhotoFileName { get; set; } = null!;
 
     public bool? IsCoverPhoto { get; set; }
 
     public virtual Artifact Artifact { get; set; } = null!;
-
-    public virtual Photo Box { get; set; } = null!;
 }

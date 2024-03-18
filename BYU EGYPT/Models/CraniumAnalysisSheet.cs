@@ -1,14 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
-namespace BYU_EGYPT.Models
+namespace BYU_EGYPT.Models;
+
+public partial class CraniumAnalysisSheet
 {
-    public class CraniumAnalysisSheet
-    {
-        public int CraniumID { get; set; }
-        [Required]
-        [Key]
-        public string CraniumAnalysisSheetFilePath { get; set; }
-        [Required]
-        public string CraniumAnalysisSheetFileName { get; set; }
-    }
+    public int CraniumId { get; set; }
+
+    public string CraniumAnalysisSheetFilePath { get; set; } = null!;
+
+    public string CraniumAnalysisSheetFileName { get; set; } = null!;
 }

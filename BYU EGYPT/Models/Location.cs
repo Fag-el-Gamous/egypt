@@ -17,6 +17,10 @@ public partial class Location
 
     public string? Quadrant { get; set; }
 
+    public string? Area { get; set; }
+
+    public short? Tomb { get; set; }
+
     public string? Notes { get; set; }
 
     public virtual ICollection<Artifact> Artifacts { get; set; } = new List<Artifact>();

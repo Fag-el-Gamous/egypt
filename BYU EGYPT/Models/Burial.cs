@@ -65,25 +65,25 @@ public partial class Burial
 
     public byte? BodyPreservationIndex { get; set; }
 
-    public string? RobustCrania { get; set; }
+    public string? RobustCranium { get; set; }
 
-    public string? SupraorbitalRidgesCrania { get; set; }
+    public string? SupraorbitalRidgesCranium { get; set; }
 
-    public string? OrbitEdgeCrania { get; set; }
+    public string? OrbitEdgeCranium { get; set; }
 
-    public string? ParietalBossingCrania { get; set; }
+    public string? ParietalBossingCranium { get; set; }
 
-    public string? GonionCrania { get; set; }
+    public string? GonionCranium { get; set; }
 
-    public string? NuchalCrestCrania { get; set; }
+    public string? NuchalCrestCranium { get; set; }
 
-    public string? ZygomaticCrestCrania { get; set; }
+    public string? ZygomaticCrestCranium { get; set; }
 
-    public string? SphenoOccipitalSynchondrosisCrania { get; set; }
+    public string? SphenoOccipitalSynchondrosisCranium { get; set; }
 
-    public string? LamboidSutureCrania { get; set; }
+    public string? LamboidSutureCranium { get; set; }
 
-    public string? SquamousSutureCrania { get; set; }
+    public string? SquamousSutureCranium { get; set; }
 
     public string? ToothAttrition { get; set; }
 
@@ -129,9 +129,17 @@ public partial class Burial
 
     public string? BodyAnalysisNotes { get; set; }
 
+    public int? ClusterNumber { get; set; }
+
+    public int? ShaftNumber { get; set; }
+
     public virtual ICollection<Artifact> Artifacts { get; set; } = new List<Artifact>();
 
     public virtual ICollection<BiologicalSample> BiologicalSamples { get; set; } = new List<BiologicalSample>();
+
+    public virtual ICollection<BodyAnalysis> BodyAnalyses { get; set; } = new List<BodyAnalysis>();
+
+    public virtual ICollection<BodyAnalysisSheet> BodyAnalysisSheets { get; set; } = new List<BodyAnalysisSheet>();
 
     public virtual ICollection<BurialFieldbookPage> BurialFieldbookPages { get; set; } = new List<BurialFieldbookPage>();
 
@@ -142,6 +150,4 @@ public partial class Burial
     public virtual Location LocationNavigation { get; set; } = null!;
 
     public virtual ICollection<Textile> Textiles { get; set; } = new List<Textile>();
-
-    public virtual ICollection<Pdf> Boxes { get; set; } = new List<Pdf>();
 }

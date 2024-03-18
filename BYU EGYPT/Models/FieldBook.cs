@@ -7,17 +7,13 @@ public partial class FieldBook
 {
     public int FieldBookId { get; set; }
 
-    public long? BoxId { get; set; }
+    public string? FieldBookFilePath { get; set; }
 
-    public byte? YearName { get; set; }
+    public string? FieldBookFileName { get; set; }
+
+    public string? YearName { get; set; }
 
     public string? Notes { get; set; }
-
-    public string? FilePath { get; set; }
-
-    public string? FileName { get; set; }
-
-    public virtual Pdf? Box { get; set; }
 
     public virtual ICollection<BurialFieldbookPage> BurialFieldbookPages { get; set; } = new List<BurialFieldbookPage>();
 }

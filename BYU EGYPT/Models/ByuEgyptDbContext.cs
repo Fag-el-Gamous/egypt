@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using BYU_EGYPT.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace BYU_EGYPT.Data;
+namespace BYU_EGYPT.Models;
 
 public partial class ByuEgyptDbContext : DbContext
 {
@@ -22,6 +21,10 @@ public partial class ByuEgyptDbContext : DbContext
 
     public virtual DbSet<BiologicalSample> BiologicalSamples { get; set; }
 
+    public virtual DbSet<BodyAnalysis> BodyAnalyses { get; set; }
+
+    public virtual DbSet<BodyAnalysisSheet> BodyAnalysisSheets { get; set; }
+
     public virtual DbSet<Burial> Burials { get; set; }
 
     public virtual DbSet<BurialFieldbookPage> BurialFieldbookPages { get; set; }
@@ -31,6 +34,8 @@ public partial class ByuEgyptDbContext : DbContext
     public virtual DbSet<C14> C14s { get; set; }
 
     public virtual DbSet<Cranium> Crania { get; set; }
+
+    public virtual DbSet<CraniumAnalysisSheet> CraniumAnalysisSheets { get; set; }
 
     public virtual DbSet<CraniumPhoto> CraniumPhotos { get; set; }
 
@@ -42,15 +47,15 @@ public partial class ByuEgyptDbContext : DbContext
 
     public virtual DbSet<Material> Materials { get; set; }
 
-    public virtual DbSet<Pdf> Pdfs { get; set; }
-
     public virtual DbSet<Person> People { get; set; }
 
     public virtual DbSet<PersonTextile> PersonTextiles { get; set; }
 
-    public virtual DbSet<Photo> Photos { get; set; }
+    public virtual DbSet<Publication> Publications { get; set; }
 
     public virtual DbSet<Textile> Textiles { get; set; }
+
+    public virtual DbSet<TextileAnalysisSheet> TextileAnalysisSheets { get; set; }
 
     public virtual DbSet<TextileColor> TextileColors { get; set; }
 
@@ -84,7 +89,7 @@ public partial class ByuEgyptDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=tcp:byu-egypt-db-server.database.windows.net,1433;Initial Catalog=BYU_Egypt_DB;Persist Security Info=False;User ID=byu-egypt-db-server-login;Password=rQC8%&wAyD5ig4;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+        => optionsBuilder.UseSqlServer("Server=tcp:byu-egypt-db.c2dqr5tvp2f1.us-east-2.rds.amazonaws.com,1433;Initial Catalog=byu-egypt-db;Persist Security Info=False;User ID=admin;Password=Garage-Deflected7-Oversized;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -179,25 +184,25 @@ public partial class ByuEgyptDbContext : DbContext
 
         modelBuilder.Entity<ArtifactPhoto>(entity =>
         {
-            entity.HasKey(e => new { e.ArtifactId, e.BoxId });
+            entity.HasKey(e => new { e.ArtifactPhotoFilePath, e.ArtifactPhotoFileName });
 
-            entity.ToTable("Artifact_Photo");
+            entity.ToTable("ArtifactPhoto");
 
+            entity.Property(e => e.ArtifactPhotoFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.ArtifactPhotoFileName)
+                .HasMaxLength(400)
+                .IsUnicode(false);
             entity.Property(e => e.ArtifactId)
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("ArtifactID");
-            entity.Property(e => e.BoxId).HasColumnName("BoxID");
 
             entity.HasOne(d => d.Artifact).WithMany(p => p.ArtifactPhotos)
                 .HasForeignKey(d => d.ArtifactId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Artifact_Photo_Artifact");
-
-            entity.HasOne(d => d.Box).WithMany(p => p.ArtifactPhotos)
-                .HasForeignKey(d => d.BoxId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Artifact_Photo_Photo");
+                .HasConstraintName("FK_ArtifactPhoto_Artifact");
         });
 
         modelBuilder.Entity<BiologicalSample>(entity =>
@@ -210,20 +215,19 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.BurialNumber)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.C14id).HasColumnName("C14ID");
+            entity.Property(e => e.Contents)
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.Initials)
+                .HasMaxLength(5)
+                .IsUnicode(false);
             entity.Property(e => e.Location)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.Notes)
-                .HasMaxLength(1000)
+            entity.Property(e => e.SizeMl).HasColumnName("SizeML");
+            entity.Property(e => e.StorageNotes)
+                .HasMaxLength(500)
                 .IsUnicode(false);
-            entity.Property(e => e.PreviouslySampled)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.C14).WithMany(p => p.BiologicalSamples)
-                .HasForeignKey(d => d.C14id)
-                .HasConstraintName("FK_BiologicalSample_C14");
 
             entity.HasOne(d => d.LocationNavigation).WithMany(p => p.BiologicalSamples)
                 .HasForeignKey(d => d.Location)
@@ -232,6 +236,56 @@ public partial class ByuEgyptDbContext : DbContext
             entity.HasOne(d => d.Burial).WithMany(p => p.BiologicalSamples)
                 .HasForeignKey(d => new { d.Location, d.ExcavationYear, d.BurialNumber })
                 .HasConstraintName("FK_BiologicalSample_Burial");
+        });
+
+        modelBuilder.Entity<BodyAnalysis>(entity =>
+        {
+            entity.HasKey(e => new { e.BodyAnalysisFilePath, e.BodyAnalysisFileName });
+
+            entity.ToTable("BodyAnalysis");
+
+            entity.Property(e => e.BodyAnalysisFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.BodyAnalysisFileName)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.BurialNumber)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Location)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.Burial).WithMany(p => p.BodyAnalyses)
+                .HasForeignKey(d => new { d.Location, d.ExcavationYear, d.BurialNumber })
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_BodyAnalysis_Burial");
+        });
+
+        modelBuilder.Entity<BodyAnalysisSheet>(entity =>
+        {
+            entity.HasKey(e => new { e.BodyAnalysisSheetFilePath, e.BodyAnalysisSheetFileName });
+
+            entity.ToTable("BodyAnalysisSheet");
+
+            entity.Property(e => e.BodyAnalysisSheetFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.BodyAnalysisSheetFileName)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.BurialNumber)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Location)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.Burial).WithMany(p => p.BodyAnalysisSheets)
+                .HasForeignKey(d => new { d.Location, d.ExcavationYear, d.BurialNumber })
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_BodyAnalysisSheet_Burial");
         });
 
         modelBuilder.Entity<Burial>(entity =>
@@ -275,7 +329,7 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.FemurEpiphysealUnion).HasMaxLength(10);
             entity.Property(e => e.FemurHeadDiameter).HasColumnType("decimal(3, 1)");
             entity.Property(e => e.FemurLength).HasColumnType("decimal(3, 1)");
-            entity.Property(e => e.GonionCrania).HasMaxLength(10);
+            entity.Property(e => e.GonionCranium).HasMaxLength(10);
             entity.Property(e => e.GraveGoodsDescription).HasMaxLength(2000);
             entity.Property(e => e.HairColor)
                 .HasMaxLength(20)
@@ -292,29 +346,29 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.HumerusEpiphysealUnion).HasMaxLength(10);
             entity.Property(e => e.HumerusHeadDiameter).HasColumnType("decimal(3, 1)");
             entity.Property(e => e.HumerusLength).HasColumnType("decimal(3, 1)");
-            entity.Property(e => e.LamboidSutureCrania).HasMaxLength(10);
+            entity.Property(e => e.LamboidSutureCranium).HasMaxLength(10);
             entity.Property(e => e.Length).HasColumnType("decimal(4, 2)");
             entity.Property(e => e.MedialIpramusPelvis)
                 .HasMaxLength(10)
                 .HasColumnName("MedialIPRamusPelvis");
-            entity.Property(e => e.NuchalCrestCrania).HasMaxLength(10);
-            entity.Property(e => e.OrbitEdgeCrania).HasMaxLength(10);
+            entity.Property(e => e.NuchalCrestCranium).HasMaxLength(10);
+            entity.Property(e => e.OrbitEdgeCranium).HasMaxLength(10);
             entity.Property(e => e.Osteophytosis)
                 .HasMaxLength(300)
                 .IsUnicode(false);
-            entity.Property(e => e.ParietalBossingCrania).HasMaxLength(10);
+            entity.Property(e => e.ParietalBossingCranium).HasMaxLength(10);
             entity.Property(e => e.PubicBonePelvis).HasMaxLength(10);
-            entity.Property(e => e.RobustCrania).HasMaxLength(10);
+            entity.Property(e => e.RobustCranium).HasMaxLength(10);
             entity.Property(e => e.SciaticNotchPelvis).HasMaxLength(10);
             entity.Property(e => e.Sex)
                 .HasMaxLength(1)
                 .IsUnicode(false);
             entity.Property(e => e.SouthToFeet).HasColumnType("decimal(3, 2)");
             entity.Property(e => e.SouthToHead).HasColumnType("decimal(3, 2)");
-            entity.Property(e => e.SphenoOccipitalSynchondrosisCrania).HasMaxLength(10);
-            entity.Property(e => e.SquamousSutureCrania).HasMaxLength(10);
+            entity.Property(e => e.SphenoOccipitalSynchondrosisCranium).HasMaxLength(10);
+            entity.Property(e => e.SquamousSutureCranium).HasMaxLength(10);
             entity.Property(e => e.SubpubicAnglePelvis).HasMaxLength(10);
-            entity.Property(e => e.SupraorbitalRidgesCrania).HasMaxLength(10);
+            entity.Property(e => e.SupraorbitalRidgesCranium).HasMaxLength(10);
             entity.Property(e => e.TibiaLength).HasColumnType("decimal(3, 1)");
             entity.Property(e => e.ToothAttrition)
                 .HasMaxLength(10)
@@ -327,52 +381,28 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.WrappingLevel)
                 .HasMaxLength(70)
                 .IsUnicode(false);
-            entity.Property(e => e.ZygomaticCrestCrania).HasMaxLength(10);
+            entity.Property(e => e.ZygomaticCrestCranium).HasMaxLength(10);
 
             entity.HasOne(d => d.LocationNavigation).WithMany(p => p.Burials)
                 .HasForeignKey(d => d.Location)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Burial_Location");
-
-            entity.HasMany(d => d.Boxes).WithMany(p => p.Burials)
-                .UsingEntity<Dictionary<string, object>>(
-                    "BurialPdf",
-                    r => r.HasOne<Pdf>().WithMany()
-                        .HasForeignKey("BoxId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_Burial_PDF_PDF"),
-                    l => l.HasOne<Burial>().WithMany()
-                        .HasForeignKey("Location", "ExcavationYear", "BurialNumber")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_Burial_PDF_Burial"),
-                    j =>
-                    {
-                        j.HasKey("Location", "ExcavationYear", "BurialNumber", "BoxId");
-                        j.ToTable("Burial_PDF");
-                        j.IndexerProperty<string>("Location")
-                            .HasMaxLength(20)
-                            .IsUnicode(false);
-                        j.IndexerProperty<string>("BurialNumber")
-                            .HasMaxLength(50)
-                            .IsUnicode(false);
-                        j.IndexerProperty<long>("BoxId").HasColumnName("BoxID");
-                    });
         });
 
         modelBuilder.Entity<BurialFieldbookPage>(entity =>
         {
-            entity.HasKey(e => new { e.ExcavationYear, e.BurialNumber, e.FieldBookId, e.PdfpageNumber, e.Location });
+            entity.HasKey(e => new { e.Location, e.ExcavationYear, e.BurialNumber, e.FieldBookId, e.PdfpageNumber, e.BookPageNumber });
 
             entity.ToTable("Burial_FieldbookPage");
 
+            entity.Property(e => e.Location)
+                .HasMaxLength(20)
+                .IsUnicode(false);
             entity.Property(e => e.BurialNumber)
                 .HasMaxLength(50)
                 .IsUnicode(false);
             entity.Property(e => e.FieldBookId).HasColumnName("FieldBookID");
             entity.Property(e => e.PdfpageNumber).HasColumnName("PDFPageNumber");
-            entity.Property(e => e.Location)
-                .HasMaxLength(20)
-                .IsUnicode(false);
 
             entity.HasOne(d => d.FieldBook).WithMany(p => p.BurialFieldbookPages)
                 .HasForeignKey(d => d.FieldBookId)
@@ -387,27 +417,27 @@ public partial class ByuEgyptDbContext : DbContext
 
         modelBuilder.Entity<BurialPhoto>(entity =>
         {
-            entity.HasKey(e => new { e.BoxId, e.Location, e.ExcavationYear, e.BurialNumber });
+            entity.HasKey(e => new { e.BurialPhotoFilePath, e.BurialPhotoFileName });
 
-            entity.ToTable("Burial_Photo");
+            entity.ToTable("BurialPhoto");
 
-            entity.Property(e => e.BoxId).HasColumnName("BoxID");
-            entity.Property(e => e.Location)
-                .HasMaxLength(20)
+            entity.Property(e => e.BurialPhotoFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.BurialPhotoFileName)
+                .HasMaxLength(400)
                 .IsUnicode(false);
             entity.Property(e => e.BurialNumber)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-
-            entity.HasOne(d => d.Box).WithMany(p => p.BurialPhotos)
-                .HasForeignKey(d => d.BoxId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Burial_Photo_Photo");
+            entity.Property(e => e.Location)
+                .HasMaxLength(20)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.Burial).WithMany(p => p.BurialPhotos)
                 .HasForeignKey(d => new { d.Location, d.ExcavationYear, d.BurialNumber })
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Burial_Photo_Burial");
+                .HasConstraintName("FK_BurialPhoto_Burial");
         });
 
         modelBuilder.Entity<C14>(entity =>
@@ -418,6 +448,7 @@ public partial class ByuEgyptDbContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("C14ID");
             entity.Property(e => e.AgeBp).HasColumnName("AgeBP");
+            entity.Property(e => e.BiologicalSampleId).HasColumnName("BiologicalSampleID");
             entity.Property(e => e.C14sampleNum2017).HasColumnName("C14SampleNum2017");
             entity.Property(e => e.Contents)
                 .HasMaxLength(255)
@@ -432,17 +463,21 @@ public partial class ByuEgyptDbContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.ResearchQuestions).HasColumnType("text");
+
+            entity.HasOne(d => d.BiologicalSample).WithMany(p => p.C14s)
+                .HasForeignKey(d => d.BiologicalSampleId)
+                .HasConstraintName("FK_C14_BioSample");
         });
 
         modelBuilder.Entity<Cranium>(entity =>
         {
-            entity.HasKey(e => e.CraniaId).HasName("PK__Cranium__320D286F7EB63FB8");
+            entity.HasKey(e => e.CraniumId).HasName("PK__Cranium__BB37B3F9D1823C6B");
 
             entity.ToTable("Cranium");
 
-            entity.Property(e => e.CraniaId)
+            entity.Property(e => e.CraniumId)
                 .ValueGeneratedNever()
-                .HasColumnName("CraniaID");
+                .HasColumnName("CraniumID");
             entity.Property(e => e.BasionBregmaHeight).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.BasionNasionLength).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.BasionProsthionLength).HasColumnType("decimal(5, 2)");
@@ -453,18 +488,18 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.CalcBasionNasion).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.CalcBasionProsthion).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.CalcBizygomaticDiameter).HasColumnType("decimal(5, 2)");
-            entity.Property(e => e.CalcMaxCraniaLength).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.CalcMaxCraniumLength).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.CalcNasionProsthionHeight).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.CalculatedSex)
                 .HasMaxLength(1)
                 .IsUnicode(false);
-            entity.Property(e => e.CraniaCalcSum).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.CraniumCalcSum).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.InterorbitalBreadth).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.Location)
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.MaxCraniaBreadth).HasColumnType("decimal(5, 2)");
-            entity.Property(e => e.MaxCraniaLength).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.MaxCraniumBreadth).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.MaxCraniumLength).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.MaxNasalBreadth).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.NasionProsthionHeight).HasColumnType("decimal(5, 2)");
             entity.Property(e => e.Sex)
@@ -476,24 +511,39 @@ public partial class ByuEgyptDbContext : DbContext
                 .HasConstraintName("FK_Cranium_Burial");
         });
 
+        modelBuilder.Entity<CraniumAnalysisSheet>(entity =>
+        {
+            entity.HasKey(e => new { e.CraniumAnalysisSheetFilePath, e.CraniumAnalysisSheetFileName });
+
+            entity.ToTable("CraniumAnalysisSheet");
+
+            entity.Property(e => e.CraniumAnalysisSheetFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.CraniumAnalysisSheetFileName)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.CraniumId).HasColumnName("CraniumID");
+        });
+
         modelBuilder.Entity<CraniumPhoto>(entity =>
         {
-            entity.HasKey(e => new { e.CraniaId, e.BoxId });
+            entity.HasKey(e => new { e.CraniumPhotoFilePath, e.CraniumPhotoFileName });
 
-            entity.ToTable("Cranium_Photo");
+            entity.ToTable("CraniumPhoto");
 
-            entity.Property(e => e.CraniaId).HasColumnName("CraniaID");
-            entity.Property(e => e.BoxId).HasColumnName("BoxID");
+            entity.Property(e => e.CraniumPhotoFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.CraniumPhotoFileName)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.CraniumId).HasColumnName("CraniumID");
 
-            entity.HasOne(d => d.Box).WithMany(p => p.CraniumPhotos)
-                .HasForeignKey(d => d.BoxId)
+            entity.HasOne(d => d.Cranium).WithMany(p => p.CraniumPhotos)
+                .HasForeignKey(d => d.CraniumId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Cranium_Photo_Photo");
-
-            entity.HasOne(d => d.Crania).WithMany(p => p.CraniumPhotos)
-                .HasForeignKey(d => d.CraniaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Cranium_Photo_Cranium");
+                .HasConstraintName("FK_CraniumPhoto_Cranium");
         });
 
         modelBuilder.Entity<Excavation>(entity =>
@@ -525,12 +575,16 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.FieldBookId)
                 .ValueGeneratedNever()
                 .HasColumnName("FieldBookID");
-            entity.Property(e => e.BoxId).HasColumnName("BoxID");
+            entity.Property(e => e.FieldBookFileName)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.FieldBookFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
             entity.Property(e => e.Notes).IsUnicode(false);
-
-            entity.HasOne(d => d.Box).WithMany(p => p.FieldBooks)
-                .HasForeignKey(d => d.BoxId)
-                .HasConstraintName("FK_FieldBook_PDF");
+            entity.Property(e => e.YearName)
+                .HasMaxLength(5)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Location>(entity =>
@@ -543,6 +597,9 @@ public partial class ByuEgyptDbContext : DbContext
                 .HasMaxLength(20)
                 .IsUnicode(false)
                 .HasColumnName("Location");
+            entity.Property(e => e.Area)
+                .HasMaxLength(5)
+                .IsUnicode(false);
             entity.Property(e => e.EastOrWest)
                 .HasMaxLength(1)
                 .IsUnicode(false);
@@ -563,39 +620,6 @@ public partial class ByuEgyptDbContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("Material");
-        });
-
-        modelBuilder.Entity<Pdf>(entity =>
-        {
-            entity.HasKey(e => e.BoxId);
-
-            entity.ToTable("PDF");
-
-            entity.Property(e => e.BoxId)
-                .ValueGeneratedNever()
-                .HasColumnName("BoxID");
-            entity.Property(e => e.FileName)
-                .HasMaxLength(500)
-                .IsUnicode(false);
-
-            entity.HasMany(d => d.Textiles).WithMany(p => p.Boxes)
-                .UsingEntity<Dictionary<string, object>>(
-                    "PdfTextile",
-                    r => r.HasOne<Textile>().WithMany()
-                        .HasForeignKey("TextileId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_PDF_Textile_Textile"),
-                    l => l.HasOne<Pdf>().WithMany()
-                        .HasForeignKey("BoxId")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_PDF_Textile_PDF"),
-                    j =>
-                    {
-                        j.HasKey("BoxId", "TextileId");
-                        j.ToTable("PDF_Textile");
-                        j.IndexerProperty<long>("BoxId").HasColumnName("BoxID");
-                        j.IndexerProperty<int>("TextileId").HasColumnName("TextileID");
-                    });
         });
 
         modelBuilder.Entity<Person>(entity =>
@@ -636,17 +660,34 @@ public partial class ByuEgyptDbContext : DbContext
                 .HasConstraintName("FK_Person_Textile_Textile");
         });
 
-        modelBuilder.Entity<Photo>(entity =>
+        modelBuilder.Entity<Publication>(entity =>
         {
-            entity.HasKey(e => e.BoxId);
+            entity.HasKey(e => e.PublicationId).HasName("PK_PublicationID");
 
-            entity.ToTable("Photo");
+            entity.ToTable("Publication");
 
-            entity.Property(e => e.BoxId)
+            entity.Property(e => e.PublicationId)
                 .ValueGeneratedNever()
-                .HasColumnName("BoxID");
-            entity.Property(e => e.FileName)
-                .HasMaxLength(500)
+                .HasColumnName("PublicationID");
+            entity.Property(e => e.Author).IsUnicode(false);
+            entity.Property(e => e.Description).IsUnicode(false);
+            entity.Property(e => e.IsFree)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.OnlineLink).IsUnicode(false);
+            entity.Property(e => e.PublicationDate).HasColumnType("date");
+            entity.Property(e => e.PublicationFileName)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.PublicationFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.PublicationTitle).IsUnicode(false);
+            entity.Property(e => e.PublicationType)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.Topic)
+                .HasMaxLength(100)
                 .IsUnicode(false);
         });
 
@@ -675,7 +716,7 @@ public partial class ByuEgyptDbContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.SampleTakenDate).HasColumnType("date");
             entity.Property(e => e.TextileReferenceNumber)
-                .HasMaxLength(6)
+                .HasMaxLength(20)
                 .IsUnicode(false);
 
             entity.HasOne(d => d.LocationNavigation).WithMany(p => p.Textiles)
@@ -727,6 +768,26 @@ public partial class ByuEgyptDbContext : DbContext
                             .HasMaxLength(50)
                             .IsUnicode(false);
                     });
+        });
+
+        modelBuilder.Entity<TextileAnalysisSheet>(entity =>
+        {
+            entity.HasKey(e => new { e.TextileAnalysisSheetFilePath, e.TextileAnalysisSheetFileName });
+
+            entity.ToTable("TextileAnalysisSheet");
+
+            entity.Property(e => e.TextileAnalysisSheetFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.TextileAnalysisSheetFileName)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.TextileId).HasColumnName("TextileID");
+
+            entity.HasOne(d => d.Textile).WithMany(p => p.TextileAnalysisSheets)
+                .HasForeignKey(d => d.TextileId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_TextileAnalysisSheet_Textile");
         });
 
         modelBuilder.Entity<TextileColor>(entity =>
@@ -808,22 +869,22 @@ public partial class ByuEgyptDbContext : DbContext
 
         modelBuilder.Entity<TextilePhoto>(entity =>
         {
-            entity.HasKey(e => new { e.BoxId, e.TextileId });
+            entity.HasKey(e => new { e.TextilePhotoFilePath, e.TextilePhotoFileName });
 
-            entity.ToTable("Textile_Photo");
+            entity.ToTable("TextilePhoto");
 
-            entity.Property(e => e.BoxId).HasColumnName("BoxID");
+            entity.Property(e => e.TextilePhotoFilePath)
+                .HasMaxLength(400)
+                .IsUnicode(false);
+            entity.Property(e => e.TextilePhotoFileName)
+                .HasMaxLength(400)
+                .IsUnicode(false);
             entity.Property(e => e.TextileId).HasColumnName("TextileID");
-
-            entity.HasOne(d => d.Box).WithMany(p => p.TextilePhotos)
-                .HasForeignKey(d => d.BoxId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Textile_Photo_Photo");
 
             entity.HasOne(d => d.Textile).WithMany(p => p.TextilePhotos)
                 .HasForeignKey(d => d.TextileId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Textile_Photo_Textile");
+                .HasConstraintName("FK_TextilePhoto_Textile");
         });
 
         modelBuilder.Entity<TextilePlyDirection>(entity =>

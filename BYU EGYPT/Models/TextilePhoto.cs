@@ -5,13 +5,13 @@ namespace BYU_EGYPT.Models;
 
 public partial class TextilePhoto
 {
-    public long BoxId { get; set; }
-
     public int TextileId { get; set; }
 
-    public bool? IsCoverPhoto { get; set; }
+    public string TextilePhotoFilePath { get; set; } = null!;
 
-    public virtual Photo Box { get; set; } = null!;
+    public string TextilePhotoFileName { get; set; } = null!;
+
+    public bool? IsCoverPhoto { get; set; }
 
     public virtual Textile Textile { get; set; } = null!;
 }

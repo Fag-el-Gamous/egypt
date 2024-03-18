@@ -15,29 +15,21 @@ namespace BYU_EGYPT
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            //UNCOMMENT THIS TO USE AWS DATABASE
-            //builder.Services.AddDbContext<AWSDbContext>(options =>
-            //{
-            //    options.UseSqlServer(builder.Configuration.GetConnectionString("AWSDB_CONNECTION"));
-            //});
-
-            //COMMENT THIS TO USE AWS DATABASE
             var connection = String.Empty;
             if (builder.Environment.IsDevelopment())
             {
                 builder.Configuration.AddEnvironmentVariables().AddJsonFile("appsettings.Development.json");
-                connection = builder.Configuration.GetConnectionString("AZUREDB_CONNECTION");
+                connection = builder.Configuration.GetConnectionString("AWSDB_CONNECTION");
             }
             else
             {
-                connection = Environment.GetEnvironmentVariable("AZUREDB_CONNECTION");
+                connection = Environment.GetEnvironmentVariable("AWSDB_CONNECTION");
             }
 
             builder.Services.AddDbContext<ByuEgyptDbContext>(options =>
             {
                 options.UseSqlServer(connection);
             });
-            //----------------------------------------------
 
             var app = builder.Build();
 

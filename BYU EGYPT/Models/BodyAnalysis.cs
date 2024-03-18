@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BYU_EGYPT.Models;
 
-public partial class BurialFieldbookPage
+public partial class BodyAnalysis
 {
     public string Location { get; set; } = null!;
 
@@ -11,13 +11,11 @@ public partial class BurialFieldbookPage
 
     public string BurialNumber { get; set; } = null!;
 
-    public int FieldBookId { get; set; }
+    public string BodyAnalysisFilePath { get; set; } = null!;
 
-    public short PdfpageNumber { get; set; }
+    public string BodyAnalysisFileName { get; set; } = null!;
 
-    public short BookPageNumber { get; set; }
+    public bool? IsCoverPhoto { get; set; }
 
     public virtual Burial Burial { get; set; } = null!;
-
-    public virtual FieldBook FieldBook { get; set; } = null!;
 }
