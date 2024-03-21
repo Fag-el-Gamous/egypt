@@ -56,48 +56,37 @@
                 background-color: #BDD6E6;
             }
 
-/*        .dropdown-menu-item {
-            padding: 15px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            color: black;
-            text-decoration: none;
-            font-size: 18px;
+        .indented-menu-item {
+            padding: 3px 10px 3px 20px;
+            font-size: 16px;
         }
-*/
+
+            .indented-menu-item a:hover {
+                font-weight: bold;
+            }
+
+        .indented-menu-item-crania {
+            padding: 3px 10px 10px 20px;
+            font-size: 16px;
+        }
+
+            .indented-menu-item-crania a:hover {
+                font-weight: bold;
+            }
+
+        .burial-item {
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .short-hr {
+            width: calc(100% - 45px);
+            margin-left: 20px;
+        }
+
         .content {
             margin-left: 275px;
             padding: 20px;
-        }
-
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            min-width: 210px;
-            z-index: 1;
-            padding: 10px;
-            font-size: 18px;
-        }
-
-            .dropdown-content a {
-                display: block;
-                padding: 1px;
-                color: black;
-                text-decoration: none;
-            }
-
-        .dropdown.open .dropdown-content {
-            display: block;
-        }
-
-
-        .dropdown-content a:hover {
-            font-weight: bold;
         }
 
         .pagination {
@@ -123,20 +112,6 @@
                     color: black;
                 }
 
-
-        .arrow {
-            border: solid black;
-            border-width: 0 3px 3px 0;
-            display: inline-block;
-            padding: 3px;
-            margin-left: 125px;
-        }
-
-        .down {
-            transform: rotate(45deg);
-            -webkit-transform: rotate(45deg);
-        }
-
         th:nth-child(2),
         td:nth-child(2) {
             width: 125px; 
@@ -151,53 +126,34 @@
     <!-- Side Menu -->
     <div class="side-menu">
         <hr />
-        <div class="menu-item">
-            <div class="dropdown" id="dropdownContainer">
-                <a href="#" onclick="toggleDropdown(); return false;" style="color: black; text-decoration: none;">
-                    Burials <i class="arrow down"></i>
-                </a>
 
-                <div id="dropdownContent" class="dropdown-content">
-                    <a href="#" onmouseover="handleItemHover(this);" onclick="window.location.href='@Url.Action("BurialTable", "Home")'; return false;" style="color: black; text-decoration: none;">
-                        Burial Data
-                    </a><hr />
-                    <a href="#" onmouseover="handleItemHover(this);" onclick="window.location.href='@Url.Action("C14Table", "Home")'; return false;" style="color: black; text-decoration: none;">
-                        C14 Data
-                    </a><hr />
-                    <a href="#" onmouseover="handleItemHover(this);" onclick="window.location.href='@Url.Action("OsteologyTable", "Home")'; return false;" style="color: black; text-decoration: none;">
-                        Osteology Data
-                    </a><hr />
-                    <a href="#" onmouseover="handleItemHover(this);" onclick="window.location.href='@Url.Action("CraniaTable", "Home")'; return false;" style="color: black; text-decoration: none;">
-                        Crania Data
-                    </a>
-                </div>
-
-            </div>
+        <div class="burial-item" style="color: black; text-decoration: none;">
+            Burials
         </div>
 
-        @*<div class="dropdown-menu-item">
-            <a href="#" onclick="window.location.href='@Url.Action("ArtifactTable", "Home")'; return false;" style="">
+        <div class="menu-item indented-menu-item">
+            <a href="#" onclick="window.location.href='@Url.Action("BurialTable", "Home")'; return false;" style="color: black; text-decoration: none;">
                 Burial Data
             </a>
-        </div><hr />
+        </div><hr class="short-hr" />
 
-        <div class="dropdown-menu-item">
-            <a href="#" onclick="window.location.href='@Url.Action("ArtifactTable", "Home")'; return false;" style="color: black; text-decoration: none;">
-                C14 Data
+        <div class="menu-item indented-menu-item">
+            <a href="#" onclick="window.location.href='@Url.Action("C14Table", "Home")'; return false;" style="color: black; text-decoration: none;">
+                Carbon Dating Data
             </a>
-        </div><hr />
+        </div><hr class="short-hr" />
 
-        <div class="dropdown-menu-item">
-            <a href="#" onclick="window.location.href='@Url.Action("ArtifactTable", "Home")'; return false;" style="color: black; text-decoration: none;">
+        <div class="menu-item  indented-menu-item">
+            <a href="#" onclick="window.location.href='@Url.Action("OsteologyTable", "Home")'; return false;" style="color: black; text-decoration: none;">
                 Osteology Data
             </a>
-        </div><hr />
+        </div><hr class="short-hr" />
 
-        <div class="dropdown-menu-item">
-            <a href="#" onclick="window.location.href='@Url.Action("ArtifactTable", "Home")'; return false;" style="color: black; text-decoration: none;">
+        <div class="menu-item  indented-menu-item-crania">
+            <a href="#" onclick="window.location.href='@Url.Action("CraniaTable", "Home")'; return false;" style="color: black; text-decoration: none;">
                 Crania Data
             </a>
-        </div><hr />*@
+        </div>
 
         <div class="menu-item">
             <a href="#" onclick="window.location.href='@Url.Action("ArtifactTable", "Home")'; return false;" style="color: black; text-decoration: none;">
@@ -224,7 +180,7 @@
                     <thead>
                         <tr>
                             <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; " >Location</td>
+                            <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
                             <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
                             <td style="font-weight: bold; background-color: #f2f2f2; ">Has Body Analysis</td>
                             <td style="font-weight: bold; background-color: #f2f2f2; ">Has Textile Info</td>
@@ -258,14 +214,14 @@
                         }
                     </tbody>
                 </table>
-
-                <div class="pagination">
-                    <a asp-action="BurialTable" asp-route-pageNum="1" class="@(ViewBag.CurrentPage == 1 ? "active" : "")">1</a>
-                    <a asp-action="BurialTable" asp-route-pageNum="2" class="@(ViewBag.CurrentPage == 2 ? "active" : "")">2</a>
-                    <a asp-action="BurialTable" asp-route-pageNum="3" class="@(ViewBag.CurrentPage == 3 ? "active" : "")">3</a>
-                </div>
-
             </div>
+
+            <div class="pagination">
+                <a asp-action="BurialTable" asp-route-pageNum="1" class="@(ViewBag.CurrentPage == 1 ? "active" : "")">1</a>
+                <a asp-action="BurialTable" asp-route-pageNum="2" class="@(ViewBag.CurrentPage == 2 ? "active" : "")">2</a>
+                <a asp-action="BurialTable" asp-route-pageNum="3" class="@(ViewBag.CurrentPage == 3 ? "active" : "")">3</a>
+            </div>
+
         </div>
     </div>
 
@@ -277,8 +233,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-    <script>
-        function removeAllHighlights() {
+    <script>function removeAllHighlights() {
             // Remove the 'highlight' class from all elements
             var elements = document.querySelectorAll('.highlight');
             elements.forEach(function (element) {
@@ -286,14 +241,12 @@
             });
         }</script>
 
-    <script>
-        function highlightItem(element) {
+    <script>function highlightItem(element) {
             // Add the 'highlight' class to the hovered element
             element.classList.add('highlight');
         }</script>
 
-    <script>
-        function toggleDropdown() {
+    <script>function toggleDropdown() {
             removeAllHighlights();
 
             var dropdown = document.getElementById('dropdownContainer');
@@ -308,8 +261,7 @@
             }
         }</script>
 
-    <script>
-        function handleItemHover(element) {
+    <script>function handleItemHover(element) {
             removeAllHighlights();
             highlightItem(element);
         }</script>

@@ -1,8 +1,5 @@
-﻿@model BYU_EGYPT.Models.Burial
+﻿@model IQueryable<BYU_EGYPT.Models.ViewModel.burialViewModel>
 
-@{
-    //ViewData["Title"] = "Sample Details - " + Model.BurialNumber;
-}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,22 +61,62 @@
 
 <body>
 
+    <br />
+
+    @foreach (var item in Model.Take(1))
+    {
+        <h1>Burial @item.Location #@item.BurialNumber</h1>
+    }
+
     <div class="container mt-3">
 
-        <div class="btn-group mt-4" role="group" aria-label="Related Information">
-            <a href="javascript:void(0);" onclick="location.reload();" class="btn minimalistic-btn active-tab">Burial Details</a>
-            <a href="@Url.Action("RelatedOsteology", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Osteology Analysis</a>
-            <a href="@Url.Action("RelatedCrania", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Crania Analysis</a>
-            <a href="@Url.Action("RelatedC14", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Carbon Dating Info</a>
-            <a href="@Url.Action("RelatedTextiles", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Textiles</a>
-            <a href="@Url.Action("RelatedArtifacts", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
-        </div>
+        @foreach (var item in Model.Take(1))
+        {
+            <div class="btn-group mt-4" role="group" aria-label="Related Information">
+                <a href="@Url.Action("BurialDetails", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Burial Details</a>
+                <a href="javascript:void(0);" onclick="location.reload();" class="btn minimalistic-btn active-tab">Osteology Analysis</a>
+                <a href="@Url.Action("RelatedCrania", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Crania Analysis</a>
+                <a href="@Url.Action("RelatedC14", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Carbon Dating Info</a>
+                <a href="@Url.Action("RelatedTextiles", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Related Textiles</a>
+                <a href="@Url.Action("RelatedArtifacts", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
+            </div>
+        }
+    </div>
 
-        <hr />
+    <hr />
 
-        @*<h1>Artifact: @Model.ArtifactId</h1><br />*@
+    <table id="textileTable" class="table table-bordered hoverable-table">
+        <thead>
+            <tr>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Body Examination Date</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Body Preservation Index</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Robust Crania</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Supraorbital Ridges Crania</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Orbit Edge Crania</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Parietal Bossing Crania</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Gonion Crania</td>
 
-        <dl class="row">
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.Take(1))
+            {
+                @*<tr onclick="window.location.href='@Url.Action("TextileDetails", "Home", new { TextileID = item.TextileId })';" style="cursor:pointer">*@
+                <tr>
+                    <td>@item.BodyExaminationDate</td>
+                    <td>@item.BodyPreservationIndex</td>
+                    <td>@item.RobustCrania</td>
+                    <td>@item.SupraorbitalRidgesCrania</td>
+                    <td>@item.OrbitEdgeCrania</td>
+                    <td>@item.ParietalBossingCrania</td>
+                    <td>@item.GonionCrania</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @*<dl class="row">
             <dt class="col-sm-3">Body Examination Date</dt>
             <dd class="col-sm-9">@Model.BodyExaminationDate</dd>
 
@@ -196,7 +233,7 @@
         <div class="col-sm-3" style="font-weight:bold">Body Analysis Notes:</div><br />
         <div class="col-sm-3 box">@Model.BodyAnalysisNotes</div>
 
-    </div>
+        </div>*@
 
 
 

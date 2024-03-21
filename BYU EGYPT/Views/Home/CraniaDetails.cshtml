@@ -1,9 +1,5 @@
 ﻿@model BYU_EGYPT.Models.Cranium
 
-@{
-    ViewData["Title"] = "Sample Details - " + Model.CraniumId;
-}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,6 +54,9 @@
 </head>
 
 <body>
+    <br />
+
+    <h1>Burial @Model.Location #@Model.BurialNumber</h1>
 
     <div class="container mt-3">
 
@@ -68,8 +67,6 @@
         </div>
 
         <hr />
-
-        <h1>Burial #@Model.BurialNumber</h1><br />
 
         <dl class="row">
             <dt class="col-sm-3">Location</dt>

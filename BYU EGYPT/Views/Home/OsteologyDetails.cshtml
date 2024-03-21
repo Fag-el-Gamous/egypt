@@ -64,6 +64,14 @@
 
 <body>
 
+    <br />
+
+@*not linking below*@
+    <a href="@Url.Action("BurialDetails", "Home", new { sampleNum = Model.BurialNumber })">
+        <h1>Burial @Model.Location #@Model.BurialNumber</h1>
+    </a>
+
+
     <div class="container mt-3">
 
         @*<div class="btn-group mt-4" role="group" aria-label="Related Information">
@@ -74,8 +82,6 @@
             </div>*@
 
         <hr />
-
-        @*<h1>Artifact: @Model.ArtifactId</h1><br />*@
 
         <dl class="row">
             <dt class="col-sm-3">Body Examination Date</dt>
