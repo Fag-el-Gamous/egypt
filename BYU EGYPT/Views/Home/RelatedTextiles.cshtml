@@ -1,8 +1,9 @@
-﻿@model List<BYU_EGYPT.Models.ViewModel.textileViewModel>
+﻿@{
+    ViewData["Title"] = "Related Textiles";
+    @model List<BYU_EGYPT.Models.ViewModel.textileViewModel>
 
-@{
-    //ViewData["Title"] = "Sample Details - " + Model.BurialNumber;
 }
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +82,6 @@
                     border-radius: 5px;
                     color: black;
                 }
-
     </style>
 
 </head>
@@ -91,11 +91,11 @@
     <div class="container mt-3">
 
         @*<div class="btn-group mt-4" role="group" aria-label="Related Information">
-            <a href="javascript:void(0);" onclick="location.reload();" class="btn minimalistic-btn active-tab">Burial</a>
-            <a href="@Url.Action("ArtifactDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
-            <a href="@Url.Action("TextileDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Textiles</a>
-            <a href="@Url.Action("OsteologyDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Osteology</a>
-        </div>*@
+                <a href="javascript:void(0);" onclick="location.reload();" class="btn minimalistic-btn active-tab">Burial</a>
+                <a href="@Url.Action("ArtifactDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
+                <a href="@Url.Action("TextileDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Textiles</a>
+                <a href="@Url.Action("OsteologyDetails", "Home", new { sampleNum = Model.BurialNumber })" class="btn minimalistic-btn">Related Osteology</a>
+            </div>*@
 
         <hr />
 
@@ -152,30 +152,30 @@
     </div>
 
 
-            @section Scripts {
-                <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
-                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-                <!-- Then load Bootstrap's JavaScript -->
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    @section Scripts {
+        <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <!-- Then load Bootstrap's JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                <script>$(document).ready(function () {
-                        // Get the current page URL
-                        var currentPage = window.location.href;
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>$(document).ready(function () {
+                // Get the current page URL
+                var currentPage = window.location.href;
 
-                        // Find the tab that matches the current URL
-                        var activeTab = $('.btn[data-tab]').filter(function () {
-                            return currentPage.indexOf($(this).attr('href')) > -1;
-                        });
+                // Find the tab that matches the current URL
+                var activeTab = $('.btn[data-tab]').filter(function () {
+                    return currentPage.indexOf($(this).attr('href')) > -1;
+                });
 
-                        // Remove the active class from all tabs
-                        $('.btn[data-tab]').removeClass('active-tab');
+                // Remove the active class from all tabs
+                $('.btn[data-tab]').removeClass('active-tab');
 
-                        // Add the active class to the matched tab
-                        activeTab.addClass('active-tab');
-                    });</script>
+                // Add the active class to the matched tab
+                activeTab.addClass('active-tab');
+            });</script>
 
-            }
+    }
 
 </body>
 </html>

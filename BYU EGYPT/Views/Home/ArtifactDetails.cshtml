@@ -1,4 +1,8 @@
-﻿@model BYU_EGYPT.Models.Artifact
+﻿@{
+    ViewData["Title"] = "Artifact Details";
+    @model BYU_EGYPT.Models.Artifact
+
+}
 
 
 <!DOCTYPE html>
@@ -11,57 +15,56 @@
     <link rel="stylesheet" href="~/FagElGamous.styles.css" asp-append-version="true" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-        <style>
-            .minimalistic-btn {
-                background-color: transparent; /* No background color */
-                border: 1px solid #007bff; /* Border color similar to Bootstrap primary color */
-                color: #007bff; /* Text color similar to Bootstrap primary color */
-                text-align: center;
-                padding: 0.375rem 0.75rem;
-                font-size: 1rem;
-                line-height: 1.5;
-                border-radius: 0.25rem;
-                transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    <style>
+        .minimalistic-btn {
+            background-color: transparent; /* No background color */
+            border: 1px solid #007bff; /* Border color similar to Bootstrap primary color */
+            color: #007bff; /* Text color similar to Bootstrap primary color */
+            text-align: center;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+
+            .minimalistic-btn:hover {
+                color: #fff; /* White text on hover */
+                background-color: #007bff; /* Bootstrap primary color background on hover */
+                border-color: #0056b3; /* Slightly darker border color on hover */
+                text-decoration: none; /* Remove underline from links */
             }
 
-                .minimalistic-btn:hover {
-                    color: #fff; /* White text on hover */
-                    background-color: #007bff; /* Bootstrap primary color background on hover */
-                    border-color: #0056b3; /* Slightly darker border color on hover */
-                    text-decoration: none; /* Remove underline from links */
-                }
+        .pdf-placeholder-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px; /* Adjust the space between items */
+        }
 
-            .pdf-placeholder-container {
-                display: flex;
-                justify-content: space-around;
-                flex-wrap: wrap;
-                gap: 20px; /* Adjust the space between items */
+        .pdf-placeholder {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 150px; /* Set a fixed width for each placeholder */
+            text-align: center;
+        }
+
+            .pdf-placeholder img {
+                width: 100%;
+                height: auto;
             }
 
-            .pdf-placeholder {
-                border: 1px solid #ccc;
-                padding: 10px;
-                width: 150px; /* Set a fixed width for each placeholder */
-                text-align: center;
-            }
+        .active-tab {
+            background-color: #0072CE; /* Set your preferred highlight color */
+            color: #fff; /* Set the text color for the active tab */
+        }
 
-                .pdf-placeholder img {
-                    width: 100%;
-                    height: auto;
-                }
-
-            .active-tab {
-                background-color: #0072CE; /* Set your preferred highlight color */
-                color: #fff; /* Set the text color for the active tab */
-            }
-
-            .box {
-                border: 1px solid #ccc;
-                padding: 20px;
-                width: 300px;
-            }
-
-        </style>
+        .box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 300px;
+        }
+    </style>
 
 </head>
 

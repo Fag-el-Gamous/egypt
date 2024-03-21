@@ -1,7 +1,7 @@
-﻿@model BYU_EGYPT.Models.Burial
+﻿@{
+    ViewData["Title"] = "Osteology Details";
+    @model BYU_EGYPT.Models.Burial
 
-@{
-    //ViewData["Title"] = "Sample Details - " + Model.BurialNumber;
 }
 
 <!DOCTYPE html>
@@ -66,7 +66,7 @@
 
     <br />
 
-@*not linking below*@
+    @*not linking below*@
     <a href="@Url.Action("BurialDetails", "Home", new { sampleNum = Model.BurialNumber })">
         <h1>Burial @Model.Location #@Model.BurialNumber</h1>
     </a>

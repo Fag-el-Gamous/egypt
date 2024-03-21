@@ -1,0 +1,208 @@
+﻿@{
+    ViewData["Title"] = "Carbon Dating Info";
+    @model List<BYU_EGYPT.Models.ViewModel.c14ViewModel>
+
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FagElGamous.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <style>
+        .minimalistic-btn {
+            background-color: transparent; /* No background color */
+            border: 1px solid #007bff; /* Border color similar to Bootstrap primary color */
+            color: #007bff; /* Text color similar to Bootstrap primary color */
+            text-align: center;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+
+            .minimalistic-btn:hover {
+                color: #fff; /* White text on hover */
+                background-color: #007bff; /* Bootstrap primary color background on hover */
+                border-color: #0056b3; /* Slightly darker border color on hover */
+                text-decoration: none; /* Remove underline from links */
+            }
+
+        .pdf-placeholder-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px; /* Adjust the space between items */
+        }
+
+        .pdf-placeholder {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 150px; /* Set a fixed width for each placeholder */
+            text-align: center;
+        }
+
+            .pdf-placeholder img {
+                width: 100%;
+                height: auto;
+            }
+
+        .active-tab {
+            background-color: #0072CE; /* Set your preferred highlight color */
+            color: #fff; /* Set the text color for the active tab */
+        }
+
+        .box {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 300px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <br />
+
+    @foreach (var item in Model.Take(1))
+    {
+        <h1>Burial @item.BiologicalSampleId</h1>
+    }
+
+    <div class="container mt-3">
+
+        @*@foreach (var item in Model.Take(1))
+            {
+                <div class="btn-group mt-4" role="group" aria-label="Related Information">
+                    <a href="@Url.Action("BurialDetails", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Burial Details</a>
+                    <a href="@Url.Action("RelatedOsteology", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Osteology Analysis</a>
+                    <a href="javascript:void(0);" onclick="location.reload();" class="btn minimalistic-btn active-tab">Crania Analysis</a>
+                    <a href="@Url.Action("RelatedArtifacts", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Carbon Dating Info</a>
+                    <a href="@Url.Action("RelatedTextiles", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Related Textiles</a>
+                    <a href="@Url.Action("RelatedArtifacts", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
+                </div>
+            }*@
+    </div>
+
+    <hr />
+
+    <table id="textileTable" class="table table-bordered hoverable-table">
+        <thead>
+            <tr>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Contents</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Location Description</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Rack</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Tube Number</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Size (mL)</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Number Foci</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">C14 Sample Number 2017</td>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.Take(1))
+            {
+                @*<tr onclick="window.location.href='@Url.Action("TextileDetails", "Home", new { TextileID = item.TextileId })';" style="cursor:pointer">*@
+                <tr>
+                    <td>@item.Contents</td>
+                    <td>@item.LocationDescription</td>
+                    <td>@item.Rack</td>
+                    <td>@item.TubeNum</td>
+                    <td>@item.Sizeml</td>
+                    <td>@item.NumFoci</td>
+                    <td>@item.C14sampleNum2017</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+    @*<dl class="row">
+                <dt class="col-sm-3">Contents</dt>
+                <dd class="col-sm-9">@Model.Contents</dd>
+
+                <dt class="col-sm-3">Location Description</dt>
+                <dd class="col-sm-9">@Model.LocationDescription</dd>
+
+                <dt class="col-sm-3">Rack</dt>
+                <dd class="col-sm-9">@Model.Rack</dd>
+
+                <dt class="col-sm-3">Tube Number</dt>
+                <dd class="col-sm-9">@Model.TubeNum</dd>
+
+                <dt class="col-sm-3">Size (mL)</dt>
+                <dd class="col-sm-9">@Model.Sizeml</dd>
+
+                <dt class="col-sm-3">Number Foci</dt>
+                <dd class="col-sm-9">@Model.NumFoci</dd>
+
+                <dt class="col-sm-3">C14 Sample Number 2017</dt>
+                <dd class="col-sm-9">@Model.C14sampleNum2017</dd>
+
+                <dt class="col-sm-3">Age Bp</dt>
+                <dd class="col-sm-9">@Model.AgeBp</dd>
+
+                <dt class="col-sm-3">Calendar Date</dt>
+                <dd class="col-sm-9">@Model.CalendarDate</dd>
+
+                <dt class="col-sm-3">Calendar Date Max 95</dt>
+                <dd class="col-sm-9">@Model.CalendarDateMax95</dd>
+
+                <dt class="col-sm-3">Calendar Date Min 95</dt>
+                <dd class="col-sm-9">@Model.CalendarDateMin95</dd>
+
+                <dt class="col-sm-3">Research Questions</dt>
+                <dd class="col-sm-9">@Model.ResearchQuestions</dd>
+
+                <dt class="col-sm-3">Research Questions Number</dt>
+                <dd class="col-sm-9">@Model.ResearchQuestionsNum</dd>
+
+                <dt class="col-sm-3">Labs</dt>
+                <dd class="col-sm-9">@Model.Labs</dd>
+
+            </dl>
+            <br />
+
+            <div class="col-sm-3" style="font-weight:bold">Notes:</div><br />
+            <div class="col-sm-3 box">@Model.Notes</div>
+
+        </div>*@
+
+
+    @section Scripts {
+        <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <!-- Then load Bootstrap's JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>$(document).ready(function () {
+                // Get the current page URL
+                var currentPage = window.location.href;
+
+                // Find the tab that matches the current URL
+                var activeTab = $('.btn[data-tab]').filter(function () {
+                    return currentPage.indexOf($(this).attr('href')) > -1;
+                });
+
+                // Remove the active class from all tabs
+                $('.btn[data-tab]').removeClass('active-tab');
+
+                // Add the active class to the matched tab
+                activeTab.addClass('active-tab');
+            });</script>
+
+    }
+
+</body>
+</html>

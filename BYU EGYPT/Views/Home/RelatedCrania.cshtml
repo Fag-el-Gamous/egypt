@@ -1,0 +1,252 @@
+﻿@{
+    ViewData["Title"] = "Crania Analysis";
+    @model List<BYU_EGYPT.Models.ViewModel.craniaViewModel>
+
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FagElGamous.styles.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+    <style>
+        .minimalistic-btn {
+            background-color: transparent; /* No background color */
+            border: 1px solid #007bff; /* Border color similar to Bootstrap primary color */
+            color: #007bff; /* Text color similar to Bootstrap primary color */
+            text-align: center;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+
+            .minimalistic-btn:hover {
+                color: #fff; /* White text on hover */
+                background-color: #007bff; /* Bootstrap primary color background on hover */
+                border-color: #0056b3; /* Slightly darker border color on hover */
+                text-decoration: none; /* Remove underline from links */
+            }
+
+        .pdf-placeholder-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px; /* Adjust the space between items */
+        }
+
+        .pdf-placeholder {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 150px; /* Set a fixed width for each placeholder */
+            text-align: center;
+        }
+
+            .pdf-placeholder img {
+                width: 100%;
+                height: auto;
+            }
+
+        .active-tab {
+            background-color: #0072CE; /* Set your preferred highlight color */
+            color: #fff; /* Set the text color for the active tab */
+        }
+    </style>
+
+</head>
+
+<body>
+    <br />
+
+    @foreach (var item in Model.Take(1))
+    {
+        <h1>Burial @item.Location #@item.BurialNumber</h1>
+    }
+
+    <div class="container mt-3">
+
+        @foreach (var item in Model.Take(1))
+        {
+            <div class="btn-group mt-4" role="group" aria-label="Related Information">
+                <a href="@Url.Action("BurialDetails", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Burial Details</a>
+                <a href="@Url.Action("RelatedOsteology", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Osteology Analysis</a>
+                <a href="javascript:void(0);" onclick="location.reload();" class="btn minimalistic-btn active-tab">Crania Analysis</a>
+                <a href="@Url.Action("RelatedC14", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Carbon Dating Info</a>
+                <a href="@Url.Action("RelatedTextiles", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Related Textiles</a>
+                <a href="@Url.Action("RelatedArtifacts", "Home", new { sampleNum = item.BurialNumber })" class="btn minimalistic-btn">Related Artifacts</a>
+            </div>
+        }
+    </div>
+
+    <hr />
+
+    <table id="textileTable" class="table table-bordered hoverable-table">
+        <thead>
+            <tr>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Max Crania Length</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Max Crania Breadth</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Basion Bregma Height</td>
+                <td style="font-weight: bold; background-color: #f2f2f2; ">Basion Nasion Length</td>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.Take(1))
+            {
+                @*<tr onclick="window.location.href='@Url.Action("TextileDetails", "Home", new { TextileID = item.TextileId })';" style="cursor:pointer">*@
+                <tr>
+                    <td>@item.Location</td>
+                    <td>@item.ExcavationYear</td>
+                    <td>@item.BurialNumber</td>
+                    <td>@item.MaxCraniumLength</td>
+                    <td>@item.MaxCraniumBreadth</td>
+                    <td>@item.BasionBregmaHeight</td>
+                    <td>@item.BasionNasionLength</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+
+    @*<dl class="row">
+
+            <dt class="col-sm-3">Location</dt>
+            <dd class="col-sm-9">@View.Location</dd>
+
+            <dt class="col-sm-3">Excavation Year</dt>
+            <dd class="col-sm-9">@Model.ExcavationYear</dd>
+
+            <dt class="col-sm-3">Burial Number</dt>
+            <dd class="col-sm-9">@Model.BurialNumber</dd>
+
+            <dt class="col-sm-3">Max Crania Length</dt>
+            <dd class="col-sm-9">@Model.MaxCraniaLength</dd>
+
+            <dt class="col-sm-3">Max Crania Breadth</dt>
+            <dd class="col-sm-9">@Model.MaxCraniaBreadth</dd>
+
+            <dt class="col-sm-3">Basion Bregma Height</dt>
+            <dd class="col-sm-9">@Model.BasionBregmaHeight</dd>
+
+            <dt class="col-sm-3">Basion Nasion Length</dt>
+            <dd class="col-sm-9">@Model.BasionNasionLength</dd>
+
+            <dt class="col-sm-3">Basion Prosthion Length</dt>
+            <dd class="col-sm-9">@Model.BasionProsthionLength</dd>
+
+            <dt class="col-sm-3">Bizygomatic Diameter</dt>
+            <dd class="col-sm-9">@Model.BizygomaticDiameter</dd>
+
+            <dt class="col-sm-3">Nasion Prosthion Height</dt>
+            <dd class="col-sm-9">@Model.NasionProsthionHeight</dd>
+
+            <dt class="col-sm-3">Max Nasal Breadth</dt>
+            <dd class="col-sm-9">@Model.MaxNasalBreadth</dd>
+
+            <dt class="col-sm-3">Interorbital Breadth</dt>
+            <dd class="col-sm-9">@Model.InterorbitalBreadth</dd>
+
+            <dt class="col-sm-3">Sex</dt>
+            <dd class="col-sm-9">@Model.Sex</dd>
+
+            <dt class="col-sm-3">Calculated Sex</dt>
+            <dd class="col-sm-9">@Model.CalculatedSex</dd>
+
+            <dt class="col-sm-3">Sex Match</dt>
+            <dd class="col-sm-9">@Model.SexMatch</dd>
+
+            <dt class="col-sm-3">Calc Max Crania Length</dt>
+            <dd class="col-sm-9">@Model.CalcMaxCraniaLength</dd>
+
+            <dt class="col-sm-3">Calc Basion Nasion</dt>
+            <dd class="col-sm-9">@Model.CalcBasionNasion</dd>
+
+            <dt class="col-sm-3">Calc Basion Prosthion</dt>
+            <dd class="col-sm-9">@Model.CalcBasionProsthion</dd>
+
+            <dt class="col-sm-3">Calc Bizygomatic Diameter</dt>
+            <dd class="col-sm-9">@Model.CalcBizygomaticDiameter</dd>
+
+            <dt class="col-sm-3">Calc Nasion Prosthion Height</dt>
+            <dd class="col-sm-9">@Model.CalcNasionProsthionHeight</dd>
+
+            <dt class="col-sm-3">Crania Calc Sum</dt>
+            <dd class="col-sm-9">@Model.CraniaCalcSum</dd>
+
+        </dl>*@
+
+    <br />
+    <br />
+
+    <div class="pdf-placeholder">
+        <embed id="pdfEmbed" type="application/pdf" width="900%" height="600px" src="path-to-your-placeholder.pdf">
+    </div>
+
+
+
+    <div class="pdf-placeholder-container">
+        <!-- Placeholder 1 -->
+        <div class="pdf-placeholder">
+            <a href="path-to-your-first-pdf.pdf" target="_blank">
+                <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+            </a>
+        </div>
+
+        <!-- Placeholder 2 -->
+        <div class="pdf-placeholder">
+            <a href="path-to-your-second-pdf.pdf" target="_blank">
+                <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+            </a>
+        </div>
+
+        <!-- Placeholder 3 -->
+        <div class="pdf-placeholder">
+            <a href="path-to-your-third-pdf.pdf" target="_blank">
+                <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
+            </a>
+        </div>
+
+        <!-- Add more placeholders as needed -->
+    </div>
+
+
+
+    @section Scripts {
+        <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <!-- Then load Bootstrap's JavaScript -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>$(document).ready(function () {
+                // Get the current page URL
+                var currentPage = window.location.href;
+
+                // Find the tab that matches the current URL
+                var activeTab = $('.btn[data-tab]').filter(function () {
+                    return currentPage.indexOf($(this).attr('href')) > -1;
+                });
+
+                // Remove the active class from all tabs
+                $('.btn[data-tab]').removeClass('active-tab');
+
+                // Add the active class to the matched tab
+                activeTab.addClass('active-tab');
+            });</script>
+
+    }
+
+</body>
+</html>
