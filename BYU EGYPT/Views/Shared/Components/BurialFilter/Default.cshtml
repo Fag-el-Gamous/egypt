@@ -56,20 +56,15 @@
                 <h4>Excavation Year</h4>
                 <select id="excavationYearFilter">
                     <option></option>
-                    @foreach (var burial in Model)
-                    {
-                        <option value="@burial.ExcavationYear">@burial.ExcavationYear</option>
-                    }
+                    <option value="1992">1992</option>
+                    <option value="2002">2002</option>
                 </select>
         </div>
         <div class="col-4">
                 <h4>Location</h4>
                 <select id="locationFilter">
                     <option></option>
-                    @foreach (var burial in Model)
-                    {
-                        <option value="@burial.Location">@burial.Location</option>
-                    }
+                <option value="180 N 40 E NE">180 N 40 E NE</option>
                 </select>
         </div>
         <div class="col-4">
