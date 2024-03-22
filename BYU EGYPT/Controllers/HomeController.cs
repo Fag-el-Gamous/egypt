@@ -162,7 +162,9 @@ public class HomeController : Controller
         var textileList = egyptDbContext.Textiles.ToList();
 
 
-        var burialsample = _context.Burials.FirstOrDefault(x => x.BurialNumber == BurialNumberID);
+        var burialsample = _context.Burials
+            .Include(b => b.BurialPhotos)
+            .FirstOrDefault(x => x.BurialNumber == BurialNumberID);
         if (burialsample == null)
         {
             return NotFound();

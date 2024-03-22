@@ -58,6 +58,8 @@
             background-color: #0072CE; /* Set your preferred highlight color */
             color: #fff; /* Set the text color for the active tab */
         }
+
+      
     </style>
 
 </head>
@@ -102,160 +104,287 @@
         <br />
 
 
-        <div class="image-placeholder">
-            <center><img id="imageEmbed" width="900px" height="600px" src="https://egyptbucket.s3.us-east-2.amazonaws.com/BurialPhotos/Burials2002/DSCN0051.JPG" alt="Image Description"></center>
-        </div>
-        <br />
-        <br />
 
 
 
-        <div class="pdf-placeholder-container">
-            <!-- Placeholder 1 -->
-            <div class="pdf-placeholder">
-                <a href="path-to-your-first-pdf.pdf" target="_blank">
-                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
-                </a>
-            </div>
 
-            <!-- Placeholder 2 -->
-            <div class="pdf-placeholder">
-                <a href="path-to-your-second-pdf.pdf" target="_blank">
-                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
-                </a>
-            </div>
+        @foreach (var photo in Model.BurialPhotos)
+            @if (Model.BurialPhotos.Any())
+            {
+                <div class="image-placeholder text-center position-relative" style="width:900px; height:600px; margin: auto;">
 
-            <!-- Placeholder 3 -->
-            <div class="pdf-placeholder">
-                <a href="path-to-your-third-pdf.pdf" target="_blank">
-                    <img src="path-to-your-placeholder-image.png" alt="PDF Placeholder" />
-                </a>
-            </div>
-            <br />
-            <br />
-            <!-- Add more placeholders as needed -->
-        </div>
+                    <img class="blurryPhoto img-fluid" onclick="toggleBlur('@photo.BurialPhotoFilePath@photo.BurialPhotoFileName', this)" src="@($"https://egyptbucket.s3.us-east-2.amazonaws.com/{photo.BurialPhotoFilePath}{photo.BurialPhotoFileName}")" style="max-width: 100%; max-height: 100%; filter: blur(30px);" alt="Burial Image">
+
+                    <button class="viewButton btn position-absolute" onclick="viewImage('@photo.BurialPhotoFilePath@photo.BurialPhotoFileName', this)" style="top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 3; background-color: white; color: black; font-size: 20px; padding: 10px 20px;">View</button>
+
+                    <button class="zoomIn btn position-absolute" style="top: 10%; right: 10%; z-index: 1000; font-size: 24px; color: white; background-color: black; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;">+</button>
+
+                    <button class="zoomOut btn position-absolute" style="top: 20%; right: 10%; z-index: 1000; font-size: 24px; color: white; background-color: black; border-radius: 50%; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center;">-</button>
 
 
-        <form method="post" asp-action="EditRecord" asp-controller="Home">
-            <input type="hidden" />
-            <div class="form-group">
-                <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
-                <div class="col-sm-9">
-                    <input asp-for="Location" class="form-control" />
+                    @if (Model.BurialPhotos.Count > 1)
+                    {
+                        <button class="btn position-absolute" style="top: 50%; left: 10px; transform: translateY(-50%); z-index: 2;" onclick="changePhoto(-1)">&#10094;</button>
+                        <button class="btn position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%); z-index: 2;" onclick="changePhoto(1)">&#10095;</button>
+                    }
                 </div>
-                <label asp-for="ExcavationYear" class="col-sm-3 col-form-label">Excavation Year</label>
-                <div class="col-sm-9">
-                    <input asp-for="ExcavationYear" class="form-control" />
-                </div>
-                <label asp-for="BurialNumber" class="col-sm-3 col-form-label">Burial Number</label>
-                <div class="col-sm-9">
-                    <input asp-for="BurialNumber" class="form-control" />
-                </div>
-                <label asp-for="HeadDirection" class="col-sm-3 col-form-label">Head Direction</label>
-                <div class="col-sm-9">
-                    <input asp-for="HeadDirection" class="form-control" />
-                </div>
-            </div>
-            <!-- Add similar fields for other properties -->
-            <br />
-            <br />
+                <input type="hidden" id="currentPhotoIndex" value="0">
+            }
 
 
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            <a href="@Url.Action("BurialTable", "Home")" class="btn btn-secondary">Back to List</a>
-        </form>
-    </div>
 
-    <br />
-    <br />
-    <br />
 
-    <div class="container mt-3">
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#collapseBodyAnalysis">
-                        Body Analysis
-                    </a>
-                </div>
-                <div id="collapseBodyAnalysis" class="collapse" data-parent="#accordion">
-                    <div class="card-body">
-                        <!-- Placeholder for Body Analysis picture -->
-                        <img src="path_to_your_placeholder_image" alt="Body Analysis Placeholder" />
+
+
+
+            <form method="post" asp-action="EditRecord" asp-controller="Home">
+                <input type="hidden" />
+                <div class="form-group">
+                    <label asp-for="Location" class="col-sm-3 col-form-label">Location</label>
+                    <div class="col-sm-9">
+                        <input asp-for="Location" class="form-control" />
+                    </div>
+                    <label asp-for="ExcavationYear" class="col-sm-3 col-form-label">Excavation Year</label>
+                    <div class="col-sm-9">
+                        <input asp-for="ExcavationYear" class="form-control" />
+                    </div>
+                    <label asp-for="BurialNumber" class="col-sm-3 col-form-label">Burial Number</label>
+                    <div class="col-sm-9">
+                        <input asp-for="BurialNumber" class="form-control" />
+                    </div>
+                    <label asp-for="HeadDirection" class="col-sm-3 col-form-label">Head Direction</label>
+                    <div class="col-sm-9">
+                        <input asp-for="HeadDirection" class="form-control" />
                     </div>
                 </div>
-            </div>
+                <!-- Add similar fields for other properties -->
+                <br />
+                <br />
 
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#collapseCrania">
-                        Crania
-                    </a>
-                </div>
-                <div id="collapseCrania" class="collapse" data-parent="#accordion">
-                    <div class="card-body">
-                        <!-- Placeholder for Crania picture -->
-                        <img src="path_to_your_placeholder_image" alt="Crania Placeholder" />
+
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="@Url.Action(" BurialTable", "Home" )" class="btn btn-secondary">Back to List</a>
+            </form>
+        </div>
+
+        <br />
+        <br />
+        <br />
+
+        <div class="container mt-3">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapseBodyAnalysis">
+                            Body Analysis
+                        </a>
+                    </div>
+                    <div id="collapseBodyAnalysis" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <!-- Placeholder for Body Analysis picture -->
+                            <img src="path_to_your_placeholder_image" alt="Body Analysis Placeholder" />
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card">
-                <div class="card-header">
-                    <a class="card-link" data-toggle="collapse" href="#collapseFieldbooks">
-                        Fieldbooks
-                    </a>
-                </div>
-                <div id="collapseFieldbooks" class="collapse" data-parent="#accordion">
-                    <!-- These links will open the PDF in a new tab at the specified page -->
-
-
-
-
-
-
-
-
-                    <a class="card-link" href="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf#page=5" target="_blank">Page 5</a>
-                    <a class="card-link" href="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf#page=18" target="_blank">Page 30 & 31</a>
-                    <a class="card-link" href="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf#page=19" target="_blank">Page 19</a>
-                    <embed src="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf" type="application/pdf" width="100%" height="600px">
-
-
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapseCrania">
+                            Crania
+                        </a>
+                    </div>
+                    <div id="collapseCrania" class="collapse" data-parent="#accordion">
+                        <div class="card-body">
+                            <!-- Placeholder for Crania picture -->
+                            <img src="path_to_your_placeholder_image" alt="Crania Placeholder" />
+                        </div>
+                    </div>
                 </div>
 
+                <div class="card">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapseFieldbooks">
+                            Fieldbooks
+                        </a>
+                    </div>
+                    <div id="collapseFieldbooks" class="collapse" data-parent="#accordion">
+                        <!-- These links will open the PDF in a new tab at the specified page -->
+
+
+
+
+
+
+
+
+                        <a class="card-link" href="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf#page=5" target="_blank">Page 5</a>
+                        <a class="card-link" href="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf#page=18" target="_blank">Page 30 & 31</a>
+                        <a class="card-link" href="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf#page=19" target="_blank">Page 19</a>
+                        <embed src="https://egyptbucket.s3.us-east-2.amazonaws.com/Fieldbooks/1992/1992A_BYU_EGYPT_FIELD_BOOK.pdf" type="application/pdf" width="100%" height="600px">
+
+
+                    </div>
+
+                </div>
+
+
+
             </div>
-
-
-
         </div>
-    </div>
 
-    @section Scripts {
-        <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-        <!-- Then load Bootstrap's JavaScript -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        @section Scripts {
 
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script>$(document).ready(function () {
-                // Get the current page URL
-                var currentPage = window.location.href;
+            <script>.d - none {
+                        display: none;
+                    }</script>
 
-                // Find the tab that matches the current URL
-                var activeTab = $('.btn[data-tab]').filter(function () {
-                    return currentPage.indexOf($(this).attr('href')) > -1;
-                });
 
-                // Remove the active class from all tabs
-                $('.btn[data-tab]').removeClass('active-tab');
+            <script>function changePhoto(direction) {
+                    let currentIndex = parseInt(document.getElementById('currentPhotoIndex').value);
+                    currentIndex += direction;
 
-                // Add the active class to the matched tab
-                activeTab.addClass('active-tab');
-            });</script>
+                    if (currentIndex < 0) {
+                        currentIndex = photos.length - 1;
+                    } else if (currentIndex >= photos.length) {
+                        currentIndex = 0;
+                    }
 
-    }
+                    var allImages = document.querySelectorAll('.image-placeholder');
+                    allImages.forEach((elem, index) => {
+                        if (index === currentIndex) {
+                            elem.classList.remove('d-none');
+                            elem.querySelector('.blurryPhoto').style.filter = 'blur(30px)';
+                            elem.querySelector('.viewButton').style.display = 'block';
+                        } else {
+                            elem.classList.add('d-none');
+                        }
+                    });
 
-</body>
+                    document.getElementById('currentPhotoIndex').value = currentIndex.toString();
+                }</script>
+
+
+
+            <!-- Ensure jQuery is loaded first for Bootstrap 4 -->
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+            <!-- Then load Bootstrap's JavaScript -->
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script>$(document).ready(function () {
+                    // Get the current page URL
+                    var currentPage = window.location.href;
+
+                    // Find the tab that matches the current URL
+                    var activeTab = $('.btn[data-tab]').filter(function () {
+                        return currentPage.indexOf($(this).attr('href')) > -1;
+                    });
+
+                    // Remove the active class from all tabs
+                    $('.btn[data-tab]').removeClass('active-tab');
+
+                    // Add the active class to the matched tab
+                    activeTab.addClass('active-tab');
+                });</script>
+
+            <script>document.addEventListener('DOMContentLoaded', function () {
+                    document.querySelectorAll('.viewButton').forEach(function (button) {
+                        button.addEventListener('click', function () {
+                            var image = this.previousElementSibling; // Assuming the image is right before the button
+                            image.style.filter = 'none'; // Remove the blur effect
+                            this.style.display = 'none'; // Optionally hide the view button after clicking
+                        });
+                    });
+                });</script>
+
+
+
+            <script>document.addEventListener('DOMContentLoaded', function () {
+                    // Function to change photo
+                    window.changePhoto = function (direction) {
+                        var currentIndex = parseInt(document.getElementById('currentPhotoIndex').value);
+                        var placeholders = document.querySelectorAll('.image-placeholder');
+                        var newIndex = currentIndex + direction;
+
+                        if (newIndex < 0) newIndex = placeholders.length - 1;
+                        if (newIndex >= placeholders.length) newIndex = 0;
+
+                        placeholders[currentIndex].classList.add('d-none'); // Hide current
+                        placeholders[newIndex].classList.remove('d-none'); // Show new
+                        placeholders[newIndex].querySelector('img').style.filter = 'blur(30px)'; // Reset blur on new image
+                        document.getElementById('currentPhotoIndex').value = newIndex; // Update index
+                    };
+
+                    // Function to make the photo clear
+                    document.querySelectorAll('.viewButton').forEach(function (button) {
+                        button.addEventListener('click', function () {
+                            this.previousElementSibling.style.filter = 'none'; // Remove blur
+                            this.style.display = 'none'; // Hide button
+                        });
+                    });
+                });</script>
+
+
+
+            <script>document.addEventListener('DOMContentLoaded', function () {
+                    // Adjust the zoom level of the image
+                    function updateZoom(img, zoomIn) {
+                        let currentScale = parseFloat(img.getAttribute('data-scale')) || 1;
+                        let newScale = currentScale * (zoomIn ? 1.1 : 0.9); // Zoom in or out
+                        img.style.transform = `scale(${newScale})`;
+                        img.setAttribute('data-scale', newScale.toString());
+                    }
+
+                    // Attach event listeners to the zoom buttons
+                    document.querySelectorAll('.zoomIn, .zoomOut').forEach(button => {
+                        button.addEventListener('click', function (event) {
+                            const img = this.parentNode.querySelector('.blurryPhoto'); // Assuming the image to zoom is in the same container
+                            const zoomIn = this.classList.contains('zoomIn'); // Check if the button is for zooming in
+                            updateZoom(img, zoomIn);
+                        });
+                    });
+                });</script>
+
+
+
+            <script>document.addEventListener('DOMContentLoaded', function () {
+                    // Toggle blur and "View" button visibility upon image click
+                    document.querySelectorAll('.blurryPhoto').forEach(function (img) {
+                        img.addEventListener('click', function () {
+                            // Determine if the image is currently blurred
+                            var isBlurred = img.style.filter === '' || img.style.filter === 'none';
+                            // Increase blur to 30px
+                            img.style.filter = isBlurred ? 'blur(30px)' : 'none';
+
+                            // Find the "View" button related to this image and toggle its visibility
+                            var viewButton = img.nextElementSibling;
+                            if (viewButton && viewButton.classList.contains('viewButton')) {
+                                viewButton.style.display = isBlurred ? 'block' : 'none';
+                            }
+                        });
+                    });
+
+                    // Attach event listeners to "View" buttons
+                    document.querySelectorAll('.viewButton').forEach(function (button) {
+                        button.addEventListener('click', function () {
+                            var image = this.previousElementSibling; // Get the related image
+                            image.style.filter = 'none'; // Clear the blur effect
+                            this.style.display = 'none'; // Hide the "View" button
+                        });
+                    });
+                });</script>
+
+
+
+
+
+
+
+
+
+
+
+        }
+
+    </body>
 </html>
