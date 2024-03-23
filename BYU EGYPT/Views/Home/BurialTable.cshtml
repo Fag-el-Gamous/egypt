@@ -117,6 +117,54 @@
             width: 125px; 
         }
 
+        .filter-header {
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+
+        .filter-body {
+            padding: 10px;
+        }
+
+        .filter-group {
+            margin-bottom: 10px;
+        }
+
+        .filter-group-header {
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+
+        .filter-group-body {
+            padding: 10px;
+        }
+
+        .filter-list {
+            column-count: 3;
+            column-gap: 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .filter-list-item {
+            display: inline-block;
+            margin-right: 1px;
+            width: 150px;
+        }
+
+        .filter-checkbox {
+            margin-right: 5px;
+        }
+
+        .filter-footer {
+            background-color: #f1f1f1;
+            padding: 10px;
+        }
+
+        .btn {
+            padding: 10px;
+            margin-right: 10px;
+        }
     </style>
 
 </head>
@@ -169,12 +217,126 @@
 
     </div>
 
-    <!-- Table -->
     <div class="content">
         <div class="text-center">
             <br />
             <h2>Burial Table</h2>
-            @await Component.InvokeAsync("BurialFilter")
+            <div class="filter-header" id="filtersContainer">
+                <a href="#" onclick="toggleDropdown1('filtersContainer', 'filtersDropdown'); return false;" style="color: black; text-decoration: none;">
+                    Filters <i class="arrow down"></i>
+                </a>
+            </div>
+
+            <div class="container" id="filtersDropdown">
+                <div class="row">
+                    <div class="col-2">
+                        <p><strong>Excavation Year</strong></p>
+                        <select id="excavationYearFilter">
+                            <option></option>
+                            <option value="1992">1992</option>
+                            <option value="2002">2002</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Location</strong></p>
+                        <select id="locationFilter">
+                            <option></option>
+                            <option value="180 N 40 E NE">180 N 40 E NE</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Burial Number</strong></p>
+                        <select id="burialNumberFilter">
+                            <option></option>
+                            @foreach (var burial in Model)
+                            {
+                                <option value="@burial.BurialNumber">@burial.BurialNumber</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Has Body Analysis</strong></p>
+                        <select id="hasBodyAnalysisFilter">
+                            <option></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Has Textile Info</strong></p>
+                        <select id="hasTextileInfoFilter">
+                            <option></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Has Artifact Info</strong></p>
+                        <select id="hasArtifactInfoFilter">
+                            <option></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <p><strong>Has Artifact Photo</strong></p>
+                        <select id="hasArtifactPhotoFilter">
+                            <option></option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Depth</strong></p>
+                        <select id="depthFilter">
+                            <option></option>
+                            <option value="1.5">1.5</option>
+                            <option value="1.6">1.6</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Age Group</strong></p>
+                        <select id="ageGroupFilter">
+                            <option></option>
+                            <option value="C">C</option>
+                            <option value="I">I</option>
+                            <option value="A">A</option>
+
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Sex</strong></p>
+                        <select id="sexFilter">
+                            <option></option>
+                            <option value="M">M</option>
+                            <option value="F">F</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Hair Color</strong></p>
+                        <select id="hairColorFilter">
+                            <option></option>
+                            <option value="Black">Black</option>
+                            <option value="Brown">Brown</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Head Direction</strong></p>
+                        <select id="headDirectionFilter">
+                            <option></option>
+                            <option value="North">North</option>
+                            <option value="South">South</option>
+                        </select>
+                    </div>
+            <div class="col-2">
+                <br />
+                    <button onclick="filterTable()">GO!</button>
+                    <button onclick="clearFilters()">Clear Filters</button>
+            </div>
+
+            <!-- Table -->
             <div class="container scrollable-table-container">
                 <br />
                 <table id="burialTable" class="table table-bordered hoverable-table">
@@ -265,8 +427,123 @@
     <script>function handleItemHover(element) {
             removeAllHighlights();
             highlightItem(element);
-        }</script>
+        }
+    </script>
+    <script>
+        function filterTable() {
+            var excavationYearFilter = document.getElementById("excavationYearFilter").value;
+            var locationFilter = document.getElementById("locationFilter").value;
+            var burialNumberFilter = document.getElementById("burialNumberFilter").value;
+            var hasBodyAnalysisFilter = document.getElementById("hasBodyAnalysisFilter").value;
+            var hasTextileInfoFilter = document.getElementById("hasTextileInfoFilter").value;
+            var hasArtifactInfoFilter = document.getElementById("hasArtifactInfoFilter").value;
+            var hasArtifactPhotoFilter = document.getElementById("hasArtifactPhotoFilter").value;
+            var depthFilter = document.getElementById("depthFilter").value;
+            var ageGroupFilter = document.getElementById("ageGroupFilter").value;
+            var sexFilter = document.getElementById("sexFilter").value;
+            var hairColorFilter = document.getElementById("hairColorFilter").value;
+            var headDirectionFilter = document.getElementById("headDirectionFilter").value;
 
+            var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+            for (var i = 0; i < tableRows.length; i++) {
+                var row = tableRows[i];
+                var cells = row.getElementsByTagName("td");
+                var excavationYear = cells[0].innerText;
+                var location = cells[1].innerText;
+                var burialNumber = cells[2].innerText;
+                var hasBodyAnalysis = cells[3].innerText;
+                var hasTextileInfo = cells[4].innerText;
+                var hasArtifactInfo = cells[5].innerText;
+                var hasArtifactPhoto = cells[6].innerText;
+                var depth = cells[7].innerText;
+                var ageGroup = cells[8].innerText;
+                var sex = cells[9].innerText;
+                var hairColor = cells[10].innerText;
+                var headDirection = cells[11].innerText;
+
+
+                var showRow = true;
+
+                if (excavationYearFilter !== '' && excavationYear !== excavationYearFilter) {
+                    showRow = false;
+                }
+                if (locationFilter !== '' && location !== locationFilter) {
+                    showRow = false;
+                }
+                if (burialNumberFilter !== '' && burialNumber !== burialNumberFilter) {
+                    showRow = false;
+                }
+                if (hasBodyAnalysisFilter !== '' && hasBodyAnalysis !== hasBodyAnalysisFilter) {
+                    showRow = false;
+                                }
+                if (hasTextileInfoFilter !== '' && hasTextileInfo !== hasTextileInfoFilter) {
+                    showRow = false;
+                                }
+                if (hasArtifactInfoFilter !== '' && hasArtifactInfo !== hasArtifactInfoFilter) {
+                    showRow = false;
+                                }
+                if (hasArtifactPhotoFilter !== '' && hasArtifactPhoto !== hasArtifactPhotoFilter) {
+                    showRow = false;
+                                }
+                if (depthFilter !== '' && depth !== depthFilter) {
+                    showRow = false;
+                                }
+                if (ageGroupFilter !== '' && ageGroup !== ageGroupFilter) {
+                    showRow = false;
+                                }
+                if (sexFilter !== '' && sex !== sexFilter) {
+                    showRow = false;
+                                }
+                if (hairColorFilter !== '' && hairColor !== hairColorFilter) {
+                    showRow = false;
+                                }
+                if (headDirectionFilter !== '' && headDirection !== headDirectionFilter) {
+                    showRow = false;
+                                }
+
+                if (showRow) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+
+        function clearFilters() {
+            document.getElementById("excavationYearFilter").value = '';
+            document.getElementById("locationFilter").value = '';
+            document.getElementById("burialNumberFilter").value = '';
+            document.getElementById("hasBodyAnalysisFilter").value = '';
+            document.getElementById("hasTextileInfoFilter").value = '';
+            document.getElementById("hasArtifactInfoFilter").value = '';
+            document.getElementById("hasArtifactPhotoFilter").value = '';
+            document.getElementById("depthFilter").value = '';
+            document.getElementById("ageGroupFilter").value = '';
+            document.getElementById("sexFilter").value = '';
+            document.getElementById("hairColorFilter").value = '';
+            document.getElementById("headDirectionFilter").value = '';
+
+            filterTable();
+        }
+    </script>
+
+    <script>
+        function toggleDropdown1(dropdownId, contentId) {
+            removeAllHighlights();
+
+            var dropdown = document.getElementById(dropdownId);
+            dropdown.classList.toggle('open');
+            var dropdownContent = document.getElementById(contentId);
+
+            if (dropdown.classList.contains("open")) {
+                var dropdownHeight = dropdownContent.offsetHeight;
+                dropdown.style.marginBottom = dropdownHeight + "px";
+            } else {
+                dropdown.style.marginBottom = "0";
+            }
+        }
+        </script>
 
 </body>
 </html>
