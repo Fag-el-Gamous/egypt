@@ -76,7 +76,6 @@ public class HomeController : Controller
                           AnalysisDate = t.AnalysisDate,
                           SampleTakenDate = t.SampleTakenDate,
                           Description = t.Description,
-                          AnalysisBy = t.AnalysisBy,
                           Depth = b.Depth,
                           AgeGroup = b.AgeGroup,
                           Sex = b.Sex,
@@ -127,7 +126,6 @@ public class HomeController : Controller
                           AnalysisDate = t.AnalysisDate,
                           SampleTakenDate = t.SampleTakenDate,
                           Description = t.Description,
-                          AnalysisBy = t.AnalysisBy,
                           Depth = b.Depth,
                           AgeGroup = b.AgeGroup,
                           Sex = b.Sex,
@@ -245,7 +243,6 @@ public class HomeController : Controller
                               AnalysisDate = t.AnalysisDate,
                               SampleTakenDate = t.SampleTakenDate,
                               Description = t.Description,
-                              AnalysisBy = t.AnalysisBy,
                               HasPhoto = tp != null ? "Yes" : "No",
                               yarnMaterial = ym.Material
                           }
@@ -286,7 +283,6 @@ public class HomeController : Controller
                               AnalysisDate = t.AnalysisDate,
                               SampleTakenDate = t.SampleTakenDate,
                               Description = t.Description,
-                              AnalysisBy = t.AnalysisBy,
                               HasPhoto = tp != null ? "Yes" : "No",
                               yarnMaterial = ym.Material
                           }
