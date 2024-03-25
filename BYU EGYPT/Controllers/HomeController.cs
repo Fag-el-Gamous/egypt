@@ -45,10 +45,9 @@ public class HomeController : Controller
     // ------------------------------- TABLES -------------------------------
 
     // Burial Table
-    public IActionResult BurialTable(int pageNum = 1)
+    public IActionResult BurialTable()
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 12;
 
         var textiles = egyptDbContext.Textiles;
         var artifacts = egyptDbContext.Artifacts;
@@ -90,11 +89,7 @@ public class HomeController : Controller
                           HasBodyAnalysisInfo = b.BodyExaminationDate != null ? "Yes" : "No"
                       }
                  ).OrderBy(b => b.Location)
-                 .ThenBy(b => Convert.ToInt32(b.BurialNumber))
-                 .Skip((pageNum - 1) * pageSize)
-                 .Take(pageSize);
-
-        ViewBag.CurrentPage = pageNum;
+                 .ThenBy(b => Convert.ToInt32(b.BurialNumber));
 
         return View(joinedData);
     }

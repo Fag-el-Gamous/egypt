@@ -52,27 +52,27 @@
             transition: background-color 0.3s;
         }
 
-            .menu-item:hover {
-                background-color: #BDD6E6;
-            }
+        .menu-item:hover {
+            background-color: #BDD6E6;
+        }
 
         .indented-menu-item {
             padding: 3px 10px 3px 20px;
             font-size: 16px;
         }
 
-            .indented-menu-item a:hover {
-                font-weight: bold;
-            }
+        .indented-menu-item a:hover {
+            font-weight: bold;
+        }
 
         .indented-menu-item-crania {
             padding: 3px 10px 10px 20px;
             font-size: 16px;
         }
 
-            .indented-menu-item-crania a:hover {
-                font-weight: bold;
-            }
+        .indented-menu-item-crania a:hover {
+            font-weight: bold;
+        }
 
         .burial-item {
             padding: 10px;
@@ -93,24 +93,24 @@
             display: inline-block;
         }
 
-            .pagination a {
-                color: black;
-                float: left;
-                padding: 8px 16px;
-                text-decoration: none;
-            }
+        .pagination a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
 
-                .pagination a.active {
-                    background-color: #0072CE;
-                    color: white;
-                    border-radius: 5px;
-                }
+        .pagination a.active {
+            background-color: #0072CE;
+            color: white;
+            border-radius: 5px;
+        }
 
-                .pagination a:hover:not(.active) {
-                    background-color: #BDD6E6;
-                    border-radius: 5px;
-                    color: black;
-                }
+        .pagination a:hover:not(.active) {
+            background-color: #BDD6E6;
+            border-radius: 5px;
+            color: black;
+        }
 
         th:nth-child(2),
         td:nth-child(2) {
@@ -152,10 +152,6 @@
             width: 150px;
         }
 
-        .filter-checkbox {
-            margin-right: 5px;
-        }
-
         .filter-footer {
             background-color: #f1f1f1;
             padding: 10px;
@@ -166,7 +162,6 @@
             margin-right: 10px;
         }
     </style>
-
 </head>
 
 <body>
@@ -221,13 +216,13 @@
         <div class="text-center">
             <br />
             <h2>Burial Table</h2>
-            <div class="filter-header" id="filtersContainer">
-                <a href="#" onclick="toggleDropdown1('filtersContainer', 'filtersDropdown'); return false;" style="color: black; text-decoration: none;">
+            <div class="filter-header" id="filtersHeader">
+                <a href="#" onclick="toggleDropdown('filtersHeader', 'filters'); return false;" style="color: black; text-decoration: none;">
                     Filters <i class="arrow down"></i>
                 </a>
             </div>
 
-            <div class="container" id="filtersDropdown">
+            <div class="container" id="filters" style="display: none">
                 <div class="row">
                     <div class="col-2">
                         <p><strong>Excavation Year</strong></p>
@@ -303,7 +298,6 @@
                             <option value="C">C</option>
                             <option value="I">I</option>
                             <option value="A">A</option>
-
                         </select>
                     </div>
                     <div class="col-2">
@@ -330,7 +324,9 @@
                             <option value="South">South</option>
                         </select>
                     </div>
-            <div class="col-2">
+                </div>
+            </div>  
+            <div>
                 <br />
                     <button onclick="filterTable()">GO!</button>
                     <button onclick="clearFilters()">Clear Filters</button>
@@ -377,17 +373,17 @@
                         }
                     </tbody>
                 </table>
+                        <p id="noResultsMessage" style="display: none"><b>No Results</b></p>
             </div>
 
             <div class="pagination">
-                <a asp-action="BurialTable" asp-route-pageNum="1" class="@(ViewBag.CurrentPage == 1 ? "active" : "")">1</a>
-                <a asp-action="BurialTable" asp-route-pageNum="2" class="@(ViewBag.CurrentPage == 2 ? "active" : "")">2</a>
-                <a asp-action="BurialTable" asp-route-pageNum="3" class="@(ViewBag.CurrentPage == 3 ? "active" : "")">3</a>
+                <a href="#" id="page1" onclick="paginate(1)">1</a>
+                <a href="#" id="page2" onclick="paginate(2)">2</a>
+                <a href="#" id="page3" onclick="paginate(3)">3</a>
             </div>
 
         </div>
     </div>
-
 
     <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
@@ -409,28 +405,58 @@
             element.classList.add('highlight');
         }</script>
 
-    <script>function toggleDropdown() {
+    <script>
+        function toggleDropdown(dropdownId, dropdownContentId) {
             removeAllHighlights();
 
-            var dropdown = document.getElementById('dropdownContainer');
-            dropdown.classList.toggle('open');
-            var dropdownContent = document.getElementById("dropdownContent");
+            var dropdown = document.getElementById(dropdownId);
+            var dropdownContent = document.getElementById(dropdownContentId);
 
-            if (dropdown.classList.contains("open")) {
-                var dropdownHeight = dropdownContent.offsetHeight;
-                dropdown.style.marginBottom = dropdownHeight + "px";
+            if (dropdownContent.style.display === 'none') {
+                dropdownContent.style.display = 'block';
+                dropdown.style.marginBottom = dropdownContent.offsetHeight + "px";
             } else {
+                dropdownContent.style.display = 'none';
                 dropdown.style.marginBottom = "0";
             }
-        }</script>
+        }
+    </script>
 
     <script>function handleItemHover(element) {
             removeAllHighlights();
             highlightItem(element);
         }
     </script>
+
+<script>
+    function paginate(pageNum) {
+        if (filtersActive) { return; }
+
+        var pageSize = 12;
+        var startIndex = (pageNum - 1) * pageSize;
+        var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+        var visibleRows = Array.from(tableRows).filter(row => row.style.display !== "none");
+
+        // Hide all table rows
+        for (var i = 0; i < tableRows.length; i++) {
+            tableRows[i].style.display = "none";
+        }
+
+        // Show table rows for the current page
+        for (var i = startIndex; i < Math.min(startIndex + pageSize, tableRows.length); i++) {
+            tableRows[i].style.display = "";
+        }
+    }
+        window.onload = function () {
+            filtersActive = false;
+            paginate(1);
+        };
+</script>
+
     <script>
         function filterTable() {
+            //document.getElementById("paginationLinks").style.display = "none";
+            
             var excavationYearFilter = document.getElementById("excavationYearFilter").value;
             var locationFilter = document.getElementById("locationFilter").value;
             var burialNumberFilter = document.getElementById("burialNumberFilter").value;
@@ -443,8 +469,12 @@
             var sexFilter = document.getElementById("sexFilter").value;
             var hairColorFilter = document.getElementById("hairColorFilter").value;
             var headDirectionFilter = document.getElementById("headDirectionFilter").value;
+            var visibleRows = 0
+
+            var noResultsMessage = document.getElementById("noResultsMessage");
 
             var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+            var filtersActive = false;
 
             for (var i = 0; i < tableRows.length; i++) {
                 var row = tableRows[i];
@@ -462,7 +492,6 @@
                 var hairColor = cells[10].innerText;
                 var headDirection = cells[11].innerText;
 
-
                 var showRow = true;
 
                 if (excavationYearFilter !== '' && excavationYear !== excavationYearFilter) {
@@ -476,38 +505,65 @@
                 }
                 if (hasBodyAnalysisFilter !== '' && hasBodyAnalysis !== hasBodyAnalysisFilter) {
                     showRow = false;
-                                }
+                }
                 if (hasTextileInfoFilter !== '' && hasTextileInfo !== hasTextileInfoFilter) {
                     showRow = false;
-                                }
+                }
                 if (hasArtifactInfoFilter !== '' && hasArtifactInfo !== hasArtifactInfoFilter) {
                     showRow = false;
-                                }
+                }
                 if (hasArtifactPhotoFilter !== '' && hasArtifactPhoto !== hasArtifactPhotoFilter) {
                     showRow = false;
-                                }
+                }
                 if (depthFilter !== '' && depth !== depthFilter) {
                     showRow = false;
-                                }
+                }
                 if (ageGroupFilter !== '' && ageGroup !== ageGroupFilter) {
                     showRow = false;
-                                }
+                }
                 if (sexFilter !== '' && sex !== sexFilter) {
                     showRow = false;
-                                }
+                }
                 if (hairColorFilter !== '' && hairColor !== hairColorFilter) {
                     showRow = false;
-                                }
+                }
                 if (headDirectionFilter !== '' && headDirection !== headDirectionFilter) {
                     showRow = false;
-                                }
+                }
 
                 if (showRow) {
                     row.style.display = "";
+                    visibleRows++;
                 } else {
                     row.style.display = "none";
                 }
             }
+
+            if (visibleRows == 0) {
+                noResultsMessage.style.display = "";
+            } else {
+                noResultsMessage.style.display = "none";
+            }
+
+            var page1 = document.getElementById("page1");
+            var page2 = document.getElementById("page2");
+            var page3 = document.getElementById("page3");
+            if (visibleRows < 12) {
+                page1.style.display = "none";
+                page2.style.display = "none";
+                page3.style.display = "none";
+            }
+            if (visibleRows > 12) {
+                page1.style.display = "";
+                page2.style.display = "";
+            }
+            if (visibleRows > 24) {
+                page1.style.display = "";
+                page2.style.display = "";
+                page3.style.display = "";
+            }
+            
+            filtersActive = true;
         }
 
         function clearFilters() {
@@ -525,25 +581,10 @@
             document.getElementById("headDirectionFilter").value = '';
 
             filterTable();
+            filtersActive = false;
+            paginate(1);
         }
     </script>
-
-    <script>
-        function toggleDropdown1(dropdownId, contentId) {
-            removeAllHighlights();
-
-            var dropdown = document.getElementById(dropdownId);
-            dropdown.classList.toggle('open');
-            var dropdownContent = document.getElementById(contentId);
-
-            if (dropdown.classList.contains("open")) {
-                var dropdownHeight = dropdownContent.offsetHeight;
-                dropdown.style.marginBottom = dropdownHeight + "px";
-            } else {
-                dropdown.style.marginBottom = "0";
-            }
-        }
-        </script>
 
 </body>
 </html>
