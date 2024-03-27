@@ -7,6 +7,10 @@ public partial class C14
 {
     public int C14id { get; set; }
 
+    public short ExcavationYear { get; set; } //ALI ADDED THESE
+
+    public string BurialNumber { get; set; } = null!; //ALI ADDED THESE
+
     public int? BiologicalSampleId { get; set; }
 
     public string? Contents { get; set; }

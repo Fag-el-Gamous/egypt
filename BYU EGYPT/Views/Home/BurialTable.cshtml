@@ -451,15 +451,15 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
 
-    <script>function removeAllHighlights() {
+    @*<script>function removeAllHighlights() {
             // Remove the 'highlight' class from all elements
             var elements = document.querySelectorAll('.highlight');
             elements.forEach(function (element) {
                 element.classList.remove('highlight');
             });
-        }</script>
+        }</script>*@
 
-    <script>function highlightItem(element) {
+    @*<script>function highlightItem(element) {
             // Add the 'highlight' class to the hovered element
             element.classList.add('highlight');
         }</script>
@@ -485,7 +485,7 @@
             removeAllHighlights();
             highlightItem(element);
         }
-    </script>
+    </script>*@
 
 <script>
     function paginate(pageNum) {

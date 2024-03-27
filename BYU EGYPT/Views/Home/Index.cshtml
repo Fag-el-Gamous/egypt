@@ -42,7 +42,7 @@
 
             .hero-section img {
                 width: 100%;
-                height: auto;
+/*                height: auto;*/
             }
 
             .hero-section .btn {
@@ -67,28 +67,46 @@
             text-align: center;
         }
 
-            .grid-item img {
+/*            .grid-item img {
                 width: 100%;
                 height: auto;
-            }
+            }*/
 
             .grid-item button {
-                background-color: #777;
+                background-color: #0072CE;
                 color: white;
                 padding: 10px 20px;
                 margin-top: 10px;
                 border: none;
                 cursor: pointer;
             }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white; /* Set the text color */
+        }
+
     </style>
 </head>
 <body>
 
     <div class="hero-section">
-        <img src="/img/10.png" alt="Fag el-Gamous">
-        <button class="btn">Explore the Cemetery</button>
+        <img src="/img/bg.JPG" height="500px" alt="Fag el-Gamous">
+        <div class="overlay-text">
+            <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-weight:400">Welcome to Fag el-Gamous</h1><br />
+            <h5 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); color: #E5E4E2; ">Uncover the secrets of Fag el-Gamous cemetery and the Seila Pyramid
+            in ancient Egypt's Graeco-Roman era
+            </h5>
+        </div>
 
-@*      PROOF OF CONCEPT TABLE FOR CRANIUMANALYSISTABLE (FROM NEW AWS DB)   
+        @*<button class="btn" onclick="window.location= '@Url.Action("BurialTable", "Home")'">Explore the Cemetery</button>*@
+
+
+        @*      PROOF OF CONCEPT TABLE FOR CRANIUMANALYSISTABLE (FROM NEW AWS DB)
         <table id="burialTable" class="table table-bordered hoverable-table">
             <thead>
                 <tr>
@@ -113,19 +131,20 @@
 
     <div class="grid">
         <div class="grid-item">
-            <img src="/img/11.png" alt="Artifacts">
-            <button onclick="window.location= '@Url.Action( "Data", "Home")'">Explore the Records</button>
+            <img src="/img/11.png" width="400" height="250px" alt="Artifacts"><br /><br />
+            <button onclick="window.location= '@Url.Action("ArtifactTable", "Home")'">Access Archival Records</button>
         </div>
         <div class="grid-item">
-            <img src="/img/13.png" alt="Burials">
-            <button>Unearth Burial Secrets</button>
+            <img src="/img/15.png" width="400" height="250" alt="Textiles"><br /><br />
+            <button onclick="window.location= '@Url.Action("TextileTable", "Home")'">Unearth Textile Treasures</button>
         </div>
         <div class="grid-item">
-            <img src="/img/15.png" alt="Textiles">
-            <button>Inspect Beautiful Textiles</button>
+            <img src="/img/13.png" width="400" height="250" alt="Burials"><br /><br />
+            <button onclick="window.location= '@Url.Action("BurialTable", "Home")'">Reveal Burial Discoveries</button>
         </div>
     </div>
 
+    <br /><br />
 </body>
 </html>
 
