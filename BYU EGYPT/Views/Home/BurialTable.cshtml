@@ -118,7 +118,7 @@
         }
 
         .filter-header {
-            background-color: #f1f1f1;
+/*            background-color: #f1f1f1;*/
             padding: 10px;
         }
 
@@ -131,7 +131,7 @@
         }
 
         .filter-group-header {
-            background-color: #f1f1f1;
+/*            background-color: #f1f1f1;*/
             padding: 10px;
         }
 
@@ -157,9 +157,86 @@
             padding: 10px;
         }
 
-        .btn {
+        .button {
+            background-color: #0072CE;
+            border: none;
+            color: white;
             padding: 10px;
-            margin-right: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            margin: 1px 1px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .button:hover {
+            background-color: #BDD6E6;
+            color: white;
+        }
+
+
+        .button-clear {
+            background-color: #f1f1f1;
+            border-color:black;
+            border:medium;
+            color: black;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            margin: 1px 1px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .button-clear:hover {
+            background-color: #BDD6E6;
+            color: white;
+        }
+
+        #excavationYearFilter {
+            font-size:16px;
+            opacity:100%
+        }
+
+        #locationFilter {
+            font-size: 16px;
+            opacity: 100%
+        }
+
+        #burialNumberFilter {
+            font-size: 16px;
+            opacity: 75%
+        }
+
+        #hasBodyAnalysisFilter {
+            font-size: 16px;
+            opacity: 75%
+        }
+
+        #hasTextileInfoFilter {
+            font-size: 16px;
+            opacity: 75%
+        }
+
+        #hasArtifactInfoFilter {
+            font-size: 16px;
+            opacity: 75%
+        }
+
+        .arrowdown {
+            position: absolute;
+            top: 31%; /* Adjust as needed */
+            right: 6em; /* Adjust as needed */
+            transform: translateY(-50%) rotate(135deg); /* Adjust as needed */
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-right: 0.15em solid black;
+            border-top: 0.15em solid black;
         }
     </style>
 </head>
@@ -213,243 +290,247 @@
     </div>
 
     <div class="content">
+        <br />
         <div class="text-center">
-            <br />
             <h2>Burial Table</h2>
+        </div>
+
             <div class="filter-header" id="filtersHeader">
                 <a href="#" onclick="toggleDropdown('filtersHeader', 'filters'); return false;" style="color: black; text-decoration: none;">
-                    Filters <i class="arrow down"></i>
+                    <h5 style="display: inline-block; margin-right: 1em;">Filter By</h5>
+                    <i class="arrowdown"></i>
                 </a>
-            </div>
-
-            <div class="container" id="filters" style="display: none">
-                <div class="row">
-                    <div class="col-2">
-                        <p><strong>Excavation Year</strong></p>
-                        <select id="excavationYearFilter">
-                            <option></option>
-                            @{
-                                var distinctExcavationYearList = Model.Select(b => b.ExcavationYear).Distinct().OrderBy(b => b);
-                                foreach (var year in distinctExcavationYearList)
+            </div><hr />
+            <div class="text-center">
+                <div class="container" id="filters" style="display: none">
+                    <div class="row">
+                        <div class="col-2">
+                            <br />
+                            <select id="excavationYearFilter" style="width: 150px;">
+                                <option value="" disabled selected>Excavation Year</option>
+                                @{
+                                    var distinctExcavationYearList = Model.Select(b => b.ExcavationYear).Distinct().OrderBy(b => b);
+                                    foreach (var year in distinctExcavationYearList)
                                     {
                                         <option value="@year">@year</option>
                                     }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Location</strong></p>
-                        <select id="locationFilter">
-                            <option></option>
-                            @{
-                                var distinctLocationList = Model.Select(b => b.Location).Distinct().OrderBy(b => b);
-                                foreach (var location in distinctLocationList)
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-2">
+                            <br />
+                            <select id="locationFilter" style="width: 150px;">
+                                <option value="" disabled selected>Location</option>
+                                @{
+                                    var distinctLocationList = Model.Select(b => b.Location).Distinct().OrderBy(b => b);
+                                    foreach (var location in distinctLocationList)
                                     {
                                         <option value="@location">@location</option>
                                     }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Burial Number</strong></p>
-                        <select id="burialNumberFilter">
-                            <option></option>
-                            @{
-                                var distinctBurialNumberList = Model.Select(b => b.BurialNumber).Distinct().OrderBy(b => b);
-                                foreach (var burial in Model)
-                                {
-                                    <option value="@burial.BurialNumber">@burial.BurialNumber</option>
                                 }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Has Body Analysis</strong></p>
-                        <select id="hasBodyAnalysisFilter">
-                            <option></option>
-                            @{
-                                var distinctHasBodyAnalysisList = Model.Where(b => b.HasBodyAnalysisInfo != null).Select(b => b.HasBodyAnalysisInfo).Distinct().OrderBy(b => b);
-                                foreach (var hasBodyAnalysis in distinctHasBodyAnalysisList)
-                                {
-                                    <option value="@hasBodyAnalysis">@hasBodyAnalysis</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <br />
+                            <select id="burialNumberFilter" style="width: 150px;">
+                                <option value="" disabled selected>Burial Number</option>
+                                @{
+                                    var distinctBurialNumberList = Model.Select(b => b.BurialNumber).Distinct().OrderBy(b => b);
+                                    foreach (var burial in Model)
+                                    {
+                                        <option value="@burial.BurialNumber">@burial.BurialNumber</option>
+                                    }
                                 }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Has Textile Info</strong></p>
-                        <select id="hasTextileInfoFilter">
-                            <option></option>
-                            @{
-                                var distinctHasTextileInfoList = Model.Where(b => b.HasTextileInfo != null).Select(b => b.HasTextileInfo).Distinct().OrderBy(b => b);
-                                foreach (var hasTextileInfo in distinctHasTextileInfoList)
-                                {
-                                    <option value="@hasTextileInfo">@hasTextileInfo</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <br />
+                            <select id="ageGroupFilter" style="width: 150px;">
+                                <option value="" disabled selected>Age Group</option>
+                                @{
+                                    var distinctAgeGroupList = Model.Where(b => b.AgeGroup != null).Select(b => b.AgeGroup).Distinct().OrderBy(b => b);
+                                    foreach (var ageGroup in distinctAgeGroupList)
+                                    {
+                                        <option value="@ageGroup">@ageGroup</option>
+                                    }
                                 }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Has Artifact Info</strong></p>
-                        <select id="hasArtifactInfoFilter">
-                            <option></option>
-                            @{
-                                var distinctHasArtifactInfoList = Model.Where(b => b.HasArtifactInfo != null).Select(b => b.HasArtifactInfo).Distinct().OrderBy(b => b);
-                                foreach (var hasArtifactInfo in distinctHasArtifactInfoList)
-                                {
-                                    <option value="@hasArtifactInfo">@hasArtifactInfo</option>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <br />
+                            <select id="sexFilter" style="width: 150px;">
+                                <option value="" disabled selected>Sex</option>
+                                @{
+                                    var distinctSexList = Model.Where(b => b.Sex != null).Select(b => b.Sex).Distinct().OrderBy(b => b);
+                                    foreach (var sex in distinctSexList)
+                                    {
+                                        <option value="@sex">@sex</option>
+                                    }
                                 }
-                            }
-                        </select>
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <br />
+                            <select id="depthFilter" style="width: 150px;">
+                                <option value="" disabled selected>Depth</option>
+                                @{
+                                    var distinctIntegers = Model.Select(b => b.Depth.HasValue ? (int)b.Depth.Value : 0).Distinct().OrderBy(b => b);
+                                    foreach (var integer in distinctIntegers)
+                                    {
+                                        <option value="@integer">@integer</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <br />
+                            <select id="hasBodyAnalysisFilter" style="width: 150px;">
+                                <option value="" disabled selected>Has Body Analysis</option>
+                                @{
+                                    var distinctHasBodyAnalysisList = Model.Where(b => b.HasBodyAnalysisInfo != null).Select(b => b.HasBodyAnalysisInfo).Distinct().OrderBy(b => b);
+                                    foreach (var hasBodyAnalysis in distinctHasBodyAnalysisList)
+                                    {
+                                        <option value="@hasBodyAnalysis">@hasBodyAnalysis</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <br />
+                            <select id="hasTextileInfoFilter" style="width: 150px;">
+                                <option value="" disabled selected>Has Textile Info</option>
+                                @{
+                                    var distinctHasTextileInfoList = Model.Where(b => b.HasTextileInfo != null).Select(b => b.HasTextileInfo).Distinct().OrderBy(b => b);
+                                    foreach (var hasTextileInfo in distinctHasTextileInfoList)
+                                    {
+                                        <option value="@hasTextileInfo">@hasTextileInfo</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <br />
+                            <select id="hasArtifactInfoFilter" style="width: 150px;">
+                                <option value="" disabled selected>Has Artifact Info</option>
+                                @{
+                                    var distinctHasArtifactInfoList = Model.Where(b => b.HasArtifactInfo != null).Select(b => b.HasArtifactInfo).Distinct().OrderBy(b => b);
+                                    foreach (var hasArtifactInfo in distinctHasArtifactInfoList)
+                                    {
+                                        <option value="@hasArtifactInfo">@hasArtifactInfo</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <br />
+                            <select id="hasArtifactPhotoFilter" style="width: 150px;">
+                                <option value="" disabled selected>Has Artifact Photo</option>
+                                @{
+                                    var distinctHasArtifactPhotoList = Model.Where(b => b.HasArtifactPhoto != null).Select(b => b.HasArtifactPhoto).Distinct().OrderBy(b => b);
+                                    foreach (var hasArtifactPhoto in distinctHasArtifactPhotoList)
+                                    {
+                                        <option value="@hasArtifactPhoto">@hasArtifactPhoto</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <br />
+                            <select id="hairColorFilter" style="width: 150px;">
+                                <option value="" disabled selected>Hair Color</option>
+                                @{
+                                    var distincthairColorList = Model.Where(b => b.HairColor != null).Select(b => b.HairColor).Distinct().OrderBy(b => b);
+                                    foreach (var hairColor in distincthairColorList)
+                                    {
+                                        <option value="@hairColor">@hairColor</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <br />
+                            <select id="headDirectionFilter" style="width: 150px;">
+                                <option value="" disabled selected>Head Direction</option>
+                                @{
+                                    var distinctHeadDirectionList = Model.Where(b => b.HeadDirection != null).Select(b => b.HeadDirection).Distinct().OrderBy(b => b);
+                                    foreach (var headDirection in distinctHeadDirectionList)
+                                    {
+                                        <option value="@headDirection">@headDirection</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <br />
+                        <button class="button" onclick="filterTable()">Search</button>
+                        <button class="button-clear" onclick="clearFilters()">Clear</button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-2">
-                        <p><strong>Has Artifact Photo</strong></p>
-                        <select id="hasArtifactPhotoFilter">
-                            <option></option>
-                            @{
-                                var distinctHasArtifactPhotoList = Model.Where(b => b.HasArtifactPhoto != null).Select(b => b.HasArtifactPhoto).Distinct().OrderBy(b => b);
-                                foreach (var hasArtifactPhoto in distinctHasArtifactPhotoList)
-                                {
-                                    <option value="@hasArtifactPhoto">@hasArtifactPhoto</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Depth</strong></p>
-                        <select id="depthFilter">
-                            <option></option>
-                            @{
-                                var distinctIntegers = Model.Select(b => b.Depth.HasValue ? (int)b.Depth.Value : 0).Distinct().OrderBy(b => b);
-                                foreach (var integer in distinctIntegers)
-                                {
-                                    <option value="@integer">@integer</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Age Group</strong></p>
-                        <select id="ageGroupFilter">
-                            <option></option>
-                            @{
-                                var distinctAgeGroupList = Model.Where(b => b.AgeGroup != null).Select(b => b.AgeGroup).Distinct().OrderBy(b => b);
-                                foreach (var ageGroup in distinctAgeGroupList)
-                                {
-                                    <option value="@ageGroup">@ageGroup</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Sex</strong></p>
-                        <select id="sexFilter">
-                            <option></option>
-                            @{
-                                var distinctSexList = Model.Where(b => b.Sex != null).Select(b => b.Sex).Distinct().OrderBy(b => b);
-                                foreach (var sex in distinctSexList)
-                                {
-                                    <option value="@sex">@sex</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Hair Color</strong></p>
-                        <select id="hairColorFilter">
-                            <option></option>
-                            @{
-                                var distincthairColorList = Model.Where(b => b.HairColor != null).Select(b => b.HairColor).Distinct().OrderBy(b => b);
-                                foreach (var hairColor in distincthairColorList)
-                                {
-                                    <option value="@hairColor">@hairColor</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                    <div class="col-2">
-                        <p><strong>Head Direction</strong></p>
-                        <select id="headDirectionFilter">
-                            <option></option>
-                            @{
-                                var distinctHeadDirectionList = Model.Where(b => b.HeadDirection != null).Select(b => b.HeadDirection).Distinct().OrderBy(b => b);
-                                foreach (var headDirection in distinctHeadDirectionList)
-                                {
-                                    <option value="@headDirection">@headDirection</option>
-                                }
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div>
+
+
+                <!-- Table -->
+                <div class="container scrollable-table-container">
                     <br />
-                    <button onclick="filterTable()">GO!</button>
-                    <button onclick="clearFilters()">Clear Filters</button>
-                </div>
-            </div>
-        
+                    <table id="burialTable" class="table table-bordered hoverable-table">
+                        <thead>
+                            <tr>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Has Body Analysis</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Has Textile Info</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Has Artifact Info</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Has Artifact Photo</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Depth(m)</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Age Group</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Sex</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Hair Color</td>
+                                <td style="font-weight: bold; background-color: #f2f2f2; ">Head Direction</td>
 
-            <!-- Table -->
-            <div class="container scrollable-table-container">
-                <br />
-                <table id="burialTable" class="table table-bordered hoverable-table">
-                    <thead>
-                        <tr>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Excavation Year</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Location</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Burial Number</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Body Analysis</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Textile Info</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Artifact Info</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Has Artifact Photo</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Depth(m)</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Age Group</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Sex</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Hair Color</td>
-                            <td style="font-weight: bold; background-color: #f2f2f2; ">Head Direction</td>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr onclick="window.location.href='@Url.Action("BurialDetails", "Home", new { BurialNumberID = item.BurialNumber })'; clearFilters();" style="cursor:pointer">
-                                <td>@item.ExcavationYear</td>
-                                <td>@item.Location</td>
-                                <td>@item.BurialNumber</td>
-                                <td>@item.HasBodyAnalysisInfo</td>
-                                <td>@item.HasTextileInfo</td>
-                                <td>@item.HasArtifactInfo</td>
-                                <td>@item.HasArtifactPhoto</td>
-                                <td>@item.Depth</td>
-                                <td>@item.AgeGroup</td>
-                                <td>@item.Sex</td>
-                                <td>@item.HairColor</td>
-                                <td>@item.HeadDirection</td>
                             </tr>
-                        }
-                    </tbody>
-                </table>
-                <p id="noResultsMessage" style="display: none"><b>No Results</b></p>
-            </div>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr onclick="window.location.href='@Url.Action("BurialDetails", "Home", new { BurialNumberID = item.BurialNumber })'; clearFilters();" style="cursor:pointer">
+                                    <td>@item.ExcavationYear</td>
+                                    <td>@item.Location</td>
+                                    <td>@item.BurialNumber</td>
+                                    <td>@item.HasBodyAnalysisInfo</td>
+                                    <td>@item.HasTextileInfo</td>
+                                    <td>@item.HasArtifactInfo</td>
+                                    <td>@item.HasArtifactPhoto</td>
+                                    <td>@item.Depth</td>
+                                    <td>@item.AgeGroup</td>
+                                    <td>@item.Sex</td>
+                                    <td>@item.HairColor</td>
+                                    <td>@item.HeadDirection</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <p id="noResultsMessage" style="display: none"><b>No Results</b></p>
+                </div>
 
-            <div class="pagination">
-                <a href="#" id="page1" onclick="paginate(1)" class="active">1</a>
-                <a href="#" id="page2" onclick="paginate(2)">2</a>
-                <a href="#" id="page3" onclick="paginate(3)">3</a>
+                <div class="pagination">
+                    <a href="#" id="page1" onclick="paginate(1)" class="active">1</a>
+                    <a href="#" id="page2" onclick="paginate(2)">2</a>
+                    <a href="#" id="page3" onclick="paginate(3)">3</a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
-    <script src="/_framework/aspnetcore-browser-refresh.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="/_framework/aspnetcore-browser-refresh.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @*<script>function removeAllHighlights() {
+        @*<script>function removeAllHighlights() {
             // Remove the 'highlight' class from all elements
             var elements = document.querySelectorAll('.highlight');
             elements.forEach(function (element) {
@@ -457,202 +538,196 @@
             });
         }</script>*@
 
-    @*<script>function highlightItem(element) {
-            // Add the 'highlight' class to the hovered element
-            element.classList.add('highlight');
-        }</script>
+        @*<script>function highlightItem(element) {
+                // Add the 'highlight' class to the hovered element
+                element.classList.add('highlight');
+            }</script>
 
-    <script>function handleItemHover(element) {
-            removeAllHighlights();
-            highlightItem(element);
-        }
-    </script>*@
-<script>
-    function toggleDropdown(dropdownId, dropdownContentId) {
-        //removeAllHighlights();
-
-        var dropdown = document.getElementById(dropdownId);
-        var dropdownContent = document.getElementById(dropdownContentId);
-
-        if (dropdownContent.style.display == 'none') {
-            dropdownContent.style.display = 'block';
-            //dropdown.style.marginBottom = dropdownContent.offsetHeight + "px";
-        } else {
-            dropdownContent.style.display = 'none';
-            dropdown.style.marginBottom = "0";
-        }
-    }
-</script>
-
-<script>
-    function paginate(pageNum) {
-        if (filtersActive) { return; }
-
-        var pageSize = 12;
-        var startIndex = (pageNum - 1) * pageSize;
-        var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-        var visibleRows = Array.from(tableRows).filter(row => row.style.display !== "none");
-
-        // Hide all table rows
-        for (var i = 0; i < tableRows.length; i++) {
-            tableRows[i].style.display = "none";
-        }
-
-        // Show table rows for the current page
-        for (var i = startIndex; i < Math.min(startIndex + pageSize, tableRows.length); i++) {
-            tableRows[i].style.display = "";
-        }
-
-        var paginationLinks = document.querySelectorAll(".pagination a");
-        paginationLinks.forEach(link => {
-            link.classList.remove("active");
-        });
-
-        // Add active class to the selected pagination link
-        document.getElementById("page" + pageNum).classList.add("active");
-    }
-        window.onload = function () {
-            filtersActive = false;
-            paginate(1);
-        };
-</script>
-
-<script>
-    function filterTable() {
-        var excavationYearFilter = document.getElementById("excavationYearFilter").value;
-        var locationFilter = document.getElementById("locationFilter").value;
-        var burialNumberFilter = document.getElementById("burialNumberFilter").value;
-        var hasBodyAnalysisFilter = document.getElementById("hasBodyAnalysisFilter").value;
-        var hasTextileInfoFilter = document.getElementById("hasTextileInfoFilter").value;
-        var hasArtifactInfoFilter = document.getElementById("hasArtifactInfoFilter").value;
-        var hasArtifactPhotoFilter = document.getElementById("hasArtifactPhotoFilter").value;
-        var depthFilter = document.getElementById("depthFilter").value;
-        var ageGroupFilter = document.getElementById("ageGroupFilter").value;
-        var sexFilter = document.getElementById("sexFilter").value;
-        var hairColorFilter = document.getElementById("hairColorFilter").value;
-        var headDirectionFilter = document.getElementById("headDirectionFilter").value;
-        var visibleRows = 0
-        var noResultsMessage = document.getElementById("noResultsMessage");
-        var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-        var filtersActive = false;
-
-        if (excavationYearFilter === '' &&
-            locationFilter === '' &&
-            burialNumberFilter === '' &&
-            hasBodyAnalysisFilter === '' &&
-            hasTextileInfoFilter === '' &&
-            hasArtifactInfoFilter === '' &&
-            hasArtifactPhotoFilter === '' &&
-            depthFilter === '' &&
-            ageGroupFilter === '' &&
-            sexFilter === '' &&
-            hairColorFilter === '' &&
-            headDirectionFilter === '') {
-            return; // Exit early if all filters are empty
-        }
-
-        for (var i = 0; i < tableRows.length; i++) {
-            var row = tableRows[i];
-            var cells = row.getElementsByTagName("td");
-            var excavationYear = cells[0].innerText;
-            var location = cells[1].innerText;
-            var burialNumber = cells[2].innerText;
-            var hasBodyAnalysis = cells[3].innerText;
-            var hasTextileInfo = cells[4].innerText;
-            var hasArtifactInfo = cells[5].innerText;
-            var hasArtifactPhoto = cells[6].innerText;
-            var depth = cells[7].innerText;
-            var ageGroup = cells[8].innerText;
-            var sex = cells[9].innerText;
-            var hairColor = cells[10].innerText;
-            var headDirection = cells[11].innerText;
-
-            var showRow = true;
-
-            if (excavationYearFilter !== '' && excavationYear !== excavationYearFilter) {
-                showRow = false;
+        <script>function handleItemHover(element) {
+                removeAllHighlights();
+                highlightItem(element);
             }
-            if (locationFilter !== '' && location !== locationFilter) {
-                showRow = false;
+        </script>*@
+        <script>function toggleDropdown(dropdownId, dropdownContentId) {
+                //removeAllHighlights();
+
+                var dropdown = document.getElementById(dropdownId);
+                var dropdownContent = document.getElementById(dropdownContentId);
+
+                if (dropdownContent.style.display == 'none') {
+                    dropdownContent.style.display = 'block';
+                    //dropdown.style.marginBottom = dropdownContent.offsetHeight + "px";
+                } else {
+                    dropdownContent.style.display = 'none';
+                    dropdown.style.marginBottom = "0";
+                }
+            }</script>
+
+        <script>function paginate(pageNum) {
+                if (filtersActive) { return; }
+
+                var pageSize = 12;
+                var startIndex = (pageNum - 1) * pageSize;
+                var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+                var visibleRows = Array.from(tableRows).filter(row => row.style.display !== "none");
+
+                // Hide all table rows
+                for (var i = 0; i < tableRows.length; i++) {
+                    tableRows[i].style.display = "none";
+                }
+
+                // Show table rows for the current page
+                for (var i = startIndex; i < Math.min(startIndex + pageSize, tableRows.length); i++) {
+                    tableRows[i].style.display = "";
+                }
+
+                var paginationLinks = document.querySelectorAll(".pagination a");
+                paginationLinks.forEach(link => {
+                    link.classList.remove("active");
+                });
+
+                // Add active class to the selected pagination link
+                document.getElementById("page" + pageNum).classList.add("active");
             }
-            if (burialNumberFilter !== '' && burialNumber !== burialNumberFilter) {
-                showRow = false;
-            }
-            if (hasBodyAnalysisFilter !== '' && hasBodyAnalysis !== hasBodyAnalysisFilter) {
-                showRow = false;
-            }
-            if (hasTextileInfoFilter !== '' && hasTextileInfo !== hasTextileInfoFilter) {
-                showRow = false;
-            }
-            if (hasArtifactInfoFilter !== '' && hasArtifactInfo !== hasArtifactInfoFilter) {
-                showRow = false;
-            }
-            if (hasArtifactPhotoFilter !== '' && hasArtifactPhoto !== hasArtifactPhotoFilter) {
-                showRow = false;
-            }
-            if (depthFilter !== '' && Math.floor(depth) !== Math.floor(depthFilter)) {
-                showRow = false;
-            }
-            if (ageGroupFilter !== '' && ageGroup !== ageGroupFilter) {
-                showRow = false;
-            }
-            if (sexFilter !== '' && sex !== sexFilter) {
-                showRow = false;
-            }
-            if (hairColorFilter !== '' && hairColor !== hairColorFilter) {
-                showRow = false;
-            }
-            if (headDirectionFilter !== '' && headDirection !== headDirectionFilter) {
-                showRow = false;
+            window.onload = function () {
+                filtersActive = false;
+                paginate(1);
+            };</script>
+
+        <script>function filterTable() {
+                var excavationYearFilter = document.getElementById("excavationYearFilter").value;
+                var locationFilter = document.getElementById("locationFilter").value;
+                var burialNumberFilter = document.getElementById("burialNumberFilter").value;
+                var hasBodyAnalysisFilter = document.getElementById("hasBodyAnalysisFilter").value;
+                var hasTextileInfoFilter = document.getElementById("hasTextileInfoFilter").value;
+                var hasArtifactInfoFilter = document.getElementById("hasArtifactInfoFilter").value;
+                var hasArtifactPhotoFilter = document.getElementById("hasArtifactPhotoFilter").value;
+                var depthFilter = document.getElementById("depthFilter").value;
+                var ageGroupFilter = document.getElementById("ageGroupFilter").value;
+                var sexFilter = document.getElementById("sexFilter").value;
+                var hairColorFilter = document.getElementById("hairColorFilter").value;
+                var headDirectionFilter = document.getElementById("headDirectionFilter").value;
+                var visibleRows = 0
+                var noResultsMessage = document.getElementById("noResultsMessage");
+                var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+                var filtersActive = false;
+
+                if (excavationYearFilter === '' &&
+                    locationFilter === '' &&
+                    burialNumberFilter === '' &&
+                    hasBodyAnalysisFilter === '' &&
+                    hasTextileInfoFilter === '' &&
+                    hasArtifactInfoFilter === '' &&
+                    hasArtifactPhotoFilter === '' &&
+                    depthFilter === '' &&
+                    ageGroupFilter === '' &&
+                    sexFilter === '' &&
+                    hairColorFilter === '' &&
+                    headDirectionFilter === '') {
+                    return; // Exit early if all filters are empty
+                }
+
+                for (var i = 0; i < tableRows.length; i++) {
+                    var row = tableRows[i];
+                    var cells = row.getElementsByTagName("td");
+                    var excavationYear = cells[0].innerText;
+                    var location = cells[1].innerText;
+                    var burialNumber = cells[2].innerText;
+                    var hasBodyAnalysis = cells[3].innerText;
+                    var hasTextileInfo = cells[4].innerText;
+                    var hasArtifactInfo = cells[5].innerText;
+                    var hasArtifactPhoto = cells[6].innerText;
+                    var depth = cells[7].innerText;
+                    var ageGroup = cells[8].innerText;
+                    var sex = cells[9].innerText;
+                    var hairColor = cells[10].innerText;
+                    var headDirection = cells[11].innerText;
+
+                    var showRow = true;
+
+                    if (excavationYearFilter !== '' && excavationYear !== excavationYearFilter) {
+                        showRow = false;
+                    }
+                    if (locationFilter !== '' && location !== locationFilter) {
+                        showRow = false;
+                    }
+                    if (burialNumberFilter !== '' && burialNumber !== burialNumberFilter) {
+                        showRow = false;
+                    }
+                    if (hasBodyAnalysisFilter !== '' && hasBodyAnalysis !== hasBodyAnalysisFilter) {
+                        showRow = false;
+                    }
+                    if (hasTextileInfoFilter !== '' && hasTextileInfo !== hasTextileInfoFilter) {
+                        showRow = false;
+                    }
+                    if (hasArtifactInfoFilter !== '' && hasArtifactInfo !== hasArtifactInfoFilter) {
+                        showRow = false;
+                    }
+                    if (hasArtifactPhotoFilter !== '' && hasArtifactPhoto !== hasArtifactPhotoFilter) {
+                        showRow = false;
+                    }
+                    if (depthFilter !== '' && Math.floor(depth) !== Math.floor(depthFilter)) {
+                        showRow = false;
+                    }
+                    if (ageGroupFilter !== '' && ageGroup !== ageGroupFilter) {
+                        showRow = false;
+                    }
+                    if (sexFilter !== '' && sex !== sexFilter) {
+                        showRow = false;
+                    }
+                    if (hairColorFilter !== '' && hairColor !== hairColorFilter) {
+                        showRow = false;
+                    }
+                    if (headDirectionFilter !== '' && headDirection !== headDirectionFilter) {
+                        showRow = false;
+                    }
+
+                    if (showRow) {
+                        row.style.display = "";
+                        visibleRows++;
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+
+                if (visibleRows == 0) {
+                    noResultsMessage.style.display = "";
+                } else {
+                    noResultsMessage.style.display = "none";
+                }
+
+                var page1 = document.getElementById("page1");
+                var page2 = document.getElementById("page2");
+                var page3 = document.getElementById("page3");
+                filtersActive = true;
+
+                if (filtersActive) {
+                    page1.style.display = "none";
+                    page2.style.display = "none";
+                    page3.style.display = "none";
+                }
             }
 
-            if (showRow) {
-                row.style.display = "";
-                visibleRows++;
-            } else {
-                row.style.display = "none";
-            }
-        }
+            function clearFilters() {
+                document.getElementById("excavationYearFilter").value = '';
+                document.getElementById("locationFilter").value = '';
+                document.getElementById("burialNumberFilter").value = '';
+                document.getElementById("hasBodyAnalysisFilter").value = '';
+                document.getElementById("hasTextileInfoFilter").value = '';
+                document.getElementById("hasArtifactInfoFilter").value = '';
+                document.getElementById("hasArtifactPhotoFilter").value = '';
+                document.getElementById("depthFilter").value = '';
+                document.getElementById("ageGroupFilter").value = '';
+                document.getElementById("sexFilter").value = '';
+                document.getElementById("hairColorFilter").value = '';
+                document.getElementById("headDirectionFilter").value = '';
 
-        if (visibleRows == 0) {
-            noResultsMessage.style.display = "";
-        } else {
-            noResultsMessage.style.display = "none";
-        }
-
-        var page1 = document.getElementById("page1");
-        var page2 = document.getElementById("page2");
-        var page3 = document.getElementById("page3");
-        filtersActive = true;
-
-        if (filtersActive) {
-            page1.style.display = "none";
-            page2.style.display = "none";
-            page3.style.display = "none";
-        }
-    }
-
-    function clearFilters() {
-        document.getElementById("excavationYearFilter").value = '';
-        document.getElementById("locationFilter").value = '';
-        document.getElementById("burialNumberFilter").value = '';
-        document.getElementById("hasBodyAnalysisFilter").value = '';
-        document.getElementById("hasTextileInfoFilter").value = '';
-        document.getElementById("hasArtifactInfoFilter").value = '';
-        document.getElementById("hasArtifactPhotoFilter").value = '';
-        document.getElementById("depthFilter").value = '';
-        document.getElementById("ageGroupFilter").value = '';
-        document.getElementById("sexFilter").value = '';
-        document.getElementById("hairColorFilter").value = '';
-        document.getElementById("headDirectionFilter").value = '';
-
-        filterTable();
-        filtersActive = false;
-        page1.style.display = "";
-        page2.style.display = "";
-        page3.style.display = "";
-        paginate(1);
-    }
-</script>
+                filterTable();
+                filtersActive = false;
+                page1.style.display = "";
+                page2.style.display = "";
+                page3.style.display = "";
+                paginate(1);
+            }</script>
 </body>
 </html>
