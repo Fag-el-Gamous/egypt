@@ -228,24 +228,38 @@
                         <p><strong>Excavation Year</strong></p>
                         <select id="excavationYearFilter">
                             <option></option>
-                            <option value="1992">1992</option>
-                            <option value="2002">2002</option>
+                            @{
+                                var distinctExcavationYearList = Model.Select(b => b.ExcavationYear).Distinct().OrderBy(b => b);
+                                foreach (var year in distinctExcavationYearList)
+                                    {
+                                        <option value="@year">@year</option>
+                                    }
+                            }
                         </select>
                     </div>
                     <div class="col-2">
                         <p><strong>Location</strong></p>
                         <select id="locationFilter">
                             <option></option>
-                            <option value="180 N 40 E NE">180 N 40 E NE</option>
+                            @{
+                                var distinctLocationList = Model.Select(b => b.Location).Distinct().OrderBy(b => b);
+                                foreach (var location in distinctLocationList)
+                                    {
+                                        <option value="@location">@location</option>
+                                    }
+                            }
                         </select>
                     </div>
                     <div class="col-2">
                         <p><strong>Burial Number</strong></p>
                         <select id="burialNumberFilter">
                             <option></option>
-                            @foreach (var burial in Model)
-                            {
-                                <option value="@burial.BurialNumber">@burial.BurialNumber</option>
+                            @{
+                                var distinctBurialNumberList = Model.Select(b => b.BurialNumber).Distinct().OrderBy(b => b);
+                                foreach (var burial in Model)
+                                {
+                                    <option value="@burial.BurialNumber">@burial.BurialNumber</option>
+                                }
                             }
                         </select>
                     </div>
@@ -253,24 +267,39 @@
                         <p><strong>Has Body Analysis</strong></p>
                         <select id="hasBodyAnalysisFilter">
                             <option></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            @{
+                                var distinctHasBodyAnalysisList = Model.Where(b => b.HasBodyAnalysisInfo != null).Select(b => b.HasBodyAnalysisInfo).Distinct().OrderBy(b => b);
+                                foreach (var hasBodyAnalysis in distinctHasBodyAnalysisList)
+                                {
+                                    <option value="@hasBodyAnalysis">@hasBodyAnalysis</option>
+                                }
+                            }
                         </select>
                     </div>
                     <div class="col-2">
                         <p><strong>Has Textile Info</strong></p>
                         <select id="hasTextileInfoFilter">
                             <option></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            @{
+                                var distinctHasTextileInfoList = Model.Where(b => b.HasTextileInfo != null).Select(b => b.HasTextileInfo).Distinct().OrderBy(b => b);
+                                foreach (var hasTextileInfo in distinctHasTextileInfoList)
+                                {
+                                    <option value="@hasTextileInfo">@hasTextileInfo</option>
+                                }
+                            }
                         </select>
                     </div>
                     <div class="col-2">
                         <p><strong>Has Artifact Info</strong></p>
                         <select id="hasArtifactInfoFilter">
                             <option></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            @{
+                                var distinctHasArtifactInfoList = Model.Where(b => b.HasArtifactInfo != null).Select(b => b.HasArtifactInfo).Distinct().OrderBy(b => b);
+                                foreach (var hasArtifactInfo in distinctHasArtifactInfoList)
+                                {
+                                    <option value="@hasArtifactInfo">@hasArtifactInfo</option>
+                                }
+                            }
                         </select>
                     </div>
                 </div>
@@ -279,58 +308,88 @@
                         <p><strong>Has Artifact Photo</strong></p>
                         <select id="hasArtifactPhotoFilter">
                             <option></option>
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            @{
+                                var distinctHasArtifactPhotoList = Model.Where(b => b.HasArtifactPhoto != null).Select(b => b.HasArtifactPhoto).Distinct().OrderBy(b => b);
+                                foreach (var hasArtifactPhoto in distinctHasArtifactPhotoList)
+                                {
+                                    <option value="@hasArtifactPhoto">@hasArtifactPhoto</option>
+                                }
+                            }
                         </select>
                     </div>
                     <div class="col-2">
                         <p><strong>Depth</strong></p>
                         <select id="depthFilter">
                             <option></option>
-                            <option value="1.5">1.5</option>
-                            <option value="1.6">1.6</option>
+                            @{
+                                var distinctIntegers = Model.Select(b => b.Depth.HasValue ? (int)b.Depth.Value : 0).Distinct().OrderBy(b => b);
+                                foreach (var integer in distinctIntegers)
+                                {
+                                    <option value="@integer">@integer</option>
+                                }
+                            }
                         </select>
                     </div>
                     <div class="col-2">
                         <p><strong>Age Group</strong></p>
                         <select id="ageGroupFilter">
                             <option></option>
-                            <option value="C">C</option>
-                            <option value="I">I</option>
-                            <option value="A">A</option>
+                            @{
+                                var distinctAgeGroupList = Model.Where(b => b.AgeGroup != null).Select(b => b.AgeGroup).Distinct().OrderBy(b => b);
+                                foreach (var ageGroup in distinctAgeGroupList)
+                                {
+                                    <option value="@ageGroup">@ageGroup</option>
+                                }
+                            }
                         </select>
                     </div>
                     <div class="col-2">
                         <p><strong>Sex</strong></p>
                         <select id="sexFilter">
                             <option></option>
-                            <option value="M">M</option>
-                            <option value="F">F</option>
+                            @{
+                                var distinctSexList = Model.Where(b => b.Sex != null).Select(b => b.Sex).Distinct().OrderBy(b => b);
+                                foreach (var sex in distinctSexList)
+                                {
+                                    <option value="@sex">@sex</option>
+                                }
+                            }
                         </select>
                     </div>
                     <div class="col-2">
                         <p><strong>Hair Color</strong></p>
                         <select id="hairColorFilter">
                             <option></option>
-                            <option value="Black">Black</option>
-                            <option value="Brown">Brown</option>
+                            @{
+                                var distincthairColorList = Model.Where(b => b.HairColor != null).Select(b => b.HairColor).Distinct().OrderBy(b => b);
+                                foreach (var hairColor in distincthairColorList)
+                                {
+                                    <option value="@hairColor">@hairColor</option>
+                                }
+                            }
                         </select>
                     </div>
                     <div class="col-2">
                         <p><strong>Head Direction</strong></p>
                         <select id="headDirectionFilter">
                             <option></option>
-                            <option value="North">North</option>
-                            <option value="South">South</option>
+                            @{
+                                var distinctHeadDirectionList = Model.Where(b => b.HeadDirection != null).Select(b => b.HeadDirection).Distinct().OrderBy(b => b);
+                                foreach (var headDirection in distinctHeadDirectionList)
+                                {
+                                    <option value="@headDirection">@headDirection</option>
+                                }
+                            }
                         </select>
                     </div>
                 </div>
-            </div>  
-            <div>
-                <br />
+                <div>
+                    <br />
                     <button onclick="filterTable()">GO!</button>
                     <button onclick="clearFilters()">Clear Filters</button>
+                </div>
             </div>
+        
 
             <!-- Table -->
             <div class="container scrollable-table-container">
@@ -356,7 +415,7 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr onclick="window.location.href='@Url.Action("BurialDetails", "Home", new { BurialNumberID = item.BurialNumber })';" style="cursor:pointer">
+                            <tr onclick="window.location.href='@Url.Action("BurialDetails", "Home", new { BurialNumberID = item.BurialNumber })'; clearFilters();" style="cursor:pointer">
                                 <td>@item.ExcavationYear</td>
                                 <td>@item.Location</td>
                                 <td>@item.BurialNumber</td>
@@ -412,9 +471,9 @@
             var dropdown = document.getElementById(dropdownId);
             var dropdownContent = document.getElementById(dropdownContentId);
 
-            if (dropdownContent.style.display === 'none') {
+            if (dropdownContent.style.display == 'none') {
                 dropdownContent.style.display = 'block';
-                dropdown.style.marginBottom = dropdownContent.offsetHeight + "px";
+                //dropdown.style.marginBottom = dropdownContent.offsetHeight + "px";
             } else {
                 dropdownContent.style.display = 'none';
                 dropdown.style.marginBottom = "0";
@@ -455,8 +514,6 @@
 
     <script>
         function filterTable() {
-            //document.getElementById("paginationLinks").style.display = "none";
-            
             var excavationYearFilter = document.getElementById("excavationYearFilter").value;
             var locationFilter = document.getElementById("locationFilter").value;
             var burialNumberFilter = document.getElementById("burialNumberFilter").value;
@@ -470,11 +527,24 @@
             var hairColorFilter = document.getElementById("hairColorFilter").value;
             var headDirectionFilter = document.getElementById("headDirectionFilter").value;
             var visibleRows = 0
-
             var noResultsMessage = document.getElementById("noResultsMessage");
-
             var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
             var filtersActive = false;
+
+            if (excavationYearFilter === '' &&
+                locationFilter === '' &&
+                burialNumberFilter === '' &&
+                hasBodyAnalysisFilter === '' &&
+                hasTextileInfoFilter === '' &&
+                hasArtifactInfoFilter === '' &&
+                hasArtifactPhotoFilter === '' &&
+                depthFilter === '' &&
+                ageGroupFilter === '' &&
+                sexFilter === '' &&
+                hairColorFilter === '' &&
+                headDirectionFilter === '') {
+                return; // Exit early if all filters are empty
+            }
 
             for (var i = 0; i < tableRows.length; i++) {
                 var row = tableRows[i];
@@ -515,7 +585,7 @@
                 if (hasArtifactPhotoFilter !== '' && hasArtifactPhoto !== hasArtifactPhotoFilter) {
                     showRow = false;
                 }
-                if (depthFilter !== '' && depth !== depthFilter) {
+                if (depthFilter !== '' && Math.floor(depth) !== Math.floor(depthFilter)) {
                     showRow = false;
                 }
                 if (ageGroupFilter !== '' && ageGroup !== ageGroupFilter) {
@@ -548,22 +618,13 @@
             var page1 = document.getElementById("page1");
             var page2 = document.getElementById("page2");
             var page3 = document.getElementById("page3");
-            if (visibleRows < 12) {
+            filtersActive = true;
+
+            if (filtersActive) {
                 page1.style.display = "none";
                 page2.style.display = "none";
                 page3.style.display = "none";
             }
-            if (visibleRows > 12) {
-                page1.style.display = "";
-                page2.style.display = "";
-            }
-            if (visibleRows > 24) {
-                page1.style.display = "";
-                page2.style.display = "";
-                page3.style.display = "";
-            }
-            
-            filtersActive = true;
         }
 
         function clearFilters() {
@@ -582,6 +643,9 @@
 
             filterTable();
             filtersActive = false;
+            page1.style.display = "";
+            page2.style.display = "";
+            page3.style.display = "";
             paginate(1);
         }
     </script>

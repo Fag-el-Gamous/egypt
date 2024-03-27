@@ -698,9 +698,6 @@ public partial class ByuEgyptDbContext : DbContext
             entity.Property(e => e.TextileId)
                 .ValueGeneratedNever()
                 .HasColumnName("TextileID");
-            entity.Property(e => e.AnalysisBy)
-                .HasMaxLength(20)
-                .IsUnicode(false);
             entity.Property(e => e.AnalysisDate).HasColumnType("date");
             entity.Property(e => e.AnalysisType)
                 .HasMaxLength(20)

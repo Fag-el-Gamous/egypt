@@ -23,8 +23,6 @@ public partial class Textile
 
     public string? Description { get; set; }
 
-    public string? AnalysisBy { get; set; }
-
     public virtual Burial? Burial { get; set; }
 
     public virtual Location? LocationNavigation { get; set; }
