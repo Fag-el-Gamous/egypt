@@ -436,11 +436,10 @@
             </div>
 
             <div class="pagination">
-                <a href="#" id="page1" onclick="paginate(1)">1</a>
+                <a href="#" id="page1" onclick="paginate(1)" class="active">1</a>
                 <a href="#" id="page2" onclick="paginate(2)">2</a>
                 <a href="#" id="page3" onclick="paginate(3)">3</a>
             </div>
-
         </div>
     </div>
 
@@ -503,6 +502,14 @@
         for (var i = startIndex; i < Math.min(startIndex + pageSize, tableRows.length); i++) {
             tableRows[i].style.display = "";
         }
+
+        var paginationLinks = document.querySelectorAll(".pagination a");
+        paginationLinks.forEach(link => {
+            link.classList.remove("active");
+        });
+
+        // Add active class to the selected pagination link
+        document.getElementById("page" + pageNum).classList.add("active");
     }
         window.onload = function () {
             filtersActive = false;
@@ -510,142 +517,142 @@
         };
 </script>
 
-    <script>
-        function filterTable() {
-            var excavationYearFilter = document.getElementById("excavationYearFilter").value;
-            var locationFilter = document.getElementById("locationFilter").value;
-            var burialNumberFilter = document.getElementById("burialNumberFilter").value;
-            var hasBodyAnalysisFilter = document.getElementById("hasBodyAnalysisFilter").value;
-            var hasTextileInfoFilter = document.getElementById("hasTextileInfoFilter").value;
-            var hasArtifactInfoFilter = document.getElementById("hasArtifactInfoFilter").value;
-            var hasArtifactPhotoFilter = document.getElementById("hasArtifactPhotoFilter").value;
-            var depthFilter = document.getElementById("depthFilter").value;
-            var ageGroupFilter = document.getElementById("ageGroupFilter").value;
-            var sexFilter = document.getElementById("sexFilter").value;
-            var hairColorFilter = document.getElementById("hairColorFilter").value;
-            var headDirectionFilter = document.getElementById("headDirectionFilter").value;
-            var visibleRows = 0
-            var noResultsMessage = document.getElementById("noResultsMessage");
-            var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-            var filtersActive = false;
+<script>
+    function filterTable() {
+        var excavationYearFilter = document.getElementById("excavationYearFilter").value;
+        var locationFilter = document.getElementById("locationFilter").value;
+        var burialNumberFilter = document.getElementById("burialNumberFilter").value;
+        var hasBodyAnalysisFilter = document.getElementById("hasBodyAnalysisFilter").value;
+        var hasTextileInfoFilter = document.getElementById("hasTextileInfoFilter").value;
+        var hasArtifactInfoFilter = document.getElementById("hasArtifactInfoFilter").value;
+        var hasArtifactPhotoFilter = document.getElementById("hasArtifactPhotoFilter").value;
+        var depthFilter = document.getElementById("depthFilter").value;
+        var ageGroupFilter = document.getElementById("ageGroupFilter").value;
+        var sexFilter = document.getElementById("sexFilter").value;
+        var hairColorFilter = document.getElementById("hairColorFilter").value;
+        var headDirectionFilter = document.getElementById("headDirectionFilter").value;
+        var visibleRows = 0
+        var noResultsMessage = document.getElementById("noResultsMessage");
+        var tableRows = document.getElementById("burialTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+        var filtersActive = false;
 
-            if (excavationYearFilter === '' &&
-                locationFilter === '' &&
-                burialNumberFilter === '' &&
-                hasBodyAnalysisFilter === '' &&
-                hasTextileInfoFilter === '' &&
-                hasArtifactInfoFilter === '' &&
-                hasArtifactPhotoFilter === '' &&
-                depthFilter === '' &&
-                ageGroupFilter === '' &&
-                sexFilter === '' &&
-                hairColorFilter === '' &&
-                headDirectionFilter === '') {
-                return; // Exit early if all filters are empty
+        if (excavationYearFilter === '' &&
+            locationFilter === '' &&
+            burialNumberFilter === '' &&
+            hasBodyAnalysisFilter === '' &&
+            hasTextileInfoFilter === '' &&
+            hasArtifactInfoFilter === '' &&
+            hasArtifactPhotoFilter === '' &&
+            depthFilter === '' &&
+            ageGroupFilter === '' &&
+            sexFilter === '' &&
+            hairColorFilter === '' &&
+            headDirectionFilter === '') {
+            return; // Exit early if all filters are empty
+        }
+
+        for (var i = 0; i < tableRows.length; i++) {
+            var row = tableRows[i];
+            var cells = row.getElementsByTagName("td");
+            var excavationYear = cells[0].innerText;
+            var location = cells[1].innerText;
+            var burialNumber = cells[2].innerText;
+            var hasBodyAnalysis = cells[3].innerText;
+            var hasTextileInfo = cells[4].innerText;
+            var hasArtifactInfo = cells[5].innerText;
+            var hasArtifactPhoto = cells[6].innerText;
+            var depth = cells[7].innerText;
+            var ageGroup = cells[8].innerText;
+            var sex = cells[9].innerText;
+            var hairColor = cells[10].innerText;
+            var headDirection = cells[11].innerText;
+
+            var showRow = true;
+
+            if (excavationYearFilter !== '' && excavationYear !== excavationYearFilter) {
+                showRow = false;
+            }
+            if (locationFilter !== '' && location !== locationFilter) {
+                showRow = false;
+            }
+            if (burialNumberFilter !== '' && burialNumber !== burialNumberFilter) {
+                showRow = false;
+            }
+            if (hasBodyAnalysisFilter !== '' && hasBodyAnalysis !== hasBodyAnalysisFilter) {
+                showRow = false;
+            }
+            if (hasTextileInfoFilter !== '' && hasTextileInfo !== hasTextileInfoFilter) {
+                showRow = false;
+            }
+            if (hasArtifactInfoFilter !== '' && hasArtifactInfo !== hasArtifactInfoFilter) {
+                showRow = false;
+            }
+            if (hasArtifactPhotoFilter !== '' && hasArtifactPhoto !== hasArtifactPhotoFilter) {
+                showRow = false;
+            }
+            if (depthFilter !== '' && Math.floor(depth) !== Math.floor(depthFilter)) {
+                showRow = false;
+            }
+            if (ageGroupFilter !== '' && ageGroup !== ageGroupFilter) {
+                showRow = false;
+            }
+            if (sexFilter !== '' && sex !== sexFilter) {
+                showRow = false;
+            }
+            if (hairColorFilter !== '' && hairColor !== hairColorFilter) {
+                showRow = false;
+            }
+            if (headDirectionFilter !== '' && headDirection !== headDirectionFilter) {
+                showRow = false;
             }
 
-            for (var i = 0; i < tableRows.length; i++) {
-                var row = tableRows[i];
-                var cells = row.getElementsByTagName("td");
-                var excavationYear = cells[0].innerText;
-                var location = cells[1].innerText;
-                var burialNumber = cells[2].innerText;
-                var hasBodyAnalysis = cells[3].innerText;
-                var hasTextileInfo = cells[4].innerText;
-                var hasArtifactInfo = cells[5].innerText;
-                var hasArtifactPhoto = cells[6].innerText;
-                var depth = cells[7].innerText;
-                var ageGroup = cells[8].innerText;
-                var sex = cells[9].innerText;
-                var hairColor = cells[10].innerText;
-                var headDirection = cells[11].innerText;
-
-                var showRow = true;
-
-                if (excavationYearFilter !== '' && excavationYear !== excavationYearFilter) {
-                    showRow = false;
-                }
-                if (locationFilter !== '' && location !== locationFilter) {
-                    showRow = false;
-                }
-                if (burialNumberFilter !== '' && burialNumber !== burialNumberFilter) {
-                    showRow = false;
-                }
-                if (hasBodyAnalysisFilter !== '' && hasBodyAnalysis !== hasBodyAnalysisFilter) {
-                    showRow = false;
-                }
-                if (hasTextileInfoFilter !== '' && hasTextileInfo !== hasTextileInfoFilter) {
-                    showRow = false;
-                }
-                if (hasArtifactInfoFilter !== '' && hasArtifactInfo !== hasArtifactInfoFilter) {
-                    showRow = false;
-                }
-                if (hasArtifactPhotoFilter !== '' && hasArtifactPhoto !== hasArtifactPhotoFilter) {
-                    showRow = false;
-                }
-                if (depthFilter !== '' && Math.floor(depth) !== Math.floor(depthFilter)) {
-                    showRow = false;
-                }
-                if (ageGroupFilter !== '' && ageGroup !== ageGroupFilter) {
-                    showRow = false;
-                }
-                if (sexFilter !== '' && sex !== sexFilter) {
-                    showRow = false;
-                }
-                if (hairColorFilter !== '' && hairColor !== hairColorFilter) {
-                    showRow = false;
-                }
-                if (headDirectionFilter !== '' && headDirection !== headDirectionFilter) {
-                    showRow = false;
-                }
-
-                if (showRow) {
-                    row.style.display = "";
-                    visibleRows++;
-                } else {
-                    row.style.display = "none";
-                }
-            }
-
-            if (visibleRows == 0) {
-                noResultsMessage.style.display = "";
+            if (showRow) {
+                row.style.display = "";
+                visibleRows++;
             } else {
-                noResultsMessage.style.display = "none";
-            }
-
-            var page1 = document.getElementById("page1");
-            var page2 = document.getElementById("page2");
-            var page3 = document.getElementById("page3");
-            filtersActive = true;
-
-            if (filtersActive) {
-                page1.style.display = "none";
-                page2.style.display = "none";
-                page3.style.display = "none";
+                row.style.display = "none";
             }
         }
 
-        function clearFilters() {
-            document.getElementById("excavationYearFilter").value = '';
-            document.getElementById("locationFilter").value = '';
-            document.getElementById("burialNumberFilter").value = '';
-            document.getElementById("hasBodyAnalysisFilter").value = '';
-            document.getElementById("hasTextileInfoFilter").value = '';
-            document.getElementById("hasArtifactInfoFilter").value = '';
-            document.getElementById("hasArtifactPhotoFilter").value = '';
-            document.getElementById("depthFilter").value = '';
-            document.getElementById("ageGroupFilter").value = '';
-            document.getElementById("sexFilter").value = '';
-            document.getElementById("hairColorFilter").value = '';
-            document.getElementById("headDirectionFilter").value = '';
-
-            filterTable();
-            filtersActive = false;
-            page1.style.display = "";
-            page2.style.display = "";
-            page3.style.display = "";
-            paginate(1);
+        if (visibleRows == 0) {
+            noResultsMessage.style.display = "";
+        } else {
+            noResultsMessage.style.display = "none";
         }
-    </script>
+
+        var page1 = document.getElementById("page1");
+        var page2 = document.getElementById("page2");
+        var page3 = document.getElementById("page3");
+        filtersActive = true;
+
+        if (filtersActive) {
+            page1.style.display = "none";
+            page2.style.display = "none";
+            page3.style.display = "none";
+        }
+    }
+
+    function clearFilters() {
+        document.getElementById("excavationYearFilter").value = '';
+        document.getElementById("locationFilter").value = '';
+        document.getElementById("burialNumberFilter").value = '';
+        document.getElementById("hasBodyAnalysisFilter").value = '';
+        document.getElementById("hasTextileInfoFilter").value = '';
+        document.getElementById("hasArtifactInfoFilter").value = '';
+        document.getElementById("hasArtifactPhotoFilter").value = '';
+        document.getElementById("depthFilter").value = '';
+        document.getElementById("ageGroupFilter").value = '';
+        document.getElementById("sexFilter").value = '';
+        document.getElementById("hairColorFilter").value = '';
+        document.getElementById("headDirectionFilter").value = '';
+
+        filterTable();
+        filtersActive = false;
+        page1.style.display = "";
+        page2.style.display = "";
+        page3.style.display = "";
+        paginate(1);
+    }
+</script>
 </body>
 </html>

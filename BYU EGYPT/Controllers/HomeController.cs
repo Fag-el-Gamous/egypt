@@ -217,10 +217,9 @@ public class HomeController : Controller
     }
 
     // Textile Table
-    public IActionResult TextileTable(int pageNum = 1)
+    public IActionResult TextileTable()
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 12;
 
         var textileColors = egyptDbContext.TextileColors;
         var textilePhoto = egyptDbContext.TextilePhotos;
@@ -247,11 +246,7 @@ public class HomeController : Controller
                               yarnMaterial = ym.Material
                           }
             ).OrderBy(b => b.TextileId)
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize)
             .ToList();
-
-        ViewBag.CurrentPage = pageNum;
 
         return View(joinedTextiles);
     }
@@ -391,18 +386,13 @@ public class HomeController : Controller
     }
 
     // Osteology Table
-    public IActionResult OsteologyTable(int pageNum = 1)
+    public IActionResult OsteologyTable()
     {
         ByuEgyptDbContext egyptDbContext = new ByuEgyptDbContext();
-        int pageSize = 12;
 
         var osteologylist = egyptDbContext.Burials
             .OrderBy(b => b.Location)
-            .ThenBy(b => Convert.ToInt32(b.BurialNumber))
-            .Skip((pageNum - 1) * pageSize)
-            .Take(pageSize);
-
-        ViewBag.CurrentPage = pageNum;
+            .ThenBy(b => Convert.ToInt32(b.BurialNumber));
 
         return View(osteologylist);
     }

@@ -171,6 +171,75 @@
         <div class="text-center">
             <br />
             <h2>Textile Table</h2>
+
+            <div class="filter-header" id="filtersHeader">
+                <a href="#" onclick="toggleDropdown('filtersHeader', 'filters'); return false;" style="color: black; text-decoration: none;">
+                    Filters <i class="arrow down"></i>
+                </a>
+            </div>
+
+            <div class="container" id="filters" style="display: none">
+                <div class="row">
+                    <div class="col-2">
+                        <p><strong>Excavation Year</strong></p>
+                        <select id="excavationYearFilter">
+                            <option></option>
+                            @{
+                                var distinctExcavationYearList = Model.Where(b => b.ExcavationYear != null).Select(b => b.ExcavationYear).Distinct().OrderBy(b => b);
+                                foreach (var year in distinctExcavationYearList)
+                                {
+                                    <option value="@year">@year</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Location</strong></p>
+                        <select id="locationFilter">
+                            <option></option>
+                            @{
+                                var distinctLocationList = Model.Where(b =>b.Location != null).Select(b => b.Location).Distinct().OrderBy(b => b);
+                                foreach (var location in distinctLocationList)
+                                {
+                                    <option value="@location">@location</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Burial Number</strong></p>
+                        <select id="burialNumberFilter">
+                            <option></option>
+                            @{
+                                var distinctBurialNumberList = Model.Where(b => b.BurialNumber != null).Select(b => b.BurialNumber).Distinct().OrderBy(b => b);
+                                foreach (var burial in distinctBurialNumberList)
+                                {
+                                    <option value="@burial">@burial</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <p><strong>Has Photos</strong></p>
+                        <select id="hasPhotosFilter">
+                            <option></option>
+                            @{
+                                var distinctHasPhotosList = Model.Where(b => b.HasPhoto != null).Select(b => b.HasPhoto).Distinct().OrderBy(b => b);
+                                foreach (var hasPhotos in distinctHasPhotosList)
+                                {
+                                    <option value="@hasPhotos">@hasPhotos</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <br />
+                    <button onclick="filterTable()">GO!</button>
+                    <button onclick="clearFilters()">Clear Filters</button>
+                </div>
+            </div>
+
             <div class="container scrollable-table-container">
                 <br />
                 <table id="textileTable" class="table table-bordered hoverable-table">
@@ -190,7 +259,7 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr onclick="window.location.href='@Url.Action("TextileDetails", "Home", new { TextileID = item.TextileId })';" style="cursor:pointer">
+                            <tr onclick="window.location.href='@Url.Action("TextileDetails", "Home", new { TextileID = item.TextileId })'; clearFilters();" style="cursor:pointer">
 
                                 <td>@item.ExcavationYear</td>
                                 <td>@item.Location</td>
@@ -199,20 +268,25 @@
                                 <td>@item.HasPhoto</td>
                                 <td>@item.yarnMaterial</td>
                                 <td class="truncate">@item.Description</td>
-                                <td>In Progress</td>
+                                <td>@item.TextileColor1</td>
                             </tr>
                         }
                     </tbody>
                 </table>
+                <p id="noResultsMessage" style="display: none"><b>No Results</b></p>
             </div>
 
             <div class="pagination">
-                <a asp-action="TextileTable" asp-route-pageNum="1" class="@(ViewBag.CurrentPage == 1 ? "active" : "")">1</a>
-                <a asp-action="TextileTable" asp-route-pageNum="2" class="@(ViewBag.CurrentPage == 2 ? "active" : "")">2</a>
-                <a asp-action="TextileTable" asp-route-pageNum="3" class="@(ViewBag.CurrentPage == 3 ? "active" : "")">3</a>
-                <a asp-action="TextileTable" asp-route-pageNum="4" class="@(ViewBag.CurrentPage == 4 ? "active" : "")">4</a>
-                <a asp-action="TextileTable" asp-route-pageNum="5" class="@(ViewBag.CurrentPage == 5 ? "active" : "")">5</a>
+                <a href="#" id="page1" onclick="paginate(1)" class="active">1</a>
+                <a href="#" id="page2" onclick="paginate(2)">2</a>
+                <a href="#" id="page3" onclick="paginate(3)">3</a>
+                <a href="#" id="page4" onclick="paginate(4)">4</a>
+                <a href="#" id="page5" onclick="paginate(5)">5</a>
             </div>
+        </div>
+    </div>
+
+    
 
             <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
 
@@ -220,51 +294,156 @@
             <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
             <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <script>
+        var truncateCells = document.querySelectorAll('.truncate');
 
-            @*<script>function removeAllHighlights() {
-                    // Remove the 'highlight' class from all elements
-                    var elements = document.querySelectorAll('.highlight');
-                    elements.forEach(function (element) {
-                        element.classList.remove('highlight');
-                    });
-                }</script>
+        truncateCells.forEach(function (cell) {
+            var text = cell.textContent.trim();
 
-            <script>function highlightItem(element) {
-                    // Add the 'highlight' class to the hovered element
-                    element.classList.add('highlight');
-                }</script>
+            var truncatedText = text.slice(0, 50);
 
-            <script>function toggleDropdown() {
-                    removeAllHighlights();
+            var displayText = truncatedText + (text.length > 50 ? '...' : '');
 
-                    var dropdown = document.getElementById('dropdownContainer');
-                    dropdown.classList.toggle('open');
-                    var dropdownContent = document.getElementById("dropdownContent");
+            cell.textContent = displayText;
+        });
+    </script>
 
-                    if (dropdown.classList.contains("open")) {
-                        var dropdownHeight = dropdownContent.offsetHeight;
-                        dropdown.style.marginBottom = dropdownHeight + "px";
-                    } else {
-                        dropdown.style.marginBottom = "0";
-                    }
-                }</script>
+    <script>
+        function toggleDropdown(dropdownId, dropdownContentId) {
 
-            <script>function handleItemHover(element) {
-                    removeAllHighlights();
-                    highlightItem(element);
-                }</script>*@
+            var dropdown = document.getElementById(dropdownId);
+            var dropdownContent = document.getElementById(dropdownContentId);
 
-            <script>var truncateCells = document.querySelectorAll('.truncate');
+            if (dropdownContent.style.display == 'none') {
+                dropdownContent.style.display = 'block';
+            } else {
+                dropdownContent.style.display = 'none';
+                dropdown.style.marginBottom = "0";
+            }
+        }
+    </script>
 
-                truncateCells.forEach(function (cell) {
-                    var text = cell.textContent.trim();
+    <script>
+    function paginate(pageNum) {
+        if (filtersActive) { return; }
 
-                    var truncatedText = text.slice(0, 50);
+        var pageSize = 10;
+        var startIndex = (pageNum - 1) * pageSize;
+        var tableRows = document.getElementById("textileTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+        var visibleRows = Array.from(tableRows).filter(row => row.style.display !== "none");
 
-                    var displayText = truncatedText + (text.length > 50 ? '...' : '');
+        // Hide all table rows
+        for (var i = 0; i < tableRows.length; i++) {
+            tableRows[i].style.display = "none";
+        }
 
-                    cell.textContent = displayText;
-                });</script>
+        // Show table rows for the current page
+        for (var i = startIndex; i < Math.min(startIndex + pageSize, tableRows.length); i++) {
+            tableRows[i].style.display = "";
+        }
+
+        var paginationLinks = document.querySelectorAll(".pagination a");
+        paginationLinks.forEach(link => {
+            link.classList.remove("active");
+        });
+
+        // Add active class to the selected pagination link
+        document.getElementById("page" + pageNum).classList.add("active");
+    }
+        window.onload = function () {
+            filtersActive = false;
+            paginate(1);
+        };
+</script>
+
+    <script>
+        function filterTable() {
+            var excavationYearFilter = document.getElementById("excavationYearFilter").value;
+            var locationFilter = document.getElementById("locationFilter").value;
+            var burialNumberFilter = document.getElementById("burialNumberFilter").value;
+            var hasPhotosFilter = document.getElementById("hasPhotosFilter").value;
+
+            var visibleRows = 0
+            var noResultsMessage = document.getElementById("noResultsMessage");
+            var tableRows = document.getElementById("textileTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+            var filtersActive = false;
+
+            if (excavationYearFilter === '' &&
+                locationFilter === '' &&
+                burialNumberFilter === '' &&
+                hasPhotosFilter === '') {
+                return; // Exit early if all filters are empty
+            }
+
+            for (var i = 0; i < tableRows.length; i++) {
+                var row = tableRows[i];
+                var cells = row.getElementsByTagName("td");
+                var excavationYear = cells[0].innerText;
+                var location = cells[1].innerText;
+                var burialNumber = cells[2].innerText;
+                var hasPhotos = cells[4].innerText;
+
+                var showRow = true;
+
+                if (excavationYearFilter !== '' && excavationYear !== excavationYearFilter) {
+                    showRow = false;
+                }
+                if (locationFilter !== '' && location !== locationFilter) {
+                    showRow = false;
+                }
+                if (burialNumberFilter !== '' && burialNumber !== burialNumberFilter) {
+                    showRow = false;
+                }
+                if (hasPhotosFilter !== '' && hasBodyAnalysis !== hasBodyAnalysisFilter) {
+                    showRow = false;
+                }
+
+                if (showRow) {
+                    row.style.display = "";
+                    visibleRows++;
+                } else {
+                    row.style.display = "none";
+                }
+            }
+
+            if (visibleRows == 0) {
+                noResultsMessage.style.display = "";
+            } else {
+                noResultsMessage.style.display = "none";
+            }
+
+            var page1 = document.getElementById("page1");
+            var page2 = document.getElementById("page2");
+            var page3 = document.getElementById("page3");
+            var page4 = document.getElementById("page4");
+            var page5 = document.getElementById("page5");
+            filtersActive = true;
+
+            if (filtersActive) {
+                page1.style.display = "none";
+                page2.style.display = "none";
+                page3.style.display = "none";
+                page4.style.display = "none";
+                page5.style.display = "none";
+            }
+        }
+
+        function clearFilters() {
+            document.getElementById("excavationYearFilter").value = '';
+            document.getElementById("locationFilter").value = '';
+            document.getElementById("burialNumberFilter").value = '';
+            document.getElementById("hasPhotosFilter").value = '';
+
+            filterTable();
+            filtersActive = false;
+            page1.style.display = "";
+            page2.style.display = "";
+            page3.style.display = "";
+            page4.style.display = "";
+            page5.style.display = "";
+            paginate(1);
+        }
+    </script>
 
 </body>
 </html>
